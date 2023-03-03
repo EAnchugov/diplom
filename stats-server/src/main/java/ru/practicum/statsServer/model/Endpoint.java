@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "endpoints")
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class Endpoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
