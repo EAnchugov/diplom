@@ -2,8 +2,8 @@ package ru.practicum.statsServer.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ru.practicum.statsServer.model.Endpoint;
 import org.springframework.stereotype.Service;
+import ru.practicum.statsServer.model.Endpoint;
 import ru.practicum.statsServer.repository.EndpointRepository;
 
 import java.time.LocalDateTime;
@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class EndpointServiceImpl implements EndpointService{
+public class EndpointServiceImpl implements EndpointService {
     private final EndpointRepository repository;
 
     @Override
@@ -22,20 +22,17 @@ public class EndpointServiceImpl implements EndpointService{
 
     @Override
     public List<Endpoint> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-        if (uris.isEmpty()){
-            if (unique.equals(true)){
+        if (uris.isEmpty()) {
+            if (unique.equals(true)) {
                 repository.findAllByTimestampBetween(start,end);
-            }
-            else {
+            } else {
                 return repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
             }
 
-        }
-        else {
-            if (unique.equals(true)){
+        } else {
+            if (unique.equals(true)) {
                 repository.findAllByTimestampBetween(start,end);
-            }
-            else {
+            } else {
                 repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
             }
         }

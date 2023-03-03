@@ -1,13 +1,12 @@
 package ru.practicum.statsServer.controller;
 
-import com.fasterxml.jackson.core.json.UTF8DataInputJsonParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.statsServer.Service.EndpointService;
 import ru.practicum.statsServer.model.Endpoint;
-import ru.practicum.statsServer.model.dto.EndpointDto;
 import ru.practicum.statsServer.model.EndpointMapper;
+import ru.practicum.statsServer.model.dto.EndpointDto;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -24,19 +23,20 @@ public class Controller {
     private final EndpointService endpointService;
 
     @PostMapping("/hit")
-    public EndpointDto create(@RequestBody EndpointDto endpointDto){
+    public EndpointDto create(@RequestBody EndpointDto endpointDto) {
         return EndpointMapper.toEndpointDto(endpointService.create(EndpointMapper.toEndpoint(endpointDto)));
     }
+
     @GetMapping
     public List<EndpointDto> getStats(@RequestParam String start,
                                        @RequestParam String end,
                                        @RequestParam(required = false) List<String> uris,
-                                       @RequestParam(required = false, defaultValue = "false") Boolean unique){
+                                       @RequestParam(required = false, defaultValue = "false") Boolean unique) {
         List<Endpoint> endpoints = endpointService.getStats(
                 LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT),
                 LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT),
                 uris,
                 unique);
-        return endpoints.stream().map(EndpointMapper ::toEndpointDto).collect(Collectors.toList());
+        return endpoints.stream().map(EndpointMapper::toEndpointDto).collect(Collectors.toList());
     }
 }

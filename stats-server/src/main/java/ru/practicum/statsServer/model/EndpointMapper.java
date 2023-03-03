@@ -6,7 +6,7 @@ import ru.practicum.statsServer.model.dto.EndpointDto;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EndpointMapper {
-    public static Endpoint toEndpoint(EndpointDto dto){
+    public static Endpoint toEndpoint(EndpointDto dto) {
         Endpoint endpoint = new Endpoint();
         endpoint.setId(dto.getId());
         endpoint.setIp(dto.getIp());
@@ -16,7 +16,7 @@ public class EndpointMapper {
         return endpoint;
     }
 
-    public static EndpointDto toEndpointDto(Endpoint endpoint){
+    public static EndpointDto toEndpointDto(Endpoint endpoint) {
         return EndpointDto.builder()
                 .id(endpoint.getId())
                 .app(endpoint.getApp())
