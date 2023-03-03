@@ -26,6 +26,10 @@ public class Controller {
     public EndpointDto create(@RequestBody EndpointDto endpointDto) {
         return EndpointMapper.toEndpointDto(endpointService.create(EndpointMapper.toEndpoint(endpointDto)));
     }
+    @PostMapping("/test")
+    public String test(){
+        return "test";
+    }
 
     @GetMapping
     public List<EndpointDto> getStats(@RequestParam String start,

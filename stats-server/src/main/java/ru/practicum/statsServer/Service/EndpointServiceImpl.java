@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.practicum.statsServer.model.Endpoint;
 import ru.practicum.statsServer.repository.EndpointRepository;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class EndpointServiceImpl implements EndpointService {
     private final EndpointRepository repository;
 
+    @Transactional
     @Override
     public Endpoint create(Endpoint endpoint) {
         return repository.save(endpoint);
