@@ -8,7 +8,6 @@ import ru.practicum.statsServer.model.dto.EndpointDto;
 public class EndpointMapper {
     public static Endpoint toEndpoint(EndpointDto dto) {
         Endpoint endpoint = new Endpoint();
-        endpoint.setId(dto.getId());
         endpoint.setIp(dto.getIp());
         endpoint.setTimestamp(dto.getTimestamp());
         endpoint.setUri(dto.getUri());
@@ -18,7 +17,6 @@ public class EndpointMapper {
 
     public static EndpointDto toEndpointDto(Endpoint endpoint) {
         return EndpointDto.builder()
-                .id(endpoint.getId())
                 .app(endpoint.getApp())
                 .uri(endpoint.getUri())
                 .ip(endpoint.getIp())
