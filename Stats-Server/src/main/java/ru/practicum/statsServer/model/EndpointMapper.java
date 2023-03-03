@@ -17,6 +17,12 @@ public class EndpointMapper {
     }
 
     public static EndpointDto toEndpointDto(Endpoint endpoint){
-        return new EndpointDto(endpoint.getId(),endpoint.getApp(), endpoint.getUri(), endpoint.getIp(), endpoint.getTimestamp());
+        return EndpointDto.builder()
+                .id(endpoint.getId())
+                .app(endpoint.getApp())
+                .uri(endpoint.getUri())
+                .ip(endpoint.getIp())
+                .timestamp(endpoint.getTimestamp())
+                .build();
     }
 }
