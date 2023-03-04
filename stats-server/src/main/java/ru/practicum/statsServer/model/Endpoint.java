@@ -17,5 +17,6 @@ public class Endpoint {
     private String app;
     private String uri;
     private String ip;
+    @Column(name = "stamp")
     private LocalDateTime timestamp;
 }

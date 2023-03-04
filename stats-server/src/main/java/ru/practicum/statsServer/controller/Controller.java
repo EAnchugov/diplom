@@ -1,6 +1,7 @@
 package ru.practicum.statsServer.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.statsServer.Service.EndpointService;
@@ -18,12 +19,14 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @Validated
+@Slf4j
 public class Controller {
     public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final EndpointService endpointService;
 
     @PostMapping("/hit")
     public EndpointDto create(@RequestBody EndpointDto endpointDto) {
+        log.info("/hit\" + endpoint" + endpointDto);
         return EndpointMapper.toEndpointDto(endpointService.create(EndpointMapper.toEndpoint(endpointDto)));
     }
     @PostMapping("/test")

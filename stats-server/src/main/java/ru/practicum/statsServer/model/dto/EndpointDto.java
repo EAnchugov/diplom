@@ -1,6 +1,7 @@
 package ru.practicum.statsServer.model.dto;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,11 +11,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@Data
 public class EndpointDto {
     private String app;
     private String uri;
     private String ip;
     private String timestamp;
-
-
 }

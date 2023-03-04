@@ -26,6 +26,7 @@ public class EndpointMapper {
                 .app(endpoint.getApp())
                 .uri(endpoint.getUri())
                 .ip(endpoint.getIp())
+                .timestamp(endpoint.getTimestamp().format(FORMAT))
                 .build();
     }
 }
