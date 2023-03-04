@@ -28,7 +28,9 @@ public class Controller {
     }
     @PostMapping("/test")
     public String test(){
-        return "test";
+        String string = new String();
+        string = "test";
+        return string;
     }
 
     @GetMapping
