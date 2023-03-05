@@ -34,7 +34,7 @@ public class Controller {
         return "test";
     }
 
-    @GetMapping
+    @GetMapping("/stats")
     public List<EndpointDto> getStats(@RequestParam String start,
                                        @RequestParam String end,
                                        @RequestParam(required = false) List<String> uris,

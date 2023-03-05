@@ -15,7 +15,8 @@ public class EndpointMapper {
     public static Endpoint toEndpoint(EndpointDto dto) {
         Endpoint endpoint = new Endpoint();
         endpoint.setIp(dto.getIp());
-        endpoint.setTimestamp(LocalDateTime.parse(URLDecoder.decode(dto.getTimestamp(), StandardCharsets.UTF_8), FORMAT));
+        endpoint.setTimestamp(LocalDateTime.parse(URLDecoder.decode(dto.getTimestamp(),
+                StandardCharsets.UTF_8), FORMAT));
         endpoint.setUri(dto.getUri());
         endpoint.setApp(dto.getApp());
         return endpoint;
