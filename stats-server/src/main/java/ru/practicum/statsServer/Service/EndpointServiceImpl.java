@@ -8,6 +8,7 @@ import ru.practicum.statsServer.repository.EndpointRepository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,20 +25,21 @@ public class EndpointServiceImpl implements EndpointService {
 
     @Override
     public List<Endpoint> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
+       List<Endpoint> endpoints = new ArrayList<>();
         if (uris.isEmpty()) {
             if (unique.equals(true)) {
-                repository.findAllByTimestampBetween(start,end);
+                endpoints = repository.findAllByTimestampBetween(start,end);
             } else {
-                return repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
+                endpoints =  repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
             }
 
         } else {
             if (unique.equals(true)) {
-                repository.findAllByTimestampBetween(start,end);
+                endpoints = repository.findAllByTimestampBetween(start,end);
             } else {
-                repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
+                endpoints = repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
             }
         }
-        return null;
+        return endpoints;
     }
 }
