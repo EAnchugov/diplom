@@ -29,11 +29,9 @@ public class Controller {
         log.info("/hit\" + endpoint" + endpointDto);
         return EndpointMapper.toEndpointDto(endpointService.create(EndpointMapper.toEndpoint(endpointDto)));
     }
-    @PostMapping("/test")
+    @GetMapping("/test")
     public String test(){
-        String string = new String();
-        string = "test";
-        return string;
+        return "test";
     }
 
     @GetMapping
