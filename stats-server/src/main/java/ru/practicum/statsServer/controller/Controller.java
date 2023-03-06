@@ -14,7 +14,9 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -44,12 +46,15 @@ public class Controller {
 //                       "конец" +LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT)+
 //                "uris "+ uris+
 //                "eybr " + unique);
+        List<EndpointDtoOutput> stats;
 
-        return endpointService.getStats(
+        stats = endpointService.getStats(
                 LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT),
                 LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT),
                 uris,
                 unique);
+
+        return stats.stream().sorted(Comparator.comparing(EndpointDtoOutput::getHits)).collect(Collectors.toList());
 //
 //        return endpoints.stream().map(EndpointMapper::toEndpointDtoOutput).collect(Collectors.toList());
 //        return null;
