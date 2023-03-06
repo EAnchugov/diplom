@@ -3,6 +3,7 @@ package ru.practicum.statsServer.model;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.practicum.statsServer.model.dto.EndpointDto;
+import ru.practicum.statsServer.model.dto.EndpointDtoOutput;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -30,4 +31,12 @@ public class EndpointMapper {
                 .timestamp(endpoint.getTimestamp().format(FORMAT))
                 .build();
     }
+
+    public static EndpointDtoOutput toEndpointDtoOutput(Endpoint endpoint) {
+        return EndpointDtoOutput.builder()
+                .app(endpoint.getApp())
+                .uri(endpoint.getUri())
+                .build();
+    }
+
 }

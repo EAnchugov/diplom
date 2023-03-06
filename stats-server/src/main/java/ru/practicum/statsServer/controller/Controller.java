@@ -8,6 +8,7 @@ import ru.practicum.statsServer.Service.EndpointService;
 import ru.practicum.statsServer.model.Endpoint;
 import ru.practicum.statsServer.model.EndpointMapper;
 import ru.practicum.statsServer.model.dto.EndpointDto;
+import ru.practicum.statsServer.model.dto.EndpointDtoOutput;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -35,10 +36,10 @@ public class Controller {
     }
 
     @GetMapping("/stats")
-    public List<EndpointDto> getStats(@RequestParam String start,
-                                       @RequestParam String end,
-                                       @RequestParam(required = false) List<String> uris,
-                                       @RequestParam(defaultValue = "false") Boolean unique) {
+    public List<EndpointDtoOutput> getStats(@RequestParam String start,
+                                            @RequestParam String end,
+                                            @RequestParam(required = false) List<String> uris,
+                                            @RequestParam(defaultValue = "false") Boolean unique) {
 //        log.info("получен запрос на /статс" + "старт " +  LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT) +
 //                       "конец" +LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT)+
 //                "uris "+ uris+
@@ -50,7 +51,7 @@ public class Controller {
                 uris,
                 unique);
 //
-        return endpoints.stream().map(EndpointMapper::toEndpointDto).collect(Collectors.toList());
+        return endpoints.stream().map(EndpointMapper::toEndpointDtoOutput).collect(Collectors.toList());
 //        return null;
     }
 }
