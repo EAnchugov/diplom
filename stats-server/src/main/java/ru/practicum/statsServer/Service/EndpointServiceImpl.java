@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.practicum.statsServer.model.Endpoint;
+import ru.practicum.statsServer.model.dto.EndpointDtoOutput;
 import ru.practicum.statsServer.repository.EndpointRepository;
 
 import javax.transaction.Transactional;
@@ -24,20 +25,8 @@ public class EndpointServiceImpl implements EndpointService {
     }
 
     @Override
-    public List<Endpoint> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-        List<Endpoint> stats = new ArrayList<>();
-//        System.out.println("Все" + repository.findAll());
-//        //без ури уникальные
-//        System.out.println("без ури уникальные" + repository.findDistinctByTimestampBetween(start,end));
-//        //без ури все
-//        System.out.println("без ури все" + repository.findAllByTimestampBetween(start,end));
-//        //с ури уникальные
-//        System.out.println("с ури уникальные" + repository.findDistinctByTimestampBetweenAndUriIn(start,end,uris));
-//        //с ури все
-//        System.out.println("с ури все" + repository.findAllByTimestampBetweenAndUriIn(start,end,uris));
-//
-//
-//        return null;
+    public List<EndpointDtoOutput> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
+        List<EndpointDtoOutput> stats;
         if (uris.isEmpty()) {
             if (unique.equals(true)) {
                 stats =  repository.findDistinctByTimestampBetween(start,end);

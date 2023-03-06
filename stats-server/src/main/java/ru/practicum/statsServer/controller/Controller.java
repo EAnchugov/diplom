@@ -10,6 +10,7 @@ import ru.practicum.statsServer.model.EndpointMapper;
 import ru.practicum.statsServer.model.dto.EndpointDto;
 import ru.practicum.statsServer.model.dto.EndpointDtoOutput;
 
+import javax.validation.constraints.NotBlank;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -36,8 +37,8 @@ public class Controller {
     }
 
     @GetMapping("/stats")
-    public List<EndpointDtoOutput> getStats(@RequestParam String start,
-                                            @RequestParam String end,
+    public List<EndpointDtoOutput> getStats(@NotBlank @RequestParam String start,
+                                            @NotBlank @RequestParam String end,
                                             @RequestParam(required = false) List<String> uris,
                                             @RequestParam(defaultValue = "false") Boolean unique) {
 //        log.info("получен запрос на /статс" + "старт " +  LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT) +
@@ -45,13 +46,13 @@ public class Controller {
 //                "uris "+ uris+
 //                "eybr " + unique);
 
-        List<Endpoint> endpoints = endpointService.getStats(
+        return endpointService.getStats(
                 LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT),
                 LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT),
                 uris,
                 unique);
 //
-        return endpoints.stream().map(EndpointMapper::toEndpointDtoOutput).collect(Collectors.toList());
+//        return endpoints.stream().map(EndpointMapper::toEndpointDtoOutput).collect(Collectors.toList());
 //        return null;
     }
 }
