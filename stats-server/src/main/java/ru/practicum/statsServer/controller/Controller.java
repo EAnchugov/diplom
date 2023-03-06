@@ -49,7 +49,8 @@ public class Controller {
                 LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT),
                 uris,
                 unique);
-
+//
         return endpoints.stream().map(EndpointMapper::toEndpointDto).collect(Collectors.toList());
+//        return null;
     }
 }
