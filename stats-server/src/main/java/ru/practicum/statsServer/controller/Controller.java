@@ -54,7 +54,7 @@ public class Controller {
                 uris,
                 unique);
 
-        return stats.stream().sorted(Comparator.comparing(EndpointDtoOutput::getHits)).collect(Collectors.toList());
+        return stats.stream().sorted(Comparator.comparing(EndpointDtoOutput::getHits).reversed()).collect(Collectors.toList());
 //
 //        return endpoints.stream().map(EndpointMapper::toEndpointDtoOutput).collect(Collectors.toList());
 //        return null;
