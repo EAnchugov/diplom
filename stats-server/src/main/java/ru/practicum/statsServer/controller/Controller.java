@@ -38,7 +38,7 @@ public class Controller {
     public List<EndpointDto> getStats(@RequestParam String start,
                                        @RequestParam String end,
                                        @RequestParam(required = false) List<String> uris,
-                                       @RequestParam(required = false) Boolean unique) {
+                                       @RequestParam(defaultValue = "false") Boolean unique) {
 //        log.info("получен запрос на /статс" + "старт " +  LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT) +
 //                       "конец" +LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT)+
 //                "uris "+ uris+
