@@ -25,6 +25,7 @@ public class EndpointServiceImpl implements EndpointService {
 
     @Override
     public List<Endpoint> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
+        List<Endpoint> stats = new ArrayList<>();
 //        System.out.println("Все" + repository.findAll());
 //        //без ури уникальные
 //        System.out.println("без ури уникальные" + repository.findDistinctByTimestampBetween(start,end));
@@ -39,17 +40,17 @@ public class EndpointServiceImpl implements EndpointService {
 //        return null;
         if (uris.isEmpty()) {
             if (unique.equals(true)) {
-                return  repository.findDistinctByTimestampBetween(start,end);
+                stats =  repository.findDistinctByTimestampBetween(start,end);
             } else {
-                return repository.findAllByTimestampBetween(start,end);
+                stats =  repository.findAllByTimestampBetween(start,end);
             }
         } else {
             if (unique.equals(true)) {
-                return repository.findDistinctByTimestampBetweenAndUriIn(start,end,uris);
+                stats =  repository.findDistinctByTimestampBetweenAndUriIn(start,end,uris);
             } else {
-                return repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
-
+                stats =  repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
             }
         }
+        return stats;
     }
 }
