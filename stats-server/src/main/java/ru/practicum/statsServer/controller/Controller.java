@@ -39,11 +39,17 @@ public class Controller {
                                        @RequestParam String end,
                                        @RequestParam(required = false) List<String> uris,
                                        @RequestParam(required = false) Boolean unique) {
+//        log.info("получен запрос на /статс" + "старт " +  LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT) +
+//                       "конец" +LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT)+
+//                "uris "+ uris+
+//                "eybr " + unique);
+
         List<Endpoint> endpoints = endpointService.getStats(
                 LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT),
                 LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT),
                 uris,
                 unique);
+
         return endpoints.stream().map(EndpointMapper::toEndpointDto).collect(Collectors.toList());
     }
 }

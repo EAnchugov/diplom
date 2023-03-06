@@ -27,16 +27,16 @@ public class EndpointServiceImpl implements EndpointService {
     public List<Endpoint> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
         if (uris.isEmpty()) {
             if (unique.equals(true)) {
-                return repository.findAllByTimestampBetween(start,end);
+                return  repository.findDistinctByTimestampBetween(start,end);
             } else {
-                return  repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
+                return repository.findAllByTimestampBetween(start,end);
             }
-
         } else {
             if (unique.equals(true)) {
-                return repository.findAllByTimestampBetween(start,end);
+                return repository.findDistinctByTimestampBetweenAndUriIn(start,end,uris);
             } else {
-                return repository.findUniqueByTimestampBetweenAndUriIn(start,end,uris);
+                return repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
+
             }
         }
     }
