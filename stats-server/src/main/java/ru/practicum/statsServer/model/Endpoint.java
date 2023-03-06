@@ -19,15 +19,4 @@ public class Endpoint {
     private String ip;
     @Column(name = "stamp")
     private LocalDateTime timestamp;
-
-    @Override
-    public String toString() {
-        return "Endpoint{" +
-                "id=" + id +
-                ", app='" + app + '\'' +
-                ", uri='" + uri + '\'' +
-                ", ip='" + ip + '\'' +
-                ", timestamp=" + timestamp +
-                '}';
-    }
 }

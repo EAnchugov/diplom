@@ -42,10 +42,6 @@ public class Controller {
                                             @NotBlank @RequestParam String end,
                                             @RequestParam(required = false) List<String> uris,
                                             @RequestParam(defaultValue = "false") Boolean unique) {
-//        log.info("получен запрос на /статс" + "старт " +  LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT) +
-//                       "конец" +LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT)+
-//                "uris "+ uris+
-//                "eybr " + unique);
         List<EndpointDtoOutput> stats;
 
         stats = endpointService.getStats(
@@ -54,9 +50,8 @@ public class Controller {
                 uris,
                 unique);
 
-        return stats.stream().sorted(Comparator.comparing(EndpointDtoOutput::getHits).reversed()).collect(Collectors.toList());
-//
-//        return endpoints.stream().map(EndpointMapper::toEndpointDtoOutput).collect(Collectors.toList());
-//        return null;
+        return stats.stream().sorted(Comparator.comparing(EndpointDtoOutput::getHits).reversed())
+                .collect(Collectors.toList());
+
     }
 }
