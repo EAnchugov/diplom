@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EndpointMapper {
     public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     public static Endpoint toEndpoint(EndpointDto dto) {
         Endpoint endpoint = new Endpoint();
         endpoint.setIp(dto.getIp());

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.statsServer.Service.EndpointService;
-import ru.practicum.statsServer.model.Endpoint;
 import ru.practicum.statsServer.model.EndpointMapper;
 import ru.practicum.statsServer.model.dto.EndpointDto;
 import ru.practicum.statsServer.model.dto.EndpointDtoOutput;
@@ -16,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,8 +29,9 @@ public class Controller {
         log.info("/hit\" + endpoint" + endpointDto);
         return EndpointMapper.toEndpointDto(endpointService.create(EndpointMapper.toEndpoint(endpointDto)));
     }
+
     @GetMapping("/test")
-    public String test(){
+    public String test() {
         return "test";
     }
 
