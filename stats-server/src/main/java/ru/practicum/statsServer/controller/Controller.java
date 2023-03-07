@@ -51,8 +51,9 @@ public class Controller {
                 uris,
                 unique);
 
-        return stats.stream().sorted(Comparator.comparing(EndpointDtoOutput::getHits).reversed())
-                .collect(Collectors.toList());
+//        return stats.stream().sorted(Comparator.comparing(EndpointDtoOutput::getHits).reversed())
+//                .collect(Collectors.toList());
+        return stats;
 
     }
 }

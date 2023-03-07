@@ -9,7 +9,9 @@ import ru.practicum.statsServer.repository.EndpointRepository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +41,7 @@ public class EndpointServiceImpl implements EndpointService {
                 stats =  repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
             }
         }
-        return stats;
+        return stats.stream().sorted(Comparator.comparing(EndpointDtoOutput::getHits).reversed())
+                .collect(Collectors.toList());
     }
 }
