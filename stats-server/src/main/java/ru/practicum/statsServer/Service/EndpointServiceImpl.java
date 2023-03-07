@@ -40,7 +40,5 @@ public class EndpointServiceImpl implements EndpointService {
             }
         }
         return stats;
-//        .stream().sorted(Comparator.comparing(EndpointDtoOutput::getHits).reversed())
-//                .collect(Collectors.toList());
     }
 }
