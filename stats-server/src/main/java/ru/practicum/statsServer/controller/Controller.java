@@ -13,22 +13,22 @@ import javax.validation.constraints.NotBlank;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static ru.practicum.statsServer.model.GlobalVariables.FORMAT;
 
 @RestController
 @RequiredArgsConstructor
 @Validated
 @Slf4j
 public class Controller {
-    public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final EndpointService endpointService;
 
     @PostMapping("/hit")
     public EndpointDto create(@RequestBody EndpointDto endpointDto) {
-        log.info("/hit\" + endpoint" + endpointDto);
+        log.info("Получен Post запрос на маппинг /hit. EndpointDto - " + endpointDto);
         return EndpointMapper.toEndpointDto(endpointService.create(EndpointMapper.toEndpoint(endpointDto)));
     }
 
@@ -42,8 +42,9 @@ public class Controller {
                                             @NotBlank @RequestParam String end,
                                             @RequestParam(required = false) List<String> uris,
                                             @RequestParam(defaultValue = "false") Boolean unique) {
+        log.info("Получен Get запрос на маппинг /stats. Параметры: старт - " + start + ", конец - " + end
+                + ", uris - " + uris + ", уникальность - " + unique);
         List<EndpointDtoOutput> stats;
-
         stats = endpointService.getStats(
                 LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT),
                 LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT),
