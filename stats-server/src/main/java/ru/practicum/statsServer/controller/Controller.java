@@ -13,9 +13,7 @@ import javax.validation.constraints.NotBlank;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static ru.practicum.statsServer.model.GlobalVariables.FORMAT;
 
