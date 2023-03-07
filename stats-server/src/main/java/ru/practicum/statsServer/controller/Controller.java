@@ -42,16 +42,11 @@ public class Controller {
                                             @RequestParam(defaultValue = "false") Boolean unique) {
         log.info("Получен Get запрос на маппинг /stats. Параметры: start - " + start + ", end - " + end
                 + ", uris - " + uris + ", уникальность - " + unique);
-        List<EndpointDtoOutput> stats;
-        stats = endpointService.getStats(
+        return endpointService.getStats(
                 LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT),
                 LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT),
                 uris,
                 unique);
-
-//        return stats.stream().sorted(Comparator.comparing(EndpointDtoOutput::getHits).reversed())
-//                .collect(Collectors.toList());
-        return stats;
 
     }
 }
