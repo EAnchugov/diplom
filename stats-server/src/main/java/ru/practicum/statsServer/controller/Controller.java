@@ -26,7 +26,7 @@ public class Controller {
 
     @PostMapping("/hit")
     public EndpointDto create(@RequestBody EndpointDto endpointDto) {
-        log.info("Получен Post запрос на маппинг /hit. EndpointDto - " + endpointDto);
+        log.info("Получен Post запрос на маппинг /hit. EndpointDto - " + endpointDto.toString());
         return EndpointMapper.toEndpointDto(endpointService.create(EndpointMapper.toEndpoint(endpointDto)));
     }
 
@@ -40,7 +40,7 @@ public class Controller {
                                             @NotBlank @RequestParam String end,
                                             @RequestParam(required = false) List<String> uris,
                                             @RequestParam(defaultValue = "false") Boolean unique) {
-        log.info("Получен Get запрос на маппинг /stats. Параметры: старт - " + start + ", конец - " + end
+        log.info("Получен Get запрос на маппинг /stats. Параметры: start - " + start + ", end - " + end
                 + ", uris - " + uris + ", уникальность - " + unique);
         List<EndpointDtoOutput> stats;
         stats = endpointService.getStats(
