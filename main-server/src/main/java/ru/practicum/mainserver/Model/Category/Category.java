@@ -4,13 +4,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.*;
-
+@Builder
 @Getter
 @Setter
-@Builder
-public class CategoryDto {
+public class Category {
     private Integer id;
-    @NotBlank
     private String name;
 }
