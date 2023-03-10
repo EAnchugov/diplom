@@ -1,13 +1,15 @@
 package ru.practicum.mainserver.Model.User;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
     @Id

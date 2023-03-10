@@ -17,17 +17,19 @@ public class AdminCategoriesController {
     private final AdminCategoriesService adminCategories;
 
     @PostMapping
-    public CategoryDto AddCategory (@Valid @RequestBody CategoryDto categoryDto){
+    public CategoryDto addCategory (@Valid @RequestBody CategoryDto categoryDto){
         Category category = adminCategories.createCategory(CategoryMapper.toCategory(categoryDto));
         return CategoryMapper.toCategoryDto(category);
     }
     @DeleteMapping("/catId")
-    //Обратите внимание: с категорией не должно быть связано ни одного события.
-    public void DeleteCategory(@Positive @PathVariable Integer catId){
+
+    public void deleteCategory(@Positive @PathVariable Integer catId){
+        adminCategories.deleteCategoryById(catId);
     }
 
     @PatchMapping("/catId")
     public CategoryDto patchCategory (@Positive @PathVariable CategoryDto categoryDto){
+        Category category = adminCategories.patchCategory(CategoryMapper.toCategory(categoryDto));
         return null;
     }
 }
