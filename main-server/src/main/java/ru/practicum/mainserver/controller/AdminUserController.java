@@ -8,23 +8,23 @@ import ru.practicum.mainserver.Model.User.UserMapper;
 import ru.practicum.mainserver.service.User.AdminUserService;
 
 import javax.validation.Valid;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/users")
 public class AdminUserController {
-    private final AdminUserService service;
+//    private final AdminUserService service;
     @GetMapping
     public String getUser(){
         return null;
     }
     @PostMapping
     public UserDto addUser(@Valid @RequestBody UserDto userDto){
-        User user = service.create(UserMapper.toUser(userDto));
-        return UserMapper.toUserDto(user);
+//        User user = service.create(UserMapper.toUser(userDto));
+//        return UserMapper.toUserDto(user);
+        return null;
     }
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable Integer userId){
-        service.deleteUser(userId);
+//        service.deleteUser(userId);
     }
 }
