@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.mainserver.model.Category.Category;
 import ru.practicum.mainserver.model.Category.CategoryDto;
 import ru.practicum.mainserver.model.Category.CategoryMapper;
-import ru.practicum.mainserver.service.category.AdminCategoriesService;
+import ru.practicum.mainserver.service.category.admin.AdminCategoriesService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;

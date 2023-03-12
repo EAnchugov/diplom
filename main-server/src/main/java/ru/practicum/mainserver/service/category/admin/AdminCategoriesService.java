@@ -1,4 +1,4 @@
-package ru.practicum.mainserver.service.category;
+package ru.practicum.mainserver.service.category.admin;
 
 import ru.practicum.mainserver.model.Category.Category;
 
