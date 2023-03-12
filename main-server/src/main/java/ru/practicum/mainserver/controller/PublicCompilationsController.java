@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/compilations")
 public class PublicCompilationsController {
     @GetMapping
-    public String GetAllCompilations(@RequestParam Boolean pinned,
+    public String getAllCompilations(@RequestParam Boolean pinned,
                                   @RequestParam Integer from,
-                                  @RequestParam Integer size){
+                                  @RequestParam Integer size) {
         return null;
     }
 
     @GetMapping("/{complId}")
-    public String GetCompilations(@PathVariable Integer complId){
+    public String getCompilations(@PathVariable Integer complId) {
         return null;
     }
 }
