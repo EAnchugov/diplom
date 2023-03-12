@@ -7,8 +7,9 @@ import ru.practicum.mainserver.repository.CategoryRepository;
 
 @Service
 @RequiredArgsConstructor
-public class AdminCategoryServiceImpl implements AdminCategoriesService{
+public class AdminCategoryServiceImpl implements AdminCategoriesService {
     private final CategoryRepository repository;
+
     @Override
     public Category createCategory(Category category) {
         return repository.save(category);

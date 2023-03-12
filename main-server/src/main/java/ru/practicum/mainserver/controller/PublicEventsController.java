@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PublicEventsController {
     @GetMapping
-    public String getEvents(){
+    public String getEvents() {
         return null;
     }
 
     @GetMapping("/{id}")
-    public String getEventById(@PathVariable Integer id){
+    public String getEventById(@PathVariable Integer id) {
         return null;
     }
 }

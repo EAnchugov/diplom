@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class PublicCategoriesController {
     @GetMapping("")
-    public String getCategories(){
+    public String getCategories() {
         return null;
     }
 
     @GetMapping("/{catId}")
-    public String geCategoryById(@PathVariable Integer catId){
+    public String geCategoryById(@PathVariable Integer catId) {
         return null;
     }
 }

@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CompilationMapper {
-    public static Compilation toCompilation(CompilationDto compilationDto){
+    public static Compilation toCompilation(CompilationDto compilationDto) {
      return Compilation.builder()
              .title(compilationDto.getTitle())
              .id(compilationDto.getId())
@@ -14,7 +14,7 @@ public class CompilationMapper {
              .build();
     }
 
-    public static CompilationDto toCompilationDto(Compilation compilation){
+    public static CompilationDto toCompilationDto(Compilation compilation) {
         return CompilationDto.builder()
                 .id(compilation.getId())
                 .pinned(compilation.getPinned())
