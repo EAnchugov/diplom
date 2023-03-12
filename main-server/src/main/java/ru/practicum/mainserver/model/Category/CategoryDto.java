@@ -1,4 +1,4 @@
-package ru.practicum.mainserver.Model.Category;
+package ru.practicum.mainserver.model.Category;
 
 import lombok.Builder;
 import lombok.Getter;

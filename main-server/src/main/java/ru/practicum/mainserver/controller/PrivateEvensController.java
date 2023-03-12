@@ -1,17 +1,24 @@
 package ru.practicum.mainserver.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.mainserver.model.EventsFullDto;
+import ru.practicum.mainserver.service.events.EventsService;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class PrivateEvensController {
+    private final EventsService service;
+
     @GetMapping("/{userId}/events")
     public String getUserEvents(@PathVariable Integer userId) {
         return null;
     }
 
     @PostMapping("/{userId}/events")
-    public String addUserEvents(@PathVariable Integer userId) {
+    public String addUserEvents(@PathVariable Integer userId,
+                                @RequestBody EventsFullDto eventsDto) {
         return null;
     }
 

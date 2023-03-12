@@ -1,6 +1,6 @@
 package ru.practicum.mainserver.service.compilation;
 
-import ru.practicum.mainserver.Model.Compilation.Compilation;
+import ru.practicum.mainserver.model.Compilation.Compilation;
 
 public class AdminCompilationServiceImpl implements AdminCompilationService {
     @Override

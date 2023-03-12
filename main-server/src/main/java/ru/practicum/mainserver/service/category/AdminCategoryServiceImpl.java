@@ -2,7 +2,7 @@ package ru.practicum.mainserver.service.category;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.mainserver.Model.Category.Category;
+import ru.practicum.mainserver.model.Category.Category;
 import ru.practicum.mainserver.repository.CategoryRepository;
 
 @Service
