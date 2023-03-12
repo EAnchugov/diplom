@@ -1,4 +1,4 @@
-package ru.practicum.mainserver.service.User;
+package ru.practicum.mainserver.service.user;
 
 import ru.practicum.mainserver.Model.User.User;
 

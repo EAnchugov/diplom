@@ -1,10 +1,12 @@
-package ru.practicum.mainserver.service.User;
+package ru.practicum.mainserver.service.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import ru.practicum.mainserver.Model.User.User;
 import ru.practicum.mainserver.repository.UserRepository;
 
 @RequiredArgsConstructor
+@Service
 public class AdminUserServiceImpl implements AdminUserService {
     private final UserRepository repository;
 
