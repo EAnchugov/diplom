@@ -2,9 +2,9 @@ package ru.practicum.mainserver.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.mainserver.Model.User.User;
-import ru.practicum.mainserver.Model.User.UserDto;
-import ru.practicum.mainserver.Model.User.UserMapper;
+import ru.practicum.mainserver.model.User.User;
+import ru.practicum.mainserver.model.User.UserDto;
+import ru.practicum.mainserver.model.User.UserMapper;
 import ru.practicum.mainserver.service.user.AdminUserService;
 
 import javax.validation.Valid;
@@ -14,6 +14,7 @@ import javax.validation.Valid;
 @RequestMapping("/admin/users")
 public class AdminUserController {
     private final AdminUserService service;
+
     @GetMapping
     public String getUser() {
         return null;
