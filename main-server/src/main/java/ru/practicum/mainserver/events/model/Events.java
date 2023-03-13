@@ -1,13 +1,9 @@
 package ru.practicum.mainserver.events.model;
 
 import lombok.*;
-import ru.practicum.mainserver.categories.model.CategoryDto;
 import ru.practicum.mainserver.user.dto.User;
-import ru.practicum.mainserver.user.dto.UserShortDto;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
