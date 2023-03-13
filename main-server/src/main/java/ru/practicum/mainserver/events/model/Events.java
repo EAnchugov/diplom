@@ -2,6 +2,7 @@ package ru.practicum.mainserver.events.model;
 
 import lombok.*;
 import ru.practicum.mainserver.categories.model.CategoryDto;
+import ru.practicum.mainserver.user.dto.User;
 import ru.practicum.mainserver.user.dto.UserShortDto;
 
 import javax.persistence.*;
@@ -26,8 +27,10 @@ public class Events {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private UserShortDto initiator;
-    private Location location;
+   @ManyToOne
+    private User initiator;
+    private float lat;
+    private float lon;
     private Boolean paid;
     private Integer participantLimit;
     private LocalDateTime publishedOn;

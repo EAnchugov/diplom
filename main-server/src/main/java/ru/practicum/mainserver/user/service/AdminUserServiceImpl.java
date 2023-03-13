@@ -37,4 +37,9 @@ public class AdminUserServiceImpl implements AdminUserService {
             return repository.findAllByIdIn(users);
         }
     }
+
+    @Override
+    public User getById(Integer id){
+        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Нет Юзера с ID = " + id));
+    }
 }
