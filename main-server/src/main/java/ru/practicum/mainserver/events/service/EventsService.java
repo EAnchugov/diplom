@@ -3,7 +3,6 @@ package ru.practicum.mainserver.events.service;
 import ru.practicum.mainserver.events.model.Events;
 import ru.practicum.mainserver.events.model.UpdateEventUserRequest;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface EventsService {
