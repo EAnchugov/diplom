@@ -31,15 +31,15 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public List<User> getUsers(List<Integer> users, Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from > 0 ? from / size : 0, size, Sort.by(DESC, "start"));
-        if (users.isEmpty()){
+        if (users.isEmpty()) {
             return repository.findAll(pageable).stream().collect(Collectors.toList());
-        }else {
+        } else {
             return repository.findAllByIdIn(users);
         }
     }
 
     @Override
-    public User getById(Integer id){
+    public User getById(Integer id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Нет Юзера с ID = " + id));
     }
 }

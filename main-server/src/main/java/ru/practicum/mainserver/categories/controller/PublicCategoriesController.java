@@ -18,13 +18,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PublicCategoriesController {
     public final UserCategoryService service;
+
     @GetMapping("")
     public List<CategoryDto> getCategories(
             @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
             @PositiveOrZero @RequestParam(name = "size", defaultValue = "10") Integer size) {
         List<Category> categories = new ArrayList<>();
         categories = service.getAll(from, size);
-        return categories.stream().map(CategoryMapper :: toCategoryDto)
+        return categories.stream().map(CategoryMapper::toCategoryDto)
                 .sorted(Comparator.comparing(CategoryDto::getId)).collect(Collectors.toList());
     }
 

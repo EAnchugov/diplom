@@ -17,9 +17,10 @@ import static ru.practicum.mainserver.variables.GlobalVariables.FORMAT;
 
 @Service
 @RequiredArgsConstructor
-public class EventsServiceImpl implements EventsService{
+public class EventsServiceImpl implements EventsService {
     private final AdminUserService userService;
     private final EventsRepository repository;
+
     @Override
     public Events create(Events events, Integer userId) {
         User user = userService.getById(userId);
@@ -42,15 +43,15 @@ public class EventsServiceImpl implements EventsService{
     @Override
     public Events updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
         Events event = repository.findById(eventId).orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
-        if (event.getInitiator().getId() != userId){
+        if (event.getInitiator().getId() != userId) {
             throw new IllegalArgumentException("Вы не автор эвента");
-        }else {
+        } else {
             event = eventUpdater(event, updateEventUserRequest);
             return repository.save(event);
         }
     }
 
-    private Events eventUpdater(Events event, UpdateEventUserRequest update ){
+    private Events eventUpdater(Events event, UpdateEventUserRequest update) {
 //        private String annotation;
 //        private Integer categoryId;
 //        private String description;
@@ -68,31 +69,31 @@ public class EventsServiceImpl implements EventsService{
         if (!update.getCategoryId().equals(null)) {
             event.setCategory(update.getCategoryId());
         }
-        if(!update.getDescription().equals(null)) {
+        if (!update.getDescription().equals(null)) {
             event.setDescription(update.getDescription());
         }
-        if (!update.getEventDate().equals(null)){
+        if (!update.getEventDate().equals(null)) {
             LocalDateTime newEventDate = LocalDateTime.parse(URLDecoder.decode(update.getEventDate(),
                     StandardCharsets.UTF_8), FORMAT);
             event.setEventDate(newEventDate);
         }
-        if (!update.getLocation().equals(null)){
+        if (!update.getLocation().equals(null)) {
             event.setLat(update.getLocation().getLat());
             event.setLon(update.getLocation().getLon());
         }
-        if (!update.getPaid().equals(null)){
+        if (!update.getPaid().equals(null)) {
             event.setPaid(update.getPaid());
         }
-        if (!update.getParticipantLimit().equals(null)){
+        if (!update.getParticipantLimit().equals(null)) {
             event.setParticipantLimit(update.getParticipantLimit());
         }
-        if (!update.getRequestModeration().equals(null)){
+        if (!update.getRequestModeration().equals(null)) {
             event.setRequestModeration(update.getRequestModeration());
         }
-        if(!update.getStateAction().equals(null)){
+        if (!update.getStateAction().equals(null)) {
             event.setState(update.getStateAction());
         }
-        if(!update.getTitle().equals(null)){
+        if (!update.getTitle().equals(null)) {
             event.setTitle(update.getTitle());
         }
         return event;
