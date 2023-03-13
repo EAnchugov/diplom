@@ -10,4 +10,6 @@ public interface AdminUserService {
     void deleteUser(Integer userId);
 
     List<User> getUsers(List<Integer> users, Integer from, Integer size);
+
+    User getById(Integer id);
 }
