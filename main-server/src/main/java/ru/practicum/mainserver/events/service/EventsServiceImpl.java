@@ -51,6 +51,16 @@ public class EventsServiceImpl implements EventsService {
         }
     }
 
+    @Override
+    public List<Events> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public Events getById(Integer id) {
+        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Нет евента с нужным ID"));
+    }
+
     private Events eventUpdater(Events event, UpdateEventUserRequest update) {
 //        private String annotation;
 //        private Integer categoryId;

@@ -3,6 +3,7 @@ package ru.practicum.mainserver.events.service;
 import ru.practicum.mainserver.events.model.Events;
 import ru.practicum.mainserver.events.model.UpdateEventUserRequest;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface EventsService {
@@ -13,4 +14,8 @@ public interface EventsService {
     List<Events> getUserEvent(Integer userId, Integer eventId);
 
     Events updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest);
+
+    List<Events> getAll();
+
+    Events getById(Integer id);
 }
