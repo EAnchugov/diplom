@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
     @PostMapping("/test")
     public String test() {
-        return "test";
+        return "main-server test";
     }
 }
