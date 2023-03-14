@@ -15,8 +15,8 @@ services:
      - POSTGRES_USER=postgres
      - POSTGRES_PASSWORD=iamroot
 
-  main-server:
-    build: ./main-server
+  ewm-service:
+    build: ewm-service
     image: main_server_image
     container_name: main_server_container
     ports:
