@@ -43,7 +43,7 @@ public class EventsServiceImpl implements EventsService {
     @Override
     public Events updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
         Events event = repository.findById(eventId).orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
-        if (event.getInitiator().getId() != userId) {
+        if (!event.getInitiator().getId().equals(userId)) {
             throw new IllegalArgumentException("Вы не автор эвента");
         } else {
             event = eventUpdater(event, updateEventUserRequest);
