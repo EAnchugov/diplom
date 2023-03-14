@@ -1,6 +1,7 @@
 package ru.practicum.mainserver.request.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.mainserver.request.model.ParticipationRequestDto;
 
 @RestController
 @RequestMapping("/users")
@@ -11,7 +12,8 @@ public class UserRequestController {
     }
 
     @PostMapping("/{userId}/requests")
-    public String addUserRequest(@PathVariable Integer userId) {
+    public String addUserRequest(@PathVariable Integer userId,
+                                 @RequestBody ParticipationRequestDto requestDto) {
         return null;
     }
 
