@@ -2,12 +2,13 @@ package ru.practicum.categories.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.categories.model.CategoryMapper;
-import ru.practicum.categories.service.admin.AdminCategoriesService;
 import ru.practicum.categories.model.Category;
 import ru.practicum.categories.model.CategoryDto;
+import ru.practicum.categories.model.CategoryMapper;
+import ru.practicum.categories.service.admin.AdminCategoriesService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 @RestController
@@ -29,7 +30,7 @@ public class AdminCategoriesController {
 
     @PatchMapping("/catId")
     public CategoryDto patchCategory(@PathVariable Integer catId,
-                                     @RequestBody CategoryDto categoryDto) {
+                                     @NotBlank @RequestBody CategoryDto categoryDto) {
         Category category = service.patchCategory(catId,categoryDto);
         return CategoryMapper.toCategoryDto(category);
     }
