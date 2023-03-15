@@ -28,8 +28,9 @@ public class AdminCategoriesController {
     }
 
     @PatchMapping("/catId")
-    public CategoryDto patchCategory(@Positive @PathVariable CategoryDto categoryDto) {
-        Category category = service.patchCategory(CategoryMapper.toCategory(categoryDto));
-        return null;
+    public CategoryDto patchCategory(@PathVariable Integer catId,
+                                     @RequestBody CategoryDto categoryDto) {
+        Category category = service.patchCategory(catId,categoryDto);
+        return CategoryMapper.toCategoryDto(category);
     }
 }
