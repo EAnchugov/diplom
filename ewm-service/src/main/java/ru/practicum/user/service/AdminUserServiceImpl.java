@@ -3,15 +3,12 @@ package ru.practicum.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ru.practicum.user.repository.UserRepository;
 import ru.practicum.user.dto.User;
+import ru.practicum.user.repository.UserRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.springframework.data.domain.Sort.Direction.DESC;
 
 @RequiredArgsConstructor
 @Service
@@ -30,11 +27,15 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public List<User> getUsers(List<Integer> users, Integer from, Integer size) {
-        Pageable pageable = PageRequest.of(from > 0 ? from / size : 0, size, Sort.by(DESC, "start"));
-        if (users.isEmpty()) {
-            return repository.findAll(pageable).stream().collect(Collectors.toList());
+        Pageable pageable = PageRequest.of(from, size);
+        if (users == null) {
+            return repository.findAll(pageable).toList();
         } else {
-            return repository.findAllByIdIn(users);
+            if (users.isEmpty()) {
+                return repository.findAll(pageable).stream().collect(Collectors.toList());
+            } else {
+                return repository.findAllById(users);
+            }
         }
     }
 

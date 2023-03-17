@@ -62,16 +62,6 @@ public class EventsServiceImpl implements EventsService {
     }
 
     private Events eventUpdater(Events event, UpdateEventUserRequest update) {
-//        private String annotation;
-//        private Integer categoryId;
-//        private String description;
-//        private String eventDate;
-//        private Location location;
-//        private Boolean paid;
-//        private Integer participantLimit;
-//        private Boolean requestModeration;
-//        private State stateAction;
-//        private String title;
 
         if (!update.getAnnotation().equals(null)) {
          event.setAnnotation(update.getAnnotation());
