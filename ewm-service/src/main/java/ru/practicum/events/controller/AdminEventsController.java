@@ -14,7 +14,7 @@ import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/events/")
+@RequestMapping("/admin/events")
 @RequiredArgsConstructor
 public class AdminEventsController {
 
