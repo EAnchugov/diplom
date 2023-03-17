@@ -9,5 +9,7 @@ import java.util.List;
 public interface EventsRepository extends JpaRepository<Events,Integer> {
     List<Events> getAllByInitiator(User user);
 
+    List<Events> findAllByInitiatorId(Integer id);
+
     List<Events> findAllByIdAndInitiator(Integer id, User user);
 }

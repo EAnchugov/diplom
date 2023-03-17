@@ -31,8 +31,14 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public List<Events> getUserEvents(Integer userId) {
-        User user = userService.getById(userId);
-        return repository.getAllByInitiator(user);
+        return new ArrayList<>();
+//        User user = userService.getById(userId)
+//        List<Events> events = new ArrayList<>();
+//        events.add(repository.getAllByInitiator(user)) ;
+////        User user = userService.getById(userId);
+////        events = repository.getAllByInitiator(user);
+////        events.addAll();
+//        return events;
     }
 
     @Override
