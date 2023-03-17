@@ -3,6 +3,7 @@ package ru.practicum.events.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.events.model.Events;
+import ru.practicum.events.model.State;
 import ru.practicum.events.model.UpdateEventUserRequest;
 import ru.practicum.events.repository.EventsRepository;
 import ru.practicum.user.dto.User;
@@ -12,6 +13,7 @@ import ru.practicum.variables.GlobalVariables;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -59,6 +61,11 @@ public class EventsServiceImpl implements EventsService {
     @Override
     public Events getById(Integer id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Нет евента с нужным ID"));
+    }
+
+    @Override
+    public List<Events> getAdminEvents(List<Integer> users, List<State> states, List<Integer> categories, List<String> starts, Integer from, Integer size) {
+        return new ArrayList<>();
     }
 
     private Events eventUpdater(Events event, UpdateEventUserRequest update) {
