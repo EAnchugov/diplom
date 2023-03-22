@@ -15,7 +15,6 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     public List<Compilation> getAll(Boolean pinned, Integer from, Integer size) {
-        List<Compilation> compilations = new ArrayList<>();
-        return compilations;
+        return new ArrayList<>();
     }
 }
