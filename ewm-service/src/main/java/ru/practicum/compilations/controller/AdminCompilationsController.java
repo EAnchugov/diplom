@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.compilations.model.Compilation;
 import ru.practicum.compilations.model.CompilationDto;
 import ru.practicum.compilations.model.CompilationMapper;
-import ru.practicum.compilations.service.AdminCompilationService;
+import ru.practicum.compilations.service.CompilationService;
 
 import javax.validation.Valid;
 
@@ -13,7 +13,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/admin/compilations")
 public class AdminCompilationsController {
-    private final AdminCompilationService service;
+    private final CompilationService service;
 
     @PostMapping
     public CompilationDto addCompilation(@Valid @RequestBody CompilationDto compilationDto) {
