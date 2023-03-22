@@ -7,6 +7,7 @@ import ru.practicum.compilations.model.Compilation;
 import ru.practicum.compilations.repository.CompilationRepository;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,11 +22,13 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     public List<Compilation> getAll(Boolean pinned, Integer from, Integer size) {
+        List<Compilation> compilations = new ArrayList<>();
         Pageable pageable = PageRequest.of(from,size);
-        if (pinned == null) {
-            return repository.findAll(pageable).toList();
+        if (!pinned) {
+            compilations.addAll(repository.findAll(pageable).toList());
         } else {
-            return repository.findAllByPinned(pinned,pageable);
+            compilations.addAll(repository.findAllByPinned(pinned,pageable));
         }
+        return compilations;
     }
 }
