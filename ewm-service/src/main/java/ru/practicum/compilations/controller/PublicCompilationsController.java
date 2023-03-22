@@ -1,8 +1,6 @@
 package ru.practicum.compilations.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.compilations.model.CompilationDto;
 import ru.practicum.compilations.model.CompilationMapper;
@@ -21,10 +19,8 @@ public class PublicCompilationsController {
     public List<CompilationDto> getAllCompilations(@RequestParam Boolean pinned,
                                                    @RequestParam(defaultValue = "0") Integer from,
                                                    @RequestParam(defaultValue = "10") Integer size) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                compilationService.getAll(pinned,from,size).stream().map(CompilationMapper::toCompilationDto)
-                        .collect(Collectors.toList()))
-                .getBody();
+        return compilationService.getAll(pinned,from,size).stream().map(CompilationMapper::toCompilationDto)
+                        .collect(Collectors.toList());
     }
 
     @GetMapping("/{compId}")

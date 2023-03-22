@@ -1,9 +1,11 @@
 package ru.practicum.compilations.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.practicum.compilations.model.Compilation;
 import ru.practicum.compilations.repository.CompilationRepository;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -19,6 +21,11 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     public List<Compilation> getAll(Boolean pinned, Integer from, Integer size) {
-        return repository.findAll();
+        Pageable pageable = PageRequest.of(from,size);
+        if (pinned == null) {
+            return repository.findAll(pageable).toList();
+        } else {
+            return repository.findAllByPinned(pinned,pageable);
+        }
     }
 }
