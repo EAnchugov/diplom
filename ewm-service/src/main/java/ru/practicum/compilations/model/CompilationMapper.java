@@ -8,8 +8,6 @@ public class CompilationMapper {
     public static Compilation toCompilation(CompilationDto compilationDto) {
      return Compilation.builder()
              .title(compilationDto.getTitle())
-             .id(compilationDto.getId())
-             .title(compilationDto.getTitle())
              .pinned(compilationDto.getPinned())
              .build();
     }
