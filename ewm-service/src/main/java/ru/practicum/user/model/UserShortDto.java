@@ -1,4 +1,4 @@
-package ru.practicum.user.dto;
+package ru.practicum.user.model;
 
 import lombok.Getter;
 import lombok.Setter;

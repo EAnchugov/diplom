@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ru.practicum.categories.model.CategoryDto;
-import ru.practicum.user.dto.UserShortDto;
+import ru.practicum.user.model.UserShortDto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

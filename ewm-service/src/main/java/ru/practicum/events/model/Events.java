@@ -1,7 +1,7 @@
 package ru.practicum.events.model;
 
 import lombok.*;
-import ru.practicum.user.dto.User;
+import ru.practicum.user.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

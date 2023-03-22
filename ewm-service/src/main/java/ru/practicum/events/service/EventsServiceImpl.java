@@ -6,7 +6,7 @@ import ru.practicum.events.model.Events;
 import ru.practicum.events.model.State;
 import ru.practicum.events.model.UpdateEventUserRequest;
 import ru.practicum.events.repository.EventsRepository;
-import ru.practicum.user.dto.User;
+import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.GlobalVariables;
 

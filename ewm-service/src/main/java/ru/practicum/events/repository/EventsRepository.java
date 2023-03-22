@@ -2,7 +2,7 @@ package ru.practicum.events.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.practicum.events.model.Events;
-import ru.practicum.user.dto.User;
+import ru.practicum.user.model.User;
 
 import java.util.List;
 
