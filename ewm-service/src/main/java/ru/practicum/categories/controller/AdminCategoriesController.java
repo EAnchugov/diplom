@@ -1,6 +1,7 @@
 package ru.practicum.categories.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.categories.model.Category;
 import ru.practicum.categories.model.CategoryDto;
@@ -8,12 +9,12 @@ import ru.practicum.categories.model.CategoryMapper;
 import ru.practicum.categories.service.admin.AdminCategoriesService;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/admin/categories")
 @RequiredArgsConstructor
+@Slf4j
 public class AdminCategoriesController {
     private final AdminCategoriesService service;
 
@@ -23,15 +24,15 @@ public class AdminCategoriesController {
         return CategoryMapper.toCategoryDto(category);
     }
 
-    @DeleteMapping("/catId")
+    @DeleteMapping("/{catId}")
     public void deleteCategory(@Positive @PathVariable Integer catId) {
         service.deleteCategoryById(catId);
     }
 
-    @PatchMapping("/catId")
-    public CategoryDto patchCategory(@PathVariable Integer catId,
-                                     @NotBlank @RequestBody CategoryDto categoryDto) {
-        Category category = service.patchCategory(catId,categoryDto);
+    @PatchMapping("/{catId}")
+    public CategoryDto patchCategory(@PathVariable Integer catId) {
+        log.info("Получен запрос на изменение {catId} {categoryDto}" + catId);
+        Category category = service.patchCategory(catId);
         return CategoryMapper.toCategoryDto(category);
     }
 }

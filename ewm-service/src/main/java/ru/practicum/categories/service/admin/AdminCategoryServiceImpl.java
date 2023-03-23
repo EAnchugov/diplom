@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
-import ru.practicum.categories.model.CategoryDto;
 import ru.practicum.categories.repository.CategoryRepository;
 import ru.practicum.categories.model.Category;
 
@@ -25,10 +24,10 @@ public class AdminCategoryServiceImpl implements AdminCategoriesService {
     }
 
     @Override
-    public Category patchCategory(Integer catId, CategoryDto categoryDto) {
+    public Category patchCategory(Integer catId) {
         Category patch = repository.findById(catId)
-                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST,"Нет категории с нужным ID"));
-        patch.setName(categoryDto.getName());
+                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR,"Нет категории с нужным ID"));
+//        patch.setName(categoryDto.getName());
         return repository.save(patch);
     }
 }
