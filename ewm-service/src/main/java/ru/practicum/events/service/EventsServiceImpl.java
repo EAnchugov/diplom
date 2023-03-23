@@ -9,6 +9,7 @@ import ru.practicum.events.repository.EventsRepository;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.GlobalVariables;
+import ru.practicum.variables.Sorting;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -60,9 +61,17 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public List<Events> getAll() {
+    public List<Events> getAll(String text,
+                               List<Integer> categories,
+                               Boolean paid,
+                               String rangeStart,
+                               String rangeEnd,
+                               Boolean onlyAvailable,
+                               Sorting sorting,
+                               Integer from,
+                               Integer size) {
         List<Events> events = new ArrayList<>();
-        events.addAll(repository.findAll());
+     //   events.addAll(repository.findAll());
         return events;
     }
 
@@ -72,7 +81,12 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public List<Events> getAdminEvents(List<Integer> users, List<State> states, List<Integer> categories, List<String> starts, Integer from, Integer size) {
+    public List<Events> getAdminEvents(List<Integer> users,
+                                       List<State> states,
+                                       List<Integer> categories,
+                                       List<String> starts,
+                                       Integer from,
+                                       Integer size) {
         return new ArrayList<>();
     }
 
