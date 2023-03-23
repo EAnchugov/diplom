@@ -1,16 +1,17 @@
 package ru.practicum.categories.service.admin;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
+import ru.practicum.categories.model.CategoryDto;
 import ru.practicum.categories.repository.CategoryRepository;
 import ru.practicum.categories.model.Category;
+import ru.practicum.categories.service.user.UserCategoryService;
 
 @Service
 @RequiredArgsConstructor
 public class AdminCategoryServiceImpl implements AdminCategoriesService {
     private final CategoryRepository repository;
+    private final UserCategoryService userCategoryService;
 
     @Override
     public Category createCategory(Category category) {
@@ -24,10 +25,9 @@ public class AdminCategoryServiceImpl implements AdminCategoriesService {
     }
 
     @Override
-    public Category patchCategory(Integer catId) {
-        Category patch = repository.findById(catId)
-                .orElseThrow(() -> new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR,"Нет категории с нужным ID"));
-//        patch.setName(categoryDto.getName());
+    public Category patchCategory(Integer catId, CategoryDto categoryDto) {
+        Category patch = userCategoryService.getByID(catId);
+        patch.setName(categoryDto.getName());
         return repository.save(patch);
     }
 }
