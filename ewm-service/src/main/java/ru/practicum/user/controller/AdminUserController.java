@@ -32,6 +32,7 @@ public class AdminUserController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public UserDto addUser(@Valid @RequestBody UserDto userDto) {
         User user = service.create(UserMapper.toUser(userDto));
         return UserMapper.toUserDto(user);
