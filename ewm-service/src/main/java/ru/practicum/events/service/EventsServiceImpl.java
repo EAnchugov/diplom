@@ -61,7 +61,9 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public List<Events> getAll() {
-        return repository.findAll();
+        List<Events> events = new ArrayList<>();
+        events.addAll(repository.findAll());
+        return events;
     }
 
     @Override
