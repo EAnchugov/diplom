@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.practicum.categories.model.Category;
 import ru.practicum.categories.repository.CategoryRepository;
+import ru.practicum.exceptions.ItemNotAvailableException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +24,7 @@ public class UserCategoryServiceImpl implements UserCategoryService {
 
     @Override
     public Category getByID(Integer catId) {
-        return repository.findById(catId).orElseThrow(() -> new IllegalArgumentException("Нет такой категории"));
+        return repository.findById(catId).orElseThrow(() -> new ItemNotAvailableException("Нет такой категории"));
     }
 
 }

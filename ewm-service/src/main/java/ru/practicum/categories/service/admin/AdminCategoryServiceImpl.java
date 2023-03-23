@@ -2,6 +2,7 @@ package ru.practicum.categories.service.admin;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.categories.model.CategoryDto;
 import ru.practicum.categories.repository.CategoryRepository;
 import ru.practicum.categories.model.Category;
@@ -25,6 +26,7 @@ public class AdminCategoryServiceImpl implements AdminCategoriesService {
     }
 
     @Override
+    @Transactional
     public Category patchCategory(Integer catId, CategoryDto categoryDto) {
         Category patch = userCategoryService.getByID(catId);
         patch.setName(categoryDto.getName());
