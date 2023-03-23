@@ -34,7 +34,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             if (users.isEmpty()) {
                 return repository.findAll(pageable).stream().collect(Collectors.toList());
             } else {
-                return repository.findAllById(users);
+                return repository.findAllByIdIn(users,pageable);
             }
         }
     }
