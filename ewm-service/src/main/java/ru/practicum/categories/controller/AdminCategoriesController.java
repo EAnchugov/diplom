@@ -3,6 +3,7 @@ package ru.practicum.categories.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.categories.model.Category;
 import ru.practicum.categories.model.CategoryDto;
@@ -34,7 +35,7 @@ public class AdminCategoriesController {
 
     @PatchMapping("/{catId}")
     public CategoryDto patchCategory(@PathVariable Integer catId,
-                                     @Valid CategoryDto categoryDto) {
+                                     @Validated CategoryDto categoryDto) {
         log.info("Получен запрос на изменение {catId} {categoryDto}" + catId);
         Category category = service.patchCategory(catId,categoryDto);
         return CategoryMapper.toCategoryDto(category);
