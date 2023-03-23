@@ -31,12 +31,12 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (users == null) {
             return repository.findAll(pageable).toList();
         } else {
-            if (users.isEmpty()) {
-                return repository.findAll(pageable).stream().collect(Collectors.toList());
-            } else {
-                return repository.findAllByIdIn(users,pageable);
+//            if (users.isEmpty()) {
+//                return repository.findAll(pageable).stream().collect(Collectors.toList());
+//            } else {
+                return repository.findAllById(users);
             }
-        }
+//        }
     }
 
     @Override
