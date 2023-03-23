@@ -11,7 +11,6 @@ import ru.practicum.categories.service.admin.AdminCategoriesService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.net.http.HttpClient;
 
 @RestController
 @RequestMapping("/admin/categories")
