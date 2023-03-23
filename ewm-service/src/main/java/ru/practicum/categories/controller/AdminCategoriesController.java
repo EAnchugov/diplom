@@ -20,7 +20,7 @@ public class AdminCategoriesController {
 
     @PostMapping
     public CategoryDto addCategory(@Valid @RequestBody CategoryDto categoryDto) {
-        Category category = service.createCategory(CategoryMapper.toCategory(categoryDto));
+        Category category = service.createCategory(Category.builder().name(categoryDto.getName()).build());
         return CategoryMapper.toCategoryDto(category);
     }
 
