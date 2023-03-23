@@ -24,8 +24,8 @@ public class AdminUserController {
 
     @GetMapping
     public List<UserDto> getUser(@RequestParam(required = false) List<Integer> users,
-                          @Min(0) @RequestParam(defaultValue = "0") Integer from,
-                          @Min(1) @RequestParam(defaultValue = "10") Integer size) {
+                          @RequestParam(defaultValue = "0") @Min(0) Integer from,
+                          @RequestParam(defaultValue = "10") @Min(1) Integer size) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 service.getUsers(users,from,size).stream().map(UserMapper::toUserDto).collect(Collectors.toList()))
                 .getBody();
