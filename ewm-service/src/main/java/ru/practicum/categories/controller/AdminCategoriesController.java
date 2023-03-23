@@ -35,7 +35,7 @@ public class AdminCategoriesController {
 
     @PatchMapping("/{catId}")
     public CategoryDto patchCategory(@PathVariable Integer catId,
-                                     @Validated CategoryDto categoryDto) {
+                                     @Validated @RequestBody CategoryDto categoryDto) {
         log.info("Получен запрос на изменение {catId} {categoryDto}" + catId);
         Category category = service.patchCategory(catId,categoryDto);
         return CategoryMapper.toCategoryDto(category);
