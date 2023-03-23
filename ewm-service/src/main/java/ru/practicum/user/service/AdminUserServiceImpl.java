@@ -21,7 +21,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public void deleteUser(Integer userId) {
-        repository.deleteById(userId);
+        repository.delete(getById(userId));
     }
 
     @Override
