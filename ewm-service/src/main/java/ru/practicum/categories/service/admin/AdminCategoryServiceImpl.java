@@ -20,7 +20,7 @@ public class AdminCategoryServiceImpl implements AdminCategoriesService {
     @Override
     public void deleteCategoryById(Integer catId) {
         //Обратите внимание: с категорией не должно быть связано ни одного события.
-        repository.deleteById(catId);
+        repository.delete(repository.getById(catId));
     }
 
     @Override
