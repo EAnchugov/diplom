@@ -17,7 +17,7 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     public Compilation create(Compilation compilation) {
-        return null;
+        return repository.save(compilation);
     }
 
     @Override
