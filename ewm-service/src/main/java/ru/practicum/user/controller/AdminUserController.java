@@ -23,11 +23,11 @@ public class AdminUserController {
     private final AdminUserService service;
 
     @GetMapping
-    public List<UserDto> getUser(@RequestParam(required = false) List<Integer> users,
+    public List<UserDto> getUser(@RequestParam(required = false) List<Integer> ids,
                           @RequestParam(defaultValue = "0") @Min(0) Integer from,
                           @RequestParam(defaultValue = "10") @Min(1) Integer size) {
         return ResponseEntity.status(HttpStatus.OK).body(
-                service.getUsers(users,from,size).stream().map(UserMapper::toUserDto).collect(Collectors.toList()))
+                service.getUsers(ids,from,size).stream().map(UserMapper::toUserDto).collect(Collectors.toList()))
                 .getBody();
     }
 
