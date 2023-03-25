@@ -29,8 +29,7 @@ public class PrivateEvensController {
     @PostMapping("/{userId}/events")
     public EventDtoCreate addUserEvents(@PathVariable Integer userId,
                                        @RequestBody EventDtoCreate eventDtoCreate) {
-//        Events events = service.create(EventsMapper.toEvents(eventsDto),userId);
-        return service.testCreateevent(userId,eventDtoCreate);
+        return eventDtoCreate;
     }
 
     @GetMapping("/{userId}/events/{eventId}")
