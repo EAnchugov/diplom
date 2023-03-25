@@ -1,5 +1,11 @@
 package ru.practicum.events.model;
 
+import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class EventDtoCreate {
     private String annotation;
     private Integer category;
