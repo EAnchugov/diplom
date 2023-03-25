@@ -30,6 +30,34 @@ public class EventsMapper {
     }
 
     public static EventsFullDto toEventsFullDto(Events events) {
-        return EventsFullDto.builder().build();
+
+//        private CategoryDto category;
+
+
+
+
+//        private String description;
+//        @NotBlank
+//        private String eventDate;
+//        private Integer id;
+//        @NotBlank
+//        private UserShortDto initiator;
+//        @NotBlank
+//        private Location location;
+//        @NotBlank
+//        private Boolean paid;
+//        private Integer participantLimit;
+//        private String publishedOn;
+//        private Boolean requestModeration;
+//        private State state;
+//        private String title;
+//        @NotNull
+//        private Integer views;
+        return EventsFullDto.builder()
+                .annotation(events.getAnnotation())
+                .confirmedRequests(events.getConfirmedRequests())
+                .createdOn(events.getCreatedOn().toString())
+                .description(events.getDescription())
+                .build();
     }
 }
