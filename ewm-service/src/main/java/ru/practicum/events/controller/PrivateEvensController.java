@@ -2,11 +2,8 @@ package ru.practicum.events.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.events.model.Events;
-import ru.practicum.events.model.UpdateEventUserRequest;
-import ru.practicum.events.model.EventsMapper;
+import ru.practicum.events.model.*;
 import ru.practicum.events.service.EventsService;
-import ru.practicum.events.model.EventsFullDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,11 +19,18 @@ public class PrivateEvensController {
         return service.getUserEvents(userId).stream().map(EventsMapper::toEventsFullDto).collect(Collectors.toList());
     }
 
+//    @PostMapping("/{userId}/events")
+//    public EventsFullDto addUserEvents(@PathVariable Integer userId,
+//                                @RequestBody EventsFullDto eventsDto) {
+//               Events events = service.create(EventsMapper.toEvents(eventsDto),userId);
+//        return EventsMapper.toEventsFullDto(events);
+//    }
+
     @PostMapping("/{userId}/events")
-    public EventsFullDto addUserEvents(@PathVariable Integer userId,
-                                @RequestBody EventsFullDto eventsDto) {
-               Events events = service.create(EventsMapper.toEvents(eventsDto),userId);
-        return EventsMapper.toEventsFullDto(events);
+    public EventDtoCreate addUserEvents(@PathVariable Integer userId,
+                                       @RequestBody EventDtoCreate eventDtoCreate) {
+//        Events events = service.create(EventsMapper.toEvents(eventsDto),userId);
+        return service.testCreateevent(userId,eventDtoCreate);
     }
 
     @GetMapping("/{userId}/events/{eventId}")

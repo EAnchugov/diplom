@@ -1,5 +1,6 @@
 package ru.practicum.events.service;
 
+import ru.practicum.events.model.EventDtoCreate;
 import ru.practicum.events.model.Events;
 import ru.practicum.events.model.State;
 import ru.practicum.events.model.UpdateEventUserRequest;
@@ -23,4 +24,6 @@ public interface EventsService {
     List<Events> getAdminEvents(
             List<Integer> users, List<State> states, List<Integer> categories,
             List<String> starts, Integer from, Integer size);
+
+    EventDtoCreate testCreateevent(Integer userId, EventDtoCreate eventDtoCreate);
 }

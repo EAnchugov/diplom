@@ -2,6 +2,7 @@ package ru.practicum.events.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.practicum.events.model.EventDtoCreate;
 import ru.practicum.events.model.Events;
 import ru.practicum.events.model.State;
 import ru.practicum.events.model.UpdateEventUserRequest;
@@ -88,6 +89,11 @@ public class EventsServiceImpl implements EventsService {
                                        Integer from,
                                        Integer size) {
         return new ArrayList<>();
+    }
+
+    @Override
+    public EventDtoCreate testCreateevent(Integer userId, EventDtoCreate eventDtoCreate) {
+        return eventDtoCreate;
     }
 
     private Events eventUpdater(Events event, UpdateEventUserRequest update) {
