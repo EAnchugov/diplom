@@ -11,7 +11,7 @@ import javax.validation.constraints.Positive;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserRequestController {
-    private final RequestController controller;
+    private final RequestService service;
 
     @GetMapping("/{userId}/requests")
     public String getUserRequests(@PathVariable Integer userId) {
@@ -21,7 +21,7 @@ public class UserRequestController {
     @PostMapping("/{userId}/requests")
     public RequestDtoOutput addUserRequest(@Positive @PathVariable Integer userId,
                                            @RequestParam @Positive Integer eventId) {
-        return RequestMapper.toOutput(controller.create(userId,eventId));
+        return RequestMapper.toOutput(service.create(userId,eventId));
     }
 
     @DeleteMapping("/{userId}/requests/{requestId}/cancel")
