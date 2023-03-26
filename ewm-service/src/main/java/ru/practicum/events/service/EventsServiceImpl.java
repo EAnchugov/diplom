@@ -25,7 +25,8 @@ public class EventsServiceImpl implements EventsService {
         Category category = categoryService.getByID(eventDtoCreate.getCategory());
         Event event = EventsMapper.inputToEvent(eventDtoCreate,category);
         event.setInitiator(userService.getById(userId));
-        return EventsMapper.eventToOutput(repository.save(event));
+        event = repository.save(event);
+        return new EventDtoOutput();
     }
 
 
