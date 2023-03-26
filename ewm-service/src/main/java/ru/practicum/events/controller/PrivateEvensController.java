@@ -20,10 +20,11 @@ public class PrivateEvensController {
         return service.getUserEvents(userId).stream().map(EventsMapper::toEventsFullDto).collect(Collectors.toList());
     }
 
+//    http://localhost:8080/users/31/requests?eventId=0
 //    @PostMapping("/{userId}/events")
 //    public EventsFullDto addUserEvents(@PathVariable Integer userId,
 //                                @RequestBody EventsFullDto eventsDto) {
-//               Events events = service.create(EventsMapper.toEvents(eventsDto),userId);
+//               Event events = service.create(EventsMapper.toEvents(eventsDto),userId);
 //        return EventsMapper.toEventsFullDto(events);
 //    }
 

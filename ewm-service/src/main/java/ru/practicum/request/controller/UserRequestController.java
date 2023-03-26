@@ -1,20 +1,27 @@
 package ru.practicum.request.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.request.model.ParticipationRequestDto;
+import ru.practicum.request.model.RequestDtoOutput;
+import ru.practicum.request.model.RequestMapper;
+
+import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserRequestController {
+    private final RequestController controller;
+
     @GetMapping("/{userId}/requests")
     public String getUserRequests(@PathVariable Integer userId) {
         return null;
     }
 
     @PostMapping("/{userId}/requests")
-    public String addUserRequest(@PathVariable Integer userId,
-                                 @RequestBody ParticipationRequestDto requestDto) {
-        return null;
+    public RequestDtoOutput addUserRequest(@Positive @PathVariable Integer userId,
+                                           @RequestParam @Positive Integer eventId) {
+        return RequestMapper.toOutput(controller.create(userId,eventId));
     }
 
     @DeleteMapping("/{userId}/requests/{requestId}/cancel")
