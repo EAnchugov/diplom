@@ -2,10 +2,7 @@ package ru.practicum.events.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.events.model.EventDtoCreate;
-import ru.practicum.events.model.Events;
-import ru.practicum.events.model.State;
-import ru.practicum.events.model.UpdateEventUserRequest;
+import ru.practicum.events.model.*;
 import ru.practicum.events.repository.EventsRepository;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
@@ -25,14 +22,14 @@ public class EventsServiceImpl implements EventsService {
     private final EventsRepository repository;
 
     @Override
-    public Events create(Events events, Integer userId) {
+    public Event create(Event events, Integer userId) {
         User user = userService.getById(userId);
         events.setInitiator(user);
         return repository.save(events);
     }
 
     @Override
-    public List<Events> getUserEvents(Integer userId) {
+    public List<Event> getUserEvents(Integer userId) {
         return new ArrayList<>();
 //        User user = userService.getById(userId)
 //        List<Events> events = new ArrayList<>();
@@ -44,14 +41,14 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public List<Events> getUserEvent(Integer userId, Integer eventId) {
+    public List<Event> getUserEvent(Integer userId, Integer eventId) {
         User user = userService.getById(userId);
         return repository.findAllByIdAndInitiator(eventId,user);
     }
 
     @Override
-    public Events updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
-        Events event = repository.findById(eventId)
+    public Event updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
+        Event event = repository.findById(eventId)
                 .orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
         if (!event.getInitiator().getId().equals(userId)) {
             throw new IllegalArgumentException("Вы не автор эвента");
@@ -62,41 +59,48 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public List<Events> getAll(String text,
-                               List<Integer> categories,
-                               Boolean paid,
-                               String rangeStart,
-                               String rangeEnd,
-                               Boolean onlyAvailable,
-                               Sorting sorting,
-                               Integer from,
-                               Integer size) {
-        List<Events> events = new ArrayList<>();
+    public List<Event> getAll(String text,
+                              List<Integer> categories,
+                              Boolean paid,
+                              String rangeStart,
+                              String rangeEnd,
+                              Boolean onlyAvailable,
+                              Sorting sorting,
+                              Integer from,
+                              Integer size) {
+        List<Event> events = new ArrayList<>();
      //   events.addAll(repository.findAll());
         return events;
     }
 
     @Override
-    public Events getById(Integer id) {
+    public Event getById(Integer id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Нет евента с нужным ID"));
     }
 
     @Override
-    public List<Events> getAdminEvents(List<Integer> users,
-                                       List<State> states,
-                                       List<Integer> categories,
-                                       List<String> starts,
-                                       Integer from,
-                                       Integer size) {
+    public List<Event> getAdminEvents(List<Integer> users,
+                                      List<State> states,
+                                      List<Integer> categories,
+                                      List<String> starts,
+                                      Integer from,
+                                      Integer size) {
         return new ArrayList<>();
     }
 
     @Override
-    public EventDtoCreate testCreateevent(Integer userId, EventDtoCreate eventDtoCreate) {
+    public EventDtoInput testCreateevent(Integer userId, EventDtoInput eventDtoCreate) {
         return eventDtoCreate;
     }
 
-    private Events eventUpdater(Events event, UpdateEventUserRequest update) {
+    @Override
+    public EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId) {
+        Event event = EventsMapper.inputToEvent(eventDtoCreate);
+        event.setInitiator(userService.getById(userId));
+        return EventsMapper.eventToOutput(repository.save(event));
+    }
+
+    private Event eventUpdater(Event event, UpdateEventUserRequest update) {
 
         if (!update.getAnnotation().equals(null)) {
          event.setAnnotation(update.getAnnotation());

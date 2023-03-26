@@ -13,10 +13,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Events {
+public class Event {
     private String annotation;
     private Integer category;
-    private Integer confirmedRequests;
     private LocalDateTime createdOn;
     private String description;
     private LocalDateTime eventDate;
@@ -33,5 +32,4 @@ public class Events {
     private Boolean requestModeration;
     private State state;
     private String title;
-    private Integer views;
 }

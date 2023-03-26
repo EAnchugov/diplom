@@ -1,29 +1,28 @@
 package ru.practicum.events.service;
 
-import ru.practicum.events.model.EventDtoCreate;
-import ru.practicum.events.model.Events;
-import ru.practicum.events.model.State;
-import ru.practicum.events.model.UpdateEventUserRequest;
+import ru.practicum.events.model.*;
 import ru.practicum.variables.Sorting;
 
 import java.util.List;
 
 public interface EventsService {
-    Events create(Events events, Integer userId);
+    Event create(Event events, Integer userId);
 
-    List<Events> getUserEvents(Integer userId);
+    List<Event> getUserEvents(Integer userId);
 
-    List<Events> getUserEvent(Integer userId, Integer eventId);
+    List<Event> getUserEvent(Integer userId, Integer eventId);
 
-    Events updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest);
+    Event updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest);
 
-    List<Events> getAll(String text, List<Integer> categories, Boolean paid, String rangeStart, String rangeEnd, Boolean onlyAvailable, Sorting sorting, Integer from, Integer size);
+    List<Event> getAll(String text, List<Integer> categories, Boolean paid, String rangeStart, String rangeEnd, Boolean onlyAvailable, Sorting sorting, Integer from, Integer size);
 
-    Events getById(Integer id);
+    Event getById(Integer id);
 
-    List<Events> getAdminEvents(
+    List<Event> getAdminEvents(
             List<Integer> users, List<State> states, List<Integer> categories,
             List<String> starts, Integer from, Integer size);
 
-    EventDtoCreate testCreateevent(Integer userId, EventDtoCreate eventDtoCreate);
+    EventDtoInput testCreateevent(Integer userId, EventDtoInput eventDtoCreate);
+
+    EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId);
 }

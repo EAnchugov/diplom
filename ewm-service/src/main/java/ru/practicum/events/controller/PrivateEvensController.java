@@ -1,6 +1,7 @@
 package ru.practicum.events.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.events.model.*;
 import ru.practicum.events.service.EventsService;
@@ -26,10 +27,11 @@ public class PrivateEvensController {
 //        return EventsMapper.toEventsFullDto(events);
 //    }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{userId}/events")
-    public EventDtoCreate addUserEvents(@PathVariable Integer userId,
-                                       @RequestBody EventDtoCreate eventDtoCreate) {
-        return eventDtoCreate;
+    public EventDtoOutput addUserEvents(@PathVariable Integer userId,
+                                       @RequestBody EventDtoInput eventDtoCreate) {
+        return service.createEvent(eventDtoCreate,userId);
     }
 
     @GetMapping("/{userId}/events/{eventId}")
@@ -40,9 +42,9 @@ public class PrivateEvensController {
     }
 
     @PatchMapping("/{userId}/events/{eventId}")
-    public Events patchUserEvent(@PathVariable Integer userId,
-                                 @PathVariable Integer eventId,
-                                 @RequestBody UpdateEventUserRequest updateEventUserRequest) {
+    public Event patchUserEvent(@PathVariable Integer userId,
+                                @PathVariable Integer eventId,
+                                @RequestBody UpdateEventUserRequest updateEventUserRequest) {
         return service.updateEvent(userId, eventId, updateEventUserRequest);
     }
 
