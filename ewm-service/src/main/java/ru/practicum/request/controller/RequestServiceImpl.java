@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.events.model.Event;
 import ru.practicum.events.service.EventsService;
-import ru.practicum.exceptions.EventNotFoundException;
 import ru.practicum.request.model.Request;
 import ru.practicum.request.model.Status;
 import ru.practicum.user.service.AdminUserService;
@@ -22,14 +21,7 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     @Override
     public Request create(Integer userId, Integer eventId) {
-        Event event;
-        try {
-            event = eventsService.getById(eventId);
-        } catch (RuntimeException e) {
-            throw new EventNotFoundException("Event with id=" + eventId + " was not found",
-                    "The required object was not found.");
-        }
-
+        Event event = eventsService.getById(eventId);
         Request newRequest = Request.builder()
                 .requester(userService.getById(userId))
                 .event(event)
