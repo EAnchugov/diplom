@@ -28,7 +28,7 @@ create table events(
     requestModeration boolean,
     title varchar (100),
     lat float,
-    lon real,
+    lon float,
     state varchar (10),
     constraint fk_events_to_users foreign key (initiator_id) references users (id),
     constraint fk_event_to_category foreign key (category_id) references category(id)
