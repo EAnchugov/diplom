@@ -2,6 +2,8 @@ package ru.practicum.events.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.practicum.categories.model.Category;
+import ru.practicum.categories.service.user.UserCategoryService;
 import ru.practicum.events.model.*;
 import ru.practicum.events.repository.EventsRepository;
 import ru.practicum.user.model.User;
@@ -16,13 +18,14 @@ import java.util.List;
 public class EventsServiceImpl implements EventsService {
     private final AdminUserService userService;
     private final EventsRepository repository;
+    private final UserCategoryService categoryService;
 
     @Override
     public EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId) {
-        Event event = EventsMapper.inputToEvent(eventDtoCreate);
+        Category category = categoryService.getByID(eventDtoCreate.getCategory());
+        Event event = EventsMapper.inputToEvent(eventDtoCreate,category);
         event.setInitiator(userService.getById(userId));
-//        return EventsMapper.eventToOutput(repository.save(event));
-        return new EventDtoOutput();
+        return EventsMapper.eventToOutput(repository.save(event));
     }
 
 
