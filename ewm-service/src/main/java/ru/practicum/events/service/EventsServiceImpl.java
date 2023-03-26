@@ -6,12 +6,8 @@ import ru.practicum.events.model.*;
 import ru.practicum.events.repository.EventsRepository;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
-import ru.practicum.variables.GlobalVariables;
 import ru.practicum.variables.Sorting;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +18,14 @@ public class EventsServiceImpl implements EventsService {
     private final EventsRepository repository;
 
     @Override
-    public Event create(Event events, Integer userId) {
-        User user = userService.getById(userId);
-        events.setInitiator(user);
-        return repository.save(events);
+    public EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId) {
+        Event event = EventsMapper.inputToEvent(eventDtoCreate);
+        event.setInitiator(userService.getById(userId));
+//        return EventsMapper.eventToOutput(repository.save(event));
+        return new EventDtoOutput();
     }
+
+
 
     @Override
     public List<Event> getUserEvents(Integer userId) {
@@ -88,54 +87,43 @@ public class EventsServiceImpl implements EventsService {
         return new ArrayList<>();
     }
 
-    @Override
-    public EventDtoInput testCreateevent(Integer userId, EventDtoInput eventDtoCreate) {
-        return eventDtoCreate;
-    }
 
-    @Override
-    public EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId) {
-        Event event = EventsMapper.inputToEvent(eventDtoCreate);
-        event.setInitiator(userService.getById(userId));
-//        return EventsMapper.eventToOutput(repository.save(event));
-        return new EventDtoOutput();
-    }
 
     private Event eventUpdater(Event event, UpdateEventUserRequest update) {
-
-        if (!update.getAnnotation().equals(null)) {
-         event.setAnnotation(update.getAnnotation());
-        }
-        if (!update.getCategoryId().equals(null)) {
-            event.setCategory(update.getCategoryId());
-        }
-        if (!update.getDescription().equals(null)) {
-            event.setDescription(update.getDescription());
-        }
-        if (!update.getEventDate().equals(null)) {
-            LocalDateTime newEventDate = LocalDateTime.parse(URLDecoder.decode(update.getEventDate(),
-                    StandardCharsets.UTF_8), GlobalVariables.FORMAT);
-            event.setEventDate(newEventDate);
-        }
-        if (!update.getLocation().equals(null)) {
-            event.setLat(update.getLocation().getLat());
-            event.setLon(update.getLocation().getLon());
-        }
-        if (!update.getPaid().equals(null)) {
-            event.setPaid(update.getPaid());
-        }
-        if (!update.getParticipantLimit().equals(null)) {
-            event.setParticipantLimit(update.getParticipantLimit());
-        }
-        if (!update.getRequestModeration().equals(null)) {
-            event.setRequestModeration(update.getRequestModeration());
-        }
-        if (!update.getStateAction().equals(null)) {
-            event.setState(update.getStateAction());
-        }
-        if (!update.getTitle().equals(null)) {
-            event.setTitle(update.getTitle());
-        }
+//
+//        if (!update.getAnnotation().equals(null)) {
+//         event.setAnnotation(update.getAnnotation());
+//        }
+//        if (!update.getCategoryId().equals(null)) {
+//            event.setCategory(update.getCategoryId());
+//        }
+//        if (!update.getDescription().equals(null)) {
+//            event.setDescription(update.getDescription());
+//        }
+//        if (!update.getEventDate().equals(null)) {
+//            LocalDateTime newEventDate = LocalDateTime.parse(URLDecoder.decode(update.getEventDate(),
+//                    StandardCharsets.UTF_8), GlobalVariables.FORMAT);
+//            event.setEventDate(newEventDate);
+//        }
+//        if (!update.getLocation().equals(null)) {
+//            event.setLat(update.getLocation().getLat());
+//            event.setLon(update.getLocation().getLon());
+//        }
+//        if (!update.getPaid().equals(null)) {
+//            event.setPaid(update.getPaid());
+//        }
+//        if (!update.getParticipantLimit().equals(null)) {
+//            event.setParticipantLimit(update.getParticipantLimit());
+//        }
+//        if (!update.getRequestModeration().equals(null)) {
+//            event.setRequestModeration(update.getRequestModeration());
+//        }
+//        if (!update.getStateAction().equals(null)) {
+//            event.setState(update.getStateAction());
+//        }
+//        if (!update.getTitle().equals(null)) {
+//            event.setTitle(update.getTitle());
+//        }
         return event;
     }
 }

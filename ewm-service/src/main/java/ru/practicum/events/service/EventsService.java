@@ -6,7 +6,6 @@ import ru.practicum.variables.Sorting;
 import java.util.List;
 
 public interface EventsService {
-    Event create(Event events, Integer userId);
 
     List<Event> getUserEvents(Integer userId);
 
@@ -21,8 +20,6 @@ public interface EventsService {
     List<Event> getAdminEvents(
             List<Integer> users, List<State> states, List<Integer> categories,
             List<String> starts, Integer from, Integer size);
-
-    EventDtoInput testCreateevent(Integer userId, EventDtoInput eventDtoCreate);
 
     EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId);
 }

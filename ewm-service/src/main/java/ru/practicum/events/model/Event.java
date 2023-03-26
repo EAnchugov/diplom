@@ -1,6 +1,7 @@
 package ru.practicum.events.model;
 
 import lombok.*;
+import ru.practicum.categories.model.Category;
 import ru.practicum.user.model.User;
 
 import javax.persistence.*;
@@ -15,7 +16,9 @@ import java.time.LocalDateTime;
 @Builder
 public class Event {
     private String annotation;
-    private Integer category;
+    @ManyToOne
+    @JoinColumn (name = "category_id",nullable = false)
+    private Category category;
     private LocalDateTime createdOn;
     private String description;
     private LocalDateTime eventDate;
