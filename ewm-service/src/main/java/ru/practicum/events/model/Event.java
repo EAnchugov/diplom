@@ -23,6 +23,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
    @ManyToOne
+   @JoinColumn(name = "initiator")
     private User initiator;
     private float lat;
     private float lon;
