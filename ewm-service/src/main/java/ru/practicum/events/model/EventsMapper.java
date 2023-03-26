@@ -29,6 +29,7 @@ public class EventsMapper {
                 .participantLimit(input.getParticipantLimit())
                 .requestModeration(input.getRequestModeration())
                 .title(input.getTitle())
+                .createdOn(LocalDateTime.now())
                 .build();
     }
 
