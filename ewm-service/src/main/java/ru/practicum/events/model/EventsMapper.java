@@ -1,6 +1,5 @@
 package ru.practicum.events.model;
 
-import ru.practicum.categories.model.Category;
 import ru.practicum.variables.GlobalVariables;
 
 import java.net.URLDecoder;
@@ -12,7 +11,7 @@ public class EventsMapper {
         return Event.builder()
                 .id(dto.getId())
                 .annotation(dto.getAnnotation())
-                .category(dto.getCategory().getId())
+//                .category(dto.getCategory().getId())
                 .createdOn(LocalDateTime.parse(URLDecoder.decode(dto.getCreatedOn(), StandardCharsets.UTF_8), GlobalVariables.FORMAT))
                 .description(dto.getDescription())
                 .eventDate(LocalDateTime.parse(URLDecoder.decode(dto.getEventDate(), StandardCharsets.UTF_8), GlobalVariables.FORMAT))
@@ -39,7 +38,7 @@ public class EventsMapper {
     public static Event inputToEvent(EventDtoInput input) {
         return Event.builder()
                 .annotation(input.getAnnotation())
-                .category(input.getCategory())
+//                .category(input.getCategory())
                 .description(input.getDescription())
                 .eventDate(LocalDateTime.parse(URLDecoder.decode(input.getEventDate(), StandardCharsets.UTF_8),
                         GlobalVariables.FORMAT))
@@ -53,20 +52,19 @@ public class EventsMapper {
     }
 
     public static EventDtoOutput eventToOutput(Event event) {
-//        return new EventDtoOutput(event.getId(),
-//                event.getTitle(),
-//                event.getAnnotation(),
-//                new Category(1,"testcategory"),
-//                event.getPaid(),
-//                event.getEventDate().format(GlobalVariables.FORMAT),
-//                event.getInitiator(),
-//                event.getDescription(),
-//                event.getParticipantLimit(),
-//                event.getState(),
-//                event.getCreatedOn().format(GlobalVariables.FORMAT),
-//                new Location(event.getLat(), event.getLon()),
-//                event.getRequestModeration());
-        return new EventDtoOutput();
+        return new EventDtoOutput(event.getId(),
+                event.getTitle(),
+                event.getAnnotation(),
+                event.getCategory(),
+                event.getPaid(),
+                event.getEventDate().format(GlobalVariables.FORMAT),
+                event.getInitiator(),
+                event.getDescription(),
+                event.getParticipantLimit(),
+                event.getState(),
+                event.getCreatedOn().format(GlobalVariables.FORMAT),
+                new Location(event.getLat(), event.getLon()),
+                event.getRequestModeration());
     }
 
 
