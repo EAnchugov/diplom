@@ -3,9 +3,9 @@ package ru.practicum.events.model;
 import lombok.AllArgsConstructor;
 import ru.practicum.categories.model.Category;
 import ru.practicum.user.model.User;
+
 @AllArgsConstructor
 public class EventDtoOutput {
-
     private Integer id;
     private String title;
     private String annotation;

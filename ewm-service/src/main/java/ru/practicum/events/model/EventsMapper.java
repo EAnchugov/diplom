@@ -1,7 +1,6 @@
 package ru.practicum.events.model;
 
 import ru.practicum.categories.model.Category;
-import ru.practicum.user.model.User;
 import ru.practicum.variables.GlobalVariables;
 
 import java.net.URLDecoder;
@@ -37,7 +36,7 @@ public class EventsMapper {
                 .build();
     }
 
-    public static Event inputToEvent(EventDtoInput input){
+    public static Event inputToEvent(EventDtoInput input) {
         return Event.builder()
                 .annotation(input.getAnnotation())
                 .category(input.getCategory())
@@ -51,8 +50,9 @@ public class EventsMapper {
                 .requestModeration(input.getRequestModeration())
                 .title(input.getTitle())
                 .build();
-    };
-    public static EventDtoOutput eventToOutput(Event event){
+    }
+
+    public static EventDtoOutput eventToOutput(Event event) {
         return new EventDtoOutput(event.getId(),
                 event.getTitle(),
                 event.getAnnotation(),
