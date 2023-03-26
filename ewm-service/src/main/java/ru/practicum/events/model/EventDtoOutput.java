@@ -1,10 +1,16 @@
 package ru.practicum.events.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.practicum.categories.model.Category;
 import ru.practicum.user.model.User;
 
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class EventDtoOutput {
     private Integer id;
     private String title;

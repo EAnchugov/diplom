@@ -97,7 +97,8 @@ public class EventsServiceImpl implements EventsService {
     public EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId) {
         Event event = EventsMapper.inputToEvent(eventDtoCreate);
         event.setInitiator(userService.getById(userId));
-        return EventsMapper.eventToOutput(repository.save(event));
+//        return EventsMapper.eventToOutput(repository.save(event));
+        return new EventDtoOutput();
     }
 
     private Event eventUpdater(Event event, UpdateEventUserRequest update) {

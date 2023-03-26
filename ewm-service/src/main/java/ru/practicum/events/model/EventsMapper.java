@@ -53,20 +53,20 @@ public class EventsMapper {
     }
 
     public static EventDtoOutput eventToOutput(Event event) {
-        return new EventDtoOutput(event.getId(),
-                event.getTitle(),
-                event.getAnnotation(),
-                new Category(1,"testcategory"),
-                event.getPaid(),
-                event.getEventDate().format(GlobalVariables.FORMAT),
-                event.getInitiator(),
-                event.getDescription(),
-                event.getParticipantLimit(),
-                event.getState(),
-                event.getCreatedOn().format(GlobalVariables.FORMAT),
-                new Location(event.getLat(), event.getLon()),
-                event.getRequestModeration());
-
+//        return new EventDtoOutput(event.getId(),
+//                event.getTitle(),
+//                event.getAnnotation(),
+//                new Category(1,"testcategory"),
+//                event.getPaid(),
+//                event.getEventDate().format(GlobalVariables.FORMAT),
+//                event.getInitiator(),
+//                event.getDescription(),
+//                event.getParticipantLimit(),
+//                event.getState(),
+//                event.getCreatedOn().format(GlobalVariables.FORMAT),
+//                new Location(event.getLat(), event.getLon()),
+//                event.getRequestModeration());
+        return new EventDtoOutput();
     }
 
 
