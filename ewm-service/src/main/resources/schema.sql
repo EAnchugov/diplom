@@ -21,7 +21,7 @@ create table events(
     createdOn TIMESTAMP,
     eventDate TIMESTAMP,
     description varchar(1000),
-    initiator integer,
+    initiator_id integer,
     paid boolean default false,
     participantLimit integer default (0),
     publishedOn TIMESTAMP,
