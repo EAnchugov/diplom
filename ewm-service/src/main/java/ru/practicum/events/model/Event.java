@@ -15,24 +15,30 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class Event {
+    @Column(name = "annotation")
     private String annotation;
     @ManyToOne
     @JoinColumn (name = "category_id",nullable = false)
     private Category category;
+    @Column(name = "created_on")
     private LocalDateTime createdOn;
     private String description;
+    @Column(name = "eventdate")
     private LocalDateTime eventDate;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-   @ManyToOne
-   @JoinColumn(name = "initiator_id")
+    @ManyToOne
+    @JoinColumn(name = "initiator_id")
     private User initiator;
     private float lat;
     private float lon;
     private Boolean paid;
+    @Column(name = "participantlimit")
     private Integer participantLimit;
+    @Column(name = "publishedon")
     private LocalDateTime publishedOn;
+    @Column(name = "requestmoderation")
     private Boolean requestModeration;
     private State state;
     private String title;
