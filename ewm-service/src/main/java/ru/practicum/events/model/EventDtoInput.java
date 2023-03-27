@@ -3,6 +3,7 @@ package ru.practicum.events.model;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -11,13 +12,13 @@ import javax.validation.constraints.NotBlank;
 public class EventDtoInput {
     @NotBlank
     private String annotation;
-    @NotBlank
+    @NotNull
     private Integer category;
     @NotBlank
     private String description;
     @NotBlank
     private String eventDate;
-    @NotBlank
+    @NonNull
     private Location location;
     private Boolean paid;
     private Integer participantLimit;
