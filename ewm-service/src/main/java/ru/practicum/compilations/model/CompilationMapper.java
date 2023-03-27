@@ -19,4 +19,11 @@ public class CompilationMapper {
                 .title(compilation.getTitle())
                 .build();
     }
+
+    public static Compilation toCompilation(CompilationDtoInput compilationDto) {
+        return Compilation.builder()
+                .title(compilationDto.getTitle())
+                .pinned(compilationDto.getPinned())
+                .build();
+    }
 }
