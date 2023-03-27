@@ -37,9 +37,9 @@ public class PrivateEvensController {
     }
 
     @PatchMapping("/{userId}/events/{eventId}")
-    public Event patchUserEvent(@PathVariable Integer userId,
-                                @PathVariable Integer eventId,
-                                @RequestBody UpdateEventUserRequest updateEventUserRequest) {
+    public Event patchUserEvent(@PathVariable @Positive Integer userId,
+                                @PathVariable @Positive Integer eventId,
+                                @RequestBody @Validated UpdateEventUserRequest updateEventUserRequest) {
         return service.updateEvent(userId, eventId, updateEventUserRequest);
     }
 
