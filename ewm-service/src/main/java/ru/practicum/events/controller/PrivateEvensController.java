@@ -2,10 +2,12 @@ package ru.practicum.events.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.events.model.*;
 import ru.practicum.events.service.EventsService;
 
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,18 +22,10 @@ public class PrivateEvensController {
         return service.getUserEvents(userId).stream().map(EventsMapper::toEventsFullDto).collect(Collectors.toList());
     }
 
-//    http://localhost:8080/users/31/requests?eventId=0
-//    @PostMapping("/{userId}/events")
-//    public EventsFullDto addUserEvents(@PathVariable Integer userId,
-//                                @RequestBody EventsFullDto eventsDto) {
-//               Event events = service.create(EventsMapper.toEvents(eventsDto),userId);
-//        return EventsMapper.toEventsFullDto(events);
-//    }
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{userId}/events")
-    public EventDtoOutput addUserEvents(@PathVariable Integer userId,
-                                       @RequestBody EventDtoInput eventDtoCreate) {
+    public EventDtoOutput addUserEvents(@PathVariable @Positive Integer userId,
+                                       @Validated @RequestBody EventDtoInput eventDtoCreate) {
         return service.createEvent(eventDtoCreate,userId);
     }
 
