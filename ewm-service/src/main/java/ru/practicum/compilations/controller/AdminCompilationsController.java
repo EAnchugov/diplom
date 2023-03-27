@@ -19,7 +19,7 @@ public class AdminCompilationsController {
     public CompilationDto addCompilation(@RequestBody @Validated CompilationDtoInput input) {
         Compilation compilation = service.create(CompilationMapper.toCompilation(input));
 //        return CompilationMapper.toCompilationDto(compilation);
-        return null;
+        return CompilationDto.builder().build();
     }
 
     @DeleteMapping("/{compId}")
