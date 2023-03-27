@@ -22,4 +22,27 @@ public class ErrorHandler {
                 e.getMessage(),
                 LocalDateTime.now().format(GlobalVariables.FORMAT));
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.CONFLICT)
+    private ErrorResponse handle(final StateException e) {
+        log.error("Ошибка StateException " + e.getMessage());
+        return new ErrorResponse(
+                "CONFLICT",
+                "This event has wrong status.",
+                e.getMessage(),
+                LocalDateTime.now().format(GlobalVariables.FORMAT));
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.CONFLICT)
+    private ErrorResponse handle(final TimeException e) {
+        log.error("Ошибка TimeException " + e.getMessage());
+        return new ErrorResponse(
+                "CONFLICT",
+                "This event has wrong time.",
+                e.getMessage(),
+                LocalDateTime.now().format(GlobalVariables.FORMAT));
+    }
+
 }
