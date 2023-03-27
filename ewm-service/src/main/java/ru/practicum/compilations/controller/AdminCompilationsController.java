@@ -1,13 +1,13 @@
 package ru.practicum.compilations.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.compilations.model.Compilation;
 import ru.practicum.compilations.model.CompilationDto;
+import ru.practicum.compilations.model.CompilationDtoInput;
 import ru.practicum.compilations.model.CompilationMapper;
 import ru.practicum.compilations.service.CompilationService;
-
-import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
@@ -16,8 +16,8 @@ public class AdminCompilationsController {
     private final CompilationService service;
 
     @PostMapping
-    public CompilationDto addCompilation(@Valid @RequestBody CompilationDto compilationDto) {
-        Compilation compilation = service.create(CompilationMapper.toCompilation(compilationDto));
+    public CompilationDto addCompilation(@RequestBody @Validated CompilationDtoInput input) {
+        Compilation compilation = service.create(CompilationMapper.toCompilation(input));
         return CompilationMapper.toCompilationDto(compilation);
     }
 
