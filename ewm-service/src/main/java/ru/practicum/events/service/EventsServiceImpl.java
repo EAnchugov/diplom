@@ -7,8 +7,6 @@ import ru.practicum.categories.model.Category;
 import ru.practicum.categories.service.user.UserCategoryService;
 import ru.practicum.events.model.*;
 import ru.practicum.events.repository.EventsRepository;
-import ru.practicum.exceptions.StateException;
-import ru.practicum.exceptions.TimeException;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.GlobalVariables;
@@ -60,12 +58,12 @@ public class EventsServiceImpl implements EventsService {
     public Event updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
         Event event = repository.findById(eventId)
                 .orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
-        if (event.getState() == null || event.getState() == State.PUBLISHED) {
-            throw new StateException("Изменить можно только отмененные события или события в состоянии ожидания модерации");
-        }
-        if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
-            throw new TimeException("дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента");
-        }
+//        if (event.getState() == null || event.getState() == State.PUBLISHED) {
+//            throw new StateException("Изменить можно только отмененные события или события в состоянии ожидания модерации");
+//        }
+//        if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
+//            throw new TimeException("дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента");
+//        }
         if (!event.getInitiator().getId().equals(userId)) {
             throw new IllegalArgumentException("Вы не автор эвента");
         } else {
