@@ -49,6 +49,7 @@ public class PrivateEvensController {
         return null;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public String patchUserEventRequest(@PathVariable Integer userId,
                                       @PathVariable Integer eventId) {
