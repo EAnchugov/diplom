@@ -2,6 +2,7 @@ package ru.practicum.events.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.practicum.variables.StateAction;
 
 import javax.persistence.Enumerated;
 
@@ -17,6 +18,6 @@ public class UpdateEventUserRequest {
     private Integer participantLimit;
     private Boolean requestModeration;
     @Enumerated
-    private State stateAction;
+    private StateAction stateAction;
     private String title;
 }

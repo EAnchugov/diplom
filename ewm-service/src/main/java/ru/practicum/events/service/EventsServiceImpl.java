@@ -11,6 +11,7 @@ import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.GlobalVariables;
 import ru.practicum.variables.Sorting;
+import ru.practicum.variables.State;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -132,9 +133,9 @@ public class EventsServiceImpl implements EventsService {
         if (update.getRequestModeration() != null) {
             event.setRequestModeration(update.getRequestModeration());
         }
-        if (update.getStateAction() != null) {
-            event.setState(update.getStateAction());
-        }
+//        if (update.getStateAction() != null) {
+//            event.setState(update.getStateAction());
+//        }
         if (update.getTitle()  != null) {
             event.setTitle(update.getTitle());
         }
