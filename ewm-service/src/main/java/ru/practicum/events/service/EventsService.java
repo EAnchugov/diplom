@@ -23,4 +23,6 @@ public interface EventsService {
             List<String> starts, Integer from, Integer size);
 
     EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId);
+
+    void changeUserRequestStatus(Integer userId, Integer eventId);
 }

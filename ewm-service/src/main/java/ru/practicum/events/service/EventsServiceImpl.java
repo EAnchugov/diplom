@@ -36,6 +36,10 @@ public class EventsServiceImpl implements EventsService {
         return EventsMapper.eventToOutput(repository.save(event));
     }
 
+    @Override
+    public void changeUserRequestStatus(Integer userId, Integer eventId) {
+
+    }
 
 
     @Override

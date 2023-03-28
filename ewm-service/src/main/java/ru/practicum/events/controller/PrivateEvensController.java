@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.events.model.*;
 import ru.practicum.events.service.EventsService;
+import ru.practicum.request.controller.RequestService;
 
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PrivateEvensController {
     private final EventsService service;
+    private final RequestService requestService;
 
     @GetMapping("/{userId}/events")
     public List<EventsFullDto> getUserEvents(@PathVariable Integer userId) {
@@ -53,6 +55,7 @@ public class PrivateEvensController {
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public String patchUserEventRequest(@PathVariable Integer userId,
                                       @PathVariable Integer eventId) {
+        service.changeUserRequestStatus(userId,eventId);
         return null;
     }
 }
