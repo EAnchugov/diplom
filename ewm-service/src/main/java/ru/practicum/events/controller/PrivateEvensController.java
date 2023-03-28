@@ -37,10 +37,10 @@ public class PrivateEvensController {
     }
 
     @PatchMapping("/{userId}/events/{eventId}")
-    public Event patchUserEvent(@PathVariable @Positive Integer userId,
+    public EventsFullDto patchUserEvent(@PathVariable @Positive Integer userId,
                                 @PathVariable @Positive Integer eventId,
                                 @RequestBody @Validated UpdateEventUserRequest updateEventUserRequest) {
-        return service.updateEvent(userId, eventId, updateEventUserRequest);
+        return EventsMapper.toEventsFullDto(service.updateEvent(userId, eventId, updateEventUserRequest));
     }
 
     @GetMapping("/{userId}/events/{eventId}/requests")
