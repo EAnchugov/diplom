@@ -55,7 +55,7 @@ public class PrivateEvensController {
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public String patchUserEventRequest(@PathVariable Integer userId,
                                       @PathVariable Integer eventId) {
-        service.changeUserRequestStatus(userId,eventId);
-        return null;
+//        service.changeUserRequestStatus(userId,eventId);
+        return "OK";
     }
 }
