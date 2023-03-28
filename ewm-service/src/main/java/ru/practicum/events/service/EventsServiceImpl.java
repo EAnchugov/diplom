@@ -2,6 +2,7 @@ package ru.practicum.events.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.categories.model.Category;
 import ru.practicum.categories.service.user.UserCategoryService;
 import ru.practicum.events.model.*;
@@ -10,8 +11,11 @@ import ru.practicum.exceptions.StateException;
 import ru.practicum.exceptions.TimeException;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
+import ru.practicum.variables.GlobalVariables;
 import ru.practicum.variables.Sorting;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,7 @@ public class EventsServiceImpl implements EventsService {
     private final EventsRepository repository;
     private final UserCategoryService categoryService;
 
+    @Transactional
     @Override
     public EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId) {
         Category category = categoryService.getByID(eventDtoCreate.getCategory());
@@ -55,7 +60,7 @@ public class EventsServiceImpl implements EventsService {
     public Event updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
         Event event = repository.findById(eventId)
                 .orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
-        if (event.getState() == null && event.getState().equals(State.PUBLISHED)) {
+        if (event.getState() == null || event.getState() == State.PUBLISHED) {
             throw new StateException("Изменить можно только отмененные события или события в состоянии ожидания модерации");
         }
         if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
@@ -64,8 +69,7 @@ public class EventsServiceImpl implements EventsService {
         if (!event.getInitiator().getId().equals(userId)) {
             throw new IllegalArgumentException("Вы не автор эвента");
         } else {
-            event = eventUpdater(event, updateEventUserRequest);
-            return repository.save(event);
+            return repository.save(eventUpdater(event, updateEventUserRequest));
         }
     }
 
@@ -102,40 +106,40 @@ public class EventsServiceImpl implements EventsService {
 
 
     private Event eventUpdater(Event event, UpdateEventUserRequest update) {
-//
-//        if (!update.getAnnotation().equals(null)) {
-//         event.setAnnotation(update.getAnnotation());
-//        }
-//        if (!update.getCategoryId().equals(null)) {
-//            event.setCategory(update.getCategoryId());
-//        }
-//        if (!update.getDescription().equals(null)) {
-//            event.setDescription(update.getDescription());
-//        }
-//        if (!update.getEventDate().equals(null)) {
-//            LocalDateTime newEventDate = LocalDateTime.parse(URLDecoder.decode(update.getEventDate(),
-//                    StandardCharsets.UTF_8), GlobalVariables.FORMAT);
-//            event.setEventDate(newEventDate);
-//        }
-//        if (!update.getLocation().equals(null)) {
-//            event.setLat(update.getLocation().getLat());
-//            event.setLon(update.getLocation().getLon());
-//        }
-//        if (!update.getPaid().equals(null)) {
-//            event.setPaid(update.getPaid());
-//        }
-//        if (!update.getParticipantLimit().equals(null)) {
-//            event.setParticipantLimit(update.getParticipantLimit());
-//        }
-//        if (!update.getRequestModeration().equals(null)) {
-//            event.setRequestModeration(update.getRequestModeration());
-//        }
-//        if (!update.getStateAction().equals(null)) {
-//            event.setState(update.getStateAction());
-//        }
-//        if (!update.getTitle().equals(null)) {
-//            event.setTitle(update.getTitle());
-//        }
+
+        if (update.getAnnotation() != null) {
+         event.setAnnotation(update.getAnnotation());
+        }
+        if (update.getCategoryId() != null) {
+            event.setCategory(categoryService.getByID(update.getCategoryId()));
+        }
+        if (update.getDescription() != null) {
+            event.setDescription(update.getDescription());
+        }
+        if (update.getEventDate() != null) {
+            LocalDateTime newEventDate = LocalDateTime.parse(URLDecoder.decode(update.getEventDate(),
+                    StandardCharsets.UTF_8), GlobalVariables.FORMAT);
+            event.setEventDate(newEventDate);
+        }
+        if (update.getLocation() != null) {
+            event.setLat(update.getLocation().getLat());
+            event.setLon(update.getLocation().getLon());
+        }
+        if (update.getPaid() != null) {
+            event.setPaid(update.getPaid());
+        }
+        if (update.getParticipantLimit() != null) {
+            event.setParticipantLimit(update.getParticipantLimit());
+        }
+        if (update.getRequestModeration() != null) {
+            event.setRequestModeration(update.getRequestModeration());
+        }
+        if (update.getStateAction() != null) {
+            event.setState(update.getStateAction());
+        }
+        if (update.getTitle()  != null) {
+            event.setTitle(update.getTitle());
+        }
         return event;
     }
 }
