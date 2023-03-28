@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.practicum.categories.model.Category;
 import ru.practicum.user.model.User;
+import ru.practicum.variables.State;
 
 @Getter
 @Setter

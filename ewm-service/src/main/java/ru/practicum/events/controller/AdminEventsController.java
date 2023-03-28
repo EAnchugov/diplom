@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.events.model.Event;
-import ru.practicum.events.model.State;
+import ru.practicum.variables.State;
 import ru.practicum.events.service.EventsService;
 
 import javax.validation.constraints.Positive;

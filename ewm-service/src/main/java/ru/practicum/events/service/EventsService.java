@@ -2,6 +2,7 @@ package ru.practicum.events.service;
 
 import ru.practicum.events.model.*;
 import ru.practicum.variables.Sorting;
+import ru.practicum.variables.State;
 
 import java.util.List;
 

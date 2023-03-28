@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.practicum.categories.model.CategoryDto;
 import ru.practicum.user.model.UserShortDto;
+import ru.practicum.variables.State;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
