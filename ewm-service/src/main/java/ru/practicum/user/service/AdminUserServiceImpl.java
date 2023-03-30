@@ -1,9 +1,11 @@
 package ru.practicum.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.user.model.User;
 import ru.practicum.user.repository.UserRepository;
 
@@ -16,7 +18,11 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public User create(User user) {
-        return repository.save(user);
+            try {
+                return repository.saveAndFlush(user);
+            } catch (DataIntegrityViolationException exception) {
+                throw new WrongParameterException("Имя должно быть уникальным");
+            }
     }
 
     @Override
