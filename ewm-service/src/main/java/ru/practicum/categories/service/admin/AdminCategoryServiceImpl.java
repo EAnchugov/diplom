@@ -1,11 +1,12 @@
 package ru.practicum.categories.service.admin;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.categories.model.Category;
 import ru.practicum.categories.model.CategoryDto;
 import ru.practicum.categories.repository.CategoryRepository;
-import ru.practicum.categories.model.Category;
 import ru.practicum.categories.service.user.UserCategoryService;
 import ru.practicum.exceptions.WrongParameterException;
 
@@ -30,12 +31,11 @@ public class AdminCategoryServiceImpl implements AdminCategoriesService {
     @Transactional
     public Category patchCategory(Integer catId, CategoryDto categoryDto) {
         Category patch = userCategoryService.getByID(catId);
-        if (patch.getName().equals(categoryDto.getName())) {
+            try {
+                patch.setName(categoryDto.getName());
+              return repository.saveAndFlush(patch);
+        } catch (DataIntegrityViolationException exception) {
             throw new WrongParameterException("Имя должно быть уникальным");
-        } else {
-            patch.setName(categoryDto.getName());
-            return patch;
         }
- //       return repository.save(patch);
     }
 }
