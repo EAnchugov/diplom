@@ -7,6 +7,7 @@ import ru.practicum.categories.model.Category;
 import ru.practicum.categories.service.user.UserCategoryService;
 import ru.practicum.events.model.*;
 import ru.practicum.events.repository.EventsRepository;
+import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.GlobalVariables;
@@ -64,12 +65,6 @@ public class EventsServiceImpl implements EventsService {
     public Event updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
         Event event = repository.findById(eventId)
                 .orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
-//        if (event.getState() == null || event.getState() == State.PUBLISHED) {
-//            throw new StateException("Изменить можно только отмененные события или события в состоянии ожидания модерации");
-//        }
-//        if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
-//            throw new TimeException("дата и время на которые намечено событие не может быть раньше, чем через два часа от текущего момента");
-//        }
         if (!event.getInitiator().getId().equals(userId)) {
             throw new IllegalArgumentException("Вы не автор эвента");
         } else {
@@ -108,9 +103,7 @@ public class EventsServiceImpl implements EventsService {
     }
 
 
-
     private Event eventUpdater(Event event, UpdateEventUserRequest update) {
-
         if (update.getAnnotation() != null) {
          event.setAnnotation(update.getAnnotation());
         }
@@ -123,8 +116,20 @@ public class EventsServiceImpl implements EventsService {
         if (update.getEventDate() != null) {
             LocalDateTime newEventDate = LocalDateTime.parse(URLDecoder.decode(update.getEventDate(),
                     StandardCharsets.UTF_8), GlobalVariables.FORMAT);
-            event.setEventDate(newEventDate);
+            if (newEventDate.isAfter(event.getPublishedOn().plusHours(1)) && event.getState().equals(State.PUBLISHED)) {
+                event.setEventDate(newEventDate);
+            } else {
+                throw new WrongParameterException("\n" +
+                        "\n" +
+                        "Обратите внимание:\n" +
+                        "\n" +
+                        "    дата начала события должна быть не ранее чем за час от даты публикации.\n" +
+                        "    событие должно быть в состоянии ожидания публикации\n" +
+                        "\n");
+
+            }
         }
+
         if (update.getLocation() != null) {
             event.setLat(update.getLocation().getLat());
             event.setLon(update.getLocation().getLon());
