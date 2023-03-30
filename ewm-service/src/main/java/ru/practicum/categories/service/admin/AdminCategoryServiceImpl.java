@@ -8,6 +8,7 @@ import ru.practicum.categories.model.Category;
 import ru.practicum.categories.model.CategoryDto;
 import ru.practicum.categories.repository.CategoryRepository;
 import ru.practicum.categories.service.user.UserCategoryService;
+import ru.practicum.events.service.EventsService;
 import ru.practicum.exceptions.WrongParameterException;
 
 @Service
@@ -15,6 +16,7 @@ import ru.practicum.exceptions.WrongParameterException;
 public class AdminCategoryServiceImpl implements AdminCategoriesService {
     private final CategoryRepository repository;
     private final UserCategoryService userCategoryService;
+    private final EventsService eventsService;
 
     @Override
     public Category createCategory(Category category) {
@@ -27,8 +29,11 @@ public class AdminCategoryServiceImpl implements AdminCategoriesService {
 
     @Override
     public void deleteCategoryById(Integer catId) {
-        //Обратите внимание: с категорией не должно быть связано ни одного события.
-        repository.delete(repository.getById(catId));
+        if (eventsService.getByCategoryId(catId).size() == 0) {
+            repository.delete(repository.getById(catId));
+        } else {
+            throw new WrongParameterException("С категорией связаны события");
+        }
     }
 
     @Override

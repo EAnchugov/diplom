@@ -25,4 +25,6 @@ public interface EventsService {
     EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId);
 
     void changeUserRequestStatus(Integer userId, Integer eventId);
+
+    List<Event> getByCategoryId(Integer id);
 }

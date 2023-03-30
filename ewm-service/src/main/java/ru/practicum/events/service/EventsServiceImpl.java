@@ -146,4 +146,9 @@ public class EventsServiceImpl implements EventsService {
         }
         return event;
     }
+
+    @Override
+    public List<Event> getByCategoryId(Integer id) {
+        return repository.findAllByCategoryId(id);
+    }
 }
