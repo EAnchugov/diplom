@@ -7,6 +7,7 @@ import ru.practicum.categories.model.CategoryDto;
 import ru.practicum.categories.repository.CategoryRepository;
 import ru.practicum.categories.model.Category;
 import ru.practicum.categories.service.user.UserCategoryService;
+import ru.practicum.exceptions.WrongParameterException;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +30,12 @@ public class AdminCategoryServiceImpl implements AdminCategoriesService {
     @Transactional
     public Category patchCategory(Integer catId, CategoryDto categoryDto) {
         Category patch = userCategoryService.getByID(catId);
-        patch.setName(categoryDto.getName());
+        try {
+            patch.setName(categoryDto.getName());
+        } catch (RuntimeException e) {
+            throw new WrongParameterException("Имя должно быть уникальным");
+        }
+
         return repository.save(patch);
     }
 }
