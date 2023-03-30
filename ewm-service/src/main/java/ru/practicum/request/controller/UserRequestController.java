@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.request.model.RequestDtoOutput;
 import ru.practicum.request.model.RequestMapper;
+import ru.practicum.request.service.RequestService;
 
 import javax.validation.constraints.Positive;
 

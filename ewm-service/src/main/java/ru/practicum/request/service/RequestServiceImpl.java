@@ -1,9 +1,10 @@
-package ru.practicum.request.controller;
+package ru.practicum.request.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.events.model.Event;
 import ru.practicum.events.service.EventsService;
+import ru.practicum.request.controller.RequestRepository;
 import ru.practicum.request.model.Request;
 import ru.practicum.request.model.Status;
 import ru.practicum.user.service.AdminUserService;
