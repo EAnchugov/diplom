@@ -18,7 +18,11 @@ public class AdminCategoryServiceImpl implements AdminCategoriesService {
 
     @Override
     public Category createCategory(Category category) {
-        return repository.save(category);
+        try {
+            return repository.saveAndFlush(category);
+        } catch (DataIntegrityViolationException exception) {
+            throw new WrongParameterException("Имя должно быть уникальным");
+        }
     }
 
     @Override
