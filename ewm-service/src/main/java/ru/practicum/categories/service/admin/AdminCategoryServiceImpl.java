@@ -30,12 +30,9 @@ public class AdminCategoryServiceImpl implements AdminCategoriesService {
     @Transactional
     public Category patchCategory(Integer catId, CategoryDto categoryDto) {
         Category patch = userCategoryService.getByID(catId);
-        try {
-            patch.setName(categoryDto.getName());
-        } catch (RuntimeException e) {
+        if (patch.getName().toLowerCase().equals(categoryDto.getName().toLowerCase())) {
             throw new WrongParameterException("Имя должно быть уникальным");
         }
-
         return repository.save(patch);
     }
 }
