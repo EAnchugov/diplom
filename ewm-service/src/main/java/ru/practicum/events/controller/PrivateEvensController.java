@@ -6,7 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.events.model.*;
 import ru.practicum.events.service.EventsService;
-import ru.practicum.request.controller.RequestService;
+import ru.practicum.request.service.RequestService;
 
 import javax.validation.constraints.Positive;
 import java.util.List;

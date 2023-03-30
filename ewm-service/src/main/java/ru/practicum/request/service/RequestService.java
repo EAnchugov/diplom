@@ -1,4 +1,4 @@
-package ru.practicum.request.controller;
+package ru.practicum.request.service;
 
 import ru.practicum.request.model.Request;
 
