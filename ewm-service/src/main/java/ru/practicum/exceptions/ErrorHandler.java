@@ -45,4 +45,14 @@ public class ErrorHandler {
                 LocalDateTime.now().format(GlobalVariables.FORMAT));
     }
 
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.CONFLICT)
+    private ErrorResponse handle(final WrongParameterException e) {
+        log.error("Ошибка WrongParameterException " + e.getMessage());
+        return new ErrorResponse(
+                "CONFLICT",
+                "WrongParameter",
+                e.getMessage(),
+                LocalDateTime.now().format(GlobalVariables.FORMAT));
+    }
 }
