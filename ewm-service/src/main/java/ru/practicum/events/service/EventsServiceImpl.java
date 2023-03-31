@@ -114,7 +114,7 @@ public class EventsServiceImpl implements EventsService {
             event.setDescription(update.getDescription());
         }
         if (update.getEventDate() != null) {
-            event.setPublishedOn(LocalDateTime.now().plusHours(24));
+//            event.setPublishedOn(LocalDateTime.now().plusHours(24));
             LocalDateTime newEventDate = LocalDateTime.parse(URLDecoder.decode(update.getEventDate(),
                     StandardCharsets.UTF_8), GlobalVariables.FORMAT);
 //            if (newEventDate.isAfter(event.getEventDate().plusHours(1)) &&
