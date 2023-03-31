@@ -161,12 +161,14 @@ public class EventsServiceImpl implements EventsService {
             event.setState(State.PUBLISHED);
             event.setPublishedOn(LocalDateTime.now());
         }
-        if (update.getStateAction().equals(StateAction.CANCEL_REVIEW)) {
+
+        if (update.getStateAction().equals(StateAction.REJECT_EVENT)) {
             if (event.getState().equals(State.PUBLISHED)) {
                 throw new WrongParameterException("Эвент уже опубликован");
             }
             event.setState(State.CANCELED);
         }
+
         if (update.getTitle()  != null) {
             event.setTitle(update.getTitle());
         }
