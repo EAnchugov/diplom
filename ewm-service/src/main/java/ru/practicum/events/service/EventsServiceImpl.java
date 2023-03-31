@@ -76,11 +76,7 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public List<Event> updateEventStatus(Integer userId, Integer eventId, EventRequestStatusUpdateRequest updateRequest) {
-        User user = userService.getById(userId);
-        Event event = getById(eventId);
-        List<Event> events = new ArrayList<>();
-        events.add(event);
-        return events;
+        return new ArrayList<>();
     }
 
     @Override
