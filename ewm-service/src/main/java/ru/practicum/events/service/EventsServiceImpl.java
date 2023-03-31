@@ -114,19 +114,16 @@ public class EventsServiceImpl implements EventsService {
             event.setDescription(update.getDescription());
         }
         if (update.getEventDate() != null) {
+            event.setPublishedOn(LocalDateTime.now().plusHours(24));
             LocalDateTime newEventDate = LocalDateTime.parse(URLDecoder.decode(update.getEventDate(),
                     StandardCharsets.UTF_8), GlobalVariables.FORMAT);
 //            if (newEventDate.isAfter(event.getEventDate().plusHours(1)) &&
             if (newEventDate.isAfter(LocalDateTime.now())) {
                 event.setEventDate(newEventDate);
             } else {
-                throw new WrongParameterException("\n" +
-                        "\n" +
-                        "Обратите внимание:\n" +
-                        "\n" +
+                throw new WrongParameterException(
                         "    дата начала события должна быть не ранее чем за час от даты публикации.\n" +
-                        "    событие должно быть в состоянии ожидания публикации\n" +
-                        "\n");
+                        "    событие должно быть в состоянии ожидания публикации\n");
             }
         }
 
