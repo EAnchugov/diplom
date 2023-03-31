@@ -24,7 +24,6 @@ public class Request {
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
-    @Enumerated(EnumType.STRING)
     private Status status;
     private LocalDateTime created;
 }

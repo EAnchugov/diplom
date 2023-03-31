@@ -47,4 +47,14 @@ public class RequestServiceImpl implements RequestService {
                 .created(LocalDateTime.now()).build();
         return repository.save(newRequest);
     }
+
+    @Override
+    public void approveRequest(Integer userId, Integer eventId) {
+        Event event = eventsService.getById(eventId);
+        User requester = userService.getById(userId);
+        if (event.getParticipantLimit() <= repository.findAllByEvent(event).size()) {
+            throw new WrongParameterException("Лимит события уже достигнут");
+        }
+
+    }
 }

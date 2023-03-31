@@ -86,6 +86,11 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
+    public void approveRequest(Integer userId, Integer eventId) {
+
+    }
+
+    @Override
     public List<Event> getAll(String text,
                               List<Integer> categories,
                               Boolean paid,
