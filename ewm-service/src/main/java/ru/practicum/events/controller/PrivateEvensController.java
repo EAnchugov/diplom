@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.events.model.*;
 import ru.practicum.events.service.EventsService;
-import ru.practicum.request.service.RequestService;
 
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PrivateEvensController {
     private final EventsService service;
-    private final RequestService requestService;
 
     @GetMapping("/{userId}/events")
     public List<EventsFullDto> getUserEvents(@PathVariable Integer userId) {
@@ -53,10 +51,10 @@ public class PrivateEvensController {
 
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{userId}/events/{eventId}/requests")
-    public EventDtoOutput patchUserEventRequest(@PathVariable Integer userId,
-                                      @PathVariable Integer eventId) {
-//        service.changeUserRequestStatus(userId,eventId);
-        //asdasdasdasd
-        return new EventDtoOutput();
+    public List<EventDtoOutput> patchUserEventRequest(@PathVariable Integer userId,
+                                      @PathVariable Integer eventId,
+                                      @RequestBody EventRequestStatusUpdateRequest updateRequest) {
+        return service.updateEventStatus(userId, eventId, updateRequest).stream()
+                        .map(EventsMapper::eventToOutput).collect(Collectors.toList());
     }
 }
