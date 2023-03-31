@@ -8,7 +8,6 @@ import ru.practicum.categories.service.user.UserCategoryService;
 import ru.practicum.events.model.*;
 import ru.practicum.events.repository.EventsRepository;
 import ru.practicum.exceptions.WrongParameterException;
-import ru.practicum.request.service.RequestService;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.GlobalVariables;
@@ -28,7 +27,6 @@ public class EventsServiceImpl implements EventsService {
     private final AdminUserService userService;
     private final EventsRepository repository;
     private final UserCategoryService categoryService;
-    private final RequestService requestService;
 
     @Transactional
     @Override
@@ -78,7 +76,6 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public List<Event> updateEventStatus(Integer userId, Integer eventId, EventRequestStatusUpdateRequest updateRequest) {
-        requestService.approveRequest(userId,eventId);
         User user = userService.getById(userId);
         Event event = getById(eventId);
         List<Event> events = new ArrayList<>();
