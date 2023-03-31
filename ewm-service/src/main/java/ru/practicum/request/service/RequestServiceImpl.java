@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.events.model.Event;
 import ru.practicum.events.service.EventsService;
+import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.request.controller.RequestRepository;
 import ru.practicum.request.model.Request;
 import ru.practicum.request.model.Status;
+import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 
 import javax.transaction.Transactional;
@@ -23,6 +25,11 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public Request create(Integer userId, Integer eventId) {
         Event event = eventsService.getById(eventId);
+        User requester = userService.getById(userId);
+        if (repository.findAllByRequesterAndEvent(requester,event).isPresent()) {
+            throw new WrongParameterException("Нельзя подавать повторый запрос на участие");
+        }
+
         Request newRequest = Request.builder()
                 .requester(userService.getById(userId))
                 .event(event)
