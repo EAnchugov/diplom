@@ -29,4 +29,6 @@ public interface EventsService {
     List<Event> getByCategoryId(Integer id);
 
     Event adminEventUpdate(Integer eventId, UpdateEventUserRequest updateEventUserRequest);
+
+    void approveRequest(Integer userId, Integer eventId);
 }
