@@ -118,7 +118,7 @@ public class EventsServiceImpl implements EventsService {
             LocalDateTime newEventDate = LocalDateTime.parse(URLDecoder.decode(update.getEventDate(),
                     StandardCharsets.UTF_8), GlobalVariables.FORMAT);
 //            if (newEventDate.isAfter(event.getEventDate().plusHours(1)) &&
-            if (newEventDate.isAfter(LocalDateTime.now())) {
+            if (newEventDate.isAfter(event.getCreatedOn().plusHours(1)) && event.getState().equals(State.PENDING)) {
                 event.setEventDate(newEventDate);
             } else {
                 throw new WrongParameterException(
@@ -142,7 +142,14 @@ public class EventsServiceImpl implements EventsService {
         }
         if (update.getStateAction().equals(StateAction.SEND_TO_REVIEW)) {
             event.setState(State.PENDING);
+//            event.setPublishedOn(LocalDateTime.now());
+        }
+        if (update.getStateAction().equals(StateAction.PUBLISH_EVENT)) {
+            event.setState(State.PUBLISHED);
             event.setPublishedOn(LocalDateTime.now());
+        }
+        if (update.getStateAction().equals(StateAction.CANCEL_REVIEW)) {
+            event.setState(State.CANCELED);
         }
         if (update.getTitle()  != null) {
             event.setTitle(update.getTitle());
