@@ -27,4 +27,6 @@ public interface EventsService {
     void changeUserRequestStatus(Integer userId, Integer eventId);
 
     List<Event> getByCategoryId(Integer id);
+
+    Event adminEventUpdate(Integer eventId, UpdateEventUserRequest updateEventUserRequest);
 }
