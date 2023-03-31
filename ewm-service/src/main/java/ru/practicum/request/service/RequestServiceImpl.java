@@ -29,6 +29,9 @@ public class RequestServiceImpl implements RequestService {
         if (repository.findAllByRequesterAndEvent(requester,event).isPresent()) {
             throw new WrongParameterException("Нельзя подавать повторый запрос на участие");
         }
+        if (event.getInitiator().getId().equals(userId)) {
+            throw new WrongParameterException("Нельзя подавать запрос на участие в своем событии");
+        }
 
         Request newRequest = Request.builder()
                 .requester(userService.getById(userId))
