@@ -31,6 +31,11 @@ public class EventsServiceImpl implements EventsService {
     @Transactional
     @Override
     public EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId) {
+        if (LocalDateTime.parse(URLDecoder.decode(eventDtoCreate.getEventDate(), StandardCharsets.UTF_8),
+                GlobalVariables.FORMAT).isBefore(LocalDateTime.now().plusHours(2L))) {
+            throw new WrongParameterException("Дата и время на которые намечено событие не может быть раньше, " +
+                    "чем через два часа от текущего момента");
+        }
         Category category = categoryService.getByID(eventDtoCreate.getCategory());
         Event event = EventsMapper.inputToEvent(eventDtoCreate,category);
         event.setInitiator(userService.getById(userId));
