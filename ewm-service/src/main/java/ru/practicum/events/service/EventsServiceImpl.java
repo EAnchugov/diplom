@@ -74,6 +74,13 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
+    public Event adminEventUpdate(Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
+        Event event = repository.findById(eventId)
+                .orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
+        return repository.save(eventUpdater(event, updateEventUserRequest));
+    }
+
+    @Override
     public List<Event> getAll(String text,
                               List<Integer> categories,
                               Boolean paid,
@@ -162,4 +169,6 @@ public class EventsServiceImpl implements EventsService {
     public List<Event> getByCategoryId(Integer id) {
         return repository.findAllByCategoryId(id);
     }
+
+
 }

@@ -1,9 +1,12 @@
 package ru.practicum.events.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.events.model.Event;
 import ru.practicum.events.model.EventDtoOutput;
+import ru.practicum.events.model.EventsMapper;
+import ru.practicum.events.model.UpdateEventUserRequest;
 import ru.practicum.variables.State;
 import ru.practicum.events.service.EventsService;
 
@@ -29,10 +32,12 @@ public class AdminEventsController {
         return eventsService.getAdminEvents(users,states,categories,starts,from,size);
     }
 
-    @PatchMapping
-    public EventDtoOutput adminEventUpdate() {
+    @PatchMapping("/{eventId}")
+    public EventDtoOutput adminEventUpdate(@Positive @PathVariable Integer eventId,
+                                           @RequestBody @Validated UpdateEventUserRequest updateEventUserRequest) {
+        System.out.println(eventId + updateEventUserRequest.toString());
         EventDtoOutput eventDtoOutput = new EventDtoOutput();
         eventDtoOutput.setAnnotation("asdasda sdasdasdasd");
-        return eventDtoOutput;
+        return EventsMapper.eventToOutput(eventsService.adminEventUpdate(eventId,updateEventUserRequest));
     }
 }
