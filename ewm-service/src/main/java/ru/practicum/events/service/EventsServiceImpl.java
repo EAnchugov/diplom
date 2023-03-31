@@ -117,7 +117,7 @@ public class EventsServiceImpl implements EventsService {
             LocalDateTime newEventDate = LocalDateTime.parse(URLDecoder.decode(update.getEventDate(),
                     StandardCharsets.UTF_8), GlobalVariables.FORMAT);
 //            if (newEventDate.isAfter(event.getEventDate().plusHours(1)) &&
-            if (event.getState().equals(State.PUBLISHED)) {
+            if (newEventDate.isAfter(LocalDateTime.now())) {
                 event.setEventDate(newEventDate);
             } else {
                 throw new WrongParameterException("\n" +
