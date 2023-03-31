@@ -34,12 +34,12 @@ public class EventsServiceImpl implements EventsService {
         Category category = categoryService.getByID(eventDtoCreate.getCategory());
         Event event = EventsMapper.inputToEvent(eventDtoCreate,category);
         event.setInitiator(userService.getById(userId));
+        event.setState(State.PENDING);
         return EventsMapper.eventToOutput(repository.save(event));
     }
 
     @Override
     public void changeUserRequestStatus(Integer userId, Integer eventId) {
-
     }
 
 
@@ -142,6 +142,7 @@ public class EventsServiceImpl implements EventsService {
         }
         if (update.getStateAction().equals(StateAction.SEND_TO_REVIEW)) {
             event.setState(State.PENDING);
+            event.setPublishedOn(LocalDateTime.now());
         }
         if (update.getTitle()  != null) {
             event.setTitle(update.getTitle());
