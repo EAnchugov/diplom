@@ -66,11 +66,11 @@ public class EventsServiceImpl implements EventsService {
     public Event updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
         Event event = repository.findById(eventId)
                 .orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
-        if (!event.getInitiator().getId().equals(userId)) {
-            throw new IllegalArgumentException("Вы не автор эвента");
-        } else {
+//        if (!event.getInitiator().getId().equals(userId)) {
+//            throw new IllegalArgumentException("Вы не автор эвента");
+//        } else {
             return repository.save(eventUpdater(event, updateEventUserRequest));
-        }
+//        }
     }
 
     @Override
