@@ -46,7 +46,8 @@ public class EventsMapper {
                 event.getState(),
                 event.getCreatedOn().format(GlobalVariables.FORMAT),
                 new Location(event.getLat(), event.getLon()),
-                event.getRequestModeration());
+                event.getRequestModeration(),
+                event.getPublishedOn().format(GlobalVariables.FORMAT));
     }
 
 

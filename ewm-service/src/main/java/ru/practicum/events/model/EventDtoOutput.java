@@ -1,9 +1,6 @@
 package ru.practicum.events.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import ru.practicum.categories.model.Category;
 import ru.practicum.user.model.User;
 import ru.practicum.variables.State;
@@ -12,6 +9,7 @@ import ru.practicum.variables.State;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class EventDtoOutput {
     private Integer id;
     private String title;
@@ -26,4 +24,5 @@ public class EventDtoOutput {
     private String createdOn;
     private Location location;
     private boolean requestModeration;
+    private String publishedOn;
 }
