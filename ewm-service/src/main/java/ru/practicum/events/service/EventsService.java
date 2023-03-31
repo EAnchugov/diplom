@@ -30,5 +30,5 @@ public interface EventsService {
 
     Event adminEventUpdate(Integer eventId, UpdateEventUserRequest updateEventUserRequest);
 
-    void approveRequest(Integer userId, Integer eventId);
+    List<Event> updateEventStatus(Integer userId, Integer eventId, EventRequestStatusUpdateRequest updateRequest);
 }

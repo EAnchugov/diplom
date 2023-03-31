@@ -8,6 +8,7 @@ import ru.practicum.categories.service.user.UserCategoryService;
 import ru.practicum.events.model.*;
 import ru.practicum.events.repository.EventsRepository;
 import ru.practicum.exceptions.WrongParameterException;
+import ru.practicum.request.service.RequestService;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.GlobalVariables;
@@ -27,6 +28,7 @@ public class EventsServiceImpl implements EventsService {
     private final AdminUserService userService;
     private final EventsRepository repository;
     private final UserCategoryService categoryService;
+    private final RequestService requestService;
 
     @Transactional
     @Override
@@ -52,13 +54,6 @@ public class EventsServiceImpl implements EventsService {
     @Override
     public List<Event> getUserEvents(Integer userId) {
         return new ArrayList<>();
-//        User user = userService.getById(userId)
-//        List<Events> events = new ArrayList<>();
-//        events.add(repository.getAllByInitiator(user)) ;
-////        User user = userService.getById(userId);
-////        events = repository.getAllByInitiator(user);
-////        events.addAll();
-//        return events;
     }
 
     @Override
@@ -71,11 +66,7 @@ public class EventsServiceImpl implements EventsService {
     public Event updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
         Event event = repository.findById(eventId)
                 .orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
-//        if (!event.getInitiator().getId().equals(userId)) {
-//            throw new IllegalArgumentException("Вы не автор эвента");
-//        } else {
             return repository.save(eventUpdater(event, updateEventUserRequest));
-//        }
     }
 
     @Override
@@ -86,8 +77,13 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public void approveRequest(Integer userId, Integer eventId) {
-
+    public List<Event> updateEventStatus(Integer userId, Integer eventId, EventRequestStatusUpdateRequest updateRequest) {
+        requestService.approveRequest(userId,eventId);
+        User user = userService.getById(userId);
+        Event event = getById(eventId);
+        List<Event> events = new ArrayList<>();
+        events.add(event);
+        return events;
     }
 
     @Override
@@ -101,7 +97,6 @@ public class EventsServiceImpl implements EventsService {
                               Integer from,
                               Integer size) {
         List<Event> events = new ArrayList<>();
-     //   events.addAll(repository.findAll());
         return events;
     }
 
@@ -132,10 +127,8 @@ public class EventsServiceImpl implements EventsService {
             event.setDescription(update.getDescription());
         }
         if (update.getEventDate() != null) {
-//            event.setPublishedOn(LocalDateTime.now().plusHours(24));
             LocalDateTime newEventDate = LocalDateTime.parse(URLDecoder.decode(update.getEventDate(),
                     StandardCharsets.UTF_8), GlobalVariables.FORMAT);
-//            if (newEventDate.isAfter(event.getEventDate().plusHours(1)) &&
             if (newEventDate.isAfter(event.getCreatedOn().plusHours(1)) && event.getState().equals(State.PENDING)) {
                 event.setEventDate(newEventDate);
             } else {
@@ -144,7 +137,6 @@ public class EventsServiceImpl implements EventsService {
                         "    событие должно быть в состоянии ожидания публикации\n");
             }
         }
-
         if (update.getLocation() != null) {
             event.setLat(update.getLocation().getLat());
             event.setLon(update.getLocation().getLon());
@@ -189,6 +181,4 @@ public class EventsServiceImpl implements EventsService {
     public List<Event> getByCategoryId(Integer id) {
         return repository.findAllByCategoryId(id);
     }
-
-
 }
