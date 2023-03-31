@@ -1,11 +1,9 @@
 package ru.practicum.events.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.practicum.events.model.Event;
+import ru.practicum.events.model.EventDtoOutput;
 import ru.practicum.variables.State;
 import ru.practicum.events.service.EventsService;
 
@@ -29,5 +27,12 @@ public class AdminEventsController {
                                  @PositiveOrZero @RequestParam(defaultValue = "10") Integer size
     ) {
         return eventsService.getAdminEvents(users,states,categories,starts,from,size);
+    }
+
+    @PatchMapping
+    public EventDtoOutput adminEventUpdate() {
+        EventDtoOutput eventDtoOutput = new EventDtoOutput();
+        eventDtoOutput.setAnnotation("asdasda sdasdasdasd");
+        return eventDtoOutput;
     }
 }
