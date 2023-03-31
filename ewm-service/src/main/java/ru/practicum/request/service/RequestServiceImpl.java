@@ -10,6 +10,7 @@ import ru.practicum.request.model.Request;
 import ru.practicum.request.model.Status;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
+import ru.practicum.variables.State;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -31,6 +32,12 @@ public class RequestServiceImpl implements RequestService {
         }
         if (event.getInitiator().getId().equals(userId)) {
             throw new WrongParameterException("Нельзя подавать запрос на участие в своем событии");
+        }
+        if (!event.getState().equals(State.PUBLISHED)) {
+            throw new WrongParameterException("Нельзя подавать запрос на участие в неопубликованном событии");
+        }
+        if (event.getParticipantLimit() <= repository.findAllByEvent(event).size()) {
+            throw new WrongParameterException("Лимит события уже достигнут");
         }
 
         Request newRequest = Request.builder()
