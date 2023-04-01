@@ -12,6 +12,7 @@ public class CompilationMapper {
              .build();
     }
 
+
     public static CompilationDto toCompilationDto(Compilation compilation) {
         return CompilationDto.builder()
                 .id(compilation.getId())
@@ -20,10 +21,18 @@ public class CompilationMapper {
                 .build();
     }
 
-    public static Compilation toCompilation(CompilationDtoInput compilationDto) {
+    public static Compilation toCompilation(CompilationDtoInput compilationDtoInput) {
         return Compilation.builder()
-                .title(compilationDto.getTitle())
-                .pinned(compilationDto.getPinned())
+                .title(compilationDtoInput.getTitle())
+                .pinned(compilationDtoInput.getPinned())
+                .build();
+    }
+
+    public static CompilationDtoOutput toOutput(Compilation compilation) {
+        return CompilationDtoOutput.builder()
+                .id(compilation.getId())
+                .title(compilation.getTitle())
+                .pinned(compilation.getPinned())
                 .build();
     }
 }
