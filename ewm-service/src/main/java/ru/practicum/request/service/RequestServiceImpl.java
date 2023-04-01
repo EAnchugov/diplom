@@ -3,6 +3,7 @@ package ru.practicum.request.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.events.model.Event;
+import ru.practicum.events.model.EventRequestStatusUpdateRequest;
 import ru.practicum.events.service.EventsService;
 import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.request.controller.RequestRepository;
@@ -14,6 +15,7 @@ import ru.practicum.variables.State;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -62,5 +64,11 @@ public class RequestServiceImpl implements RequestService {
     public List<Request> getAllByEvent(Event event) {
         return repository.findAllByEvent(event);
 
+    }
+
+    @Override
+    public List<Request> update(Integer userId, Integer eventId, EventRequestStatusUpdateRequest updateRequest) {
+        approveRequest(userId,eventId);
+        return new ArrayList<>();
     }
 }

@@ -48,7 +48,6 @@ public class EventsServiceImpl implements EventsService {
     public void changeUserRequestStatus(Integer userId, Integer eventId) {
     }
 
-
     @Override
     public List<Event> getUserEvents(Integer userId) {
         return new ArrayList<>();
@@ -107,7 +106,6 @@ public class EventsServiceImpl implements EventsService {
                                       Integer size) {
         return new ArrayList<>();
     }
-
 
     private Event eventUpdater(Event event, UpdateEventUserRequest update) {
         if (update.getAnnotation() != null) {

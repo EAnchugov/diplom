@@ -48,13 +48,4 @@ public class PrivateEvensController {
                                       @PathVariable Integer eventId) {
         return null;
     }
-
-    @ResponseStatus(HttpStatus.OK)
-    @PatchMapping("/{userId}/events/{eventId}/requests")
-    public List<EventDtoOutput> patchUserEventRequest(@PathVariable Integer userId,
-                                      @PathVariable Integer eventId,
-                                      @RequestBody EventRequestStatusUpdateRequest updateRequest) {
-        return service.updateEventStatus(userId, eventId, updateRequest).stream()
-                        .map(EventsMapper::eventToOutput).collect(Collectors.toList());
-    }
 }
