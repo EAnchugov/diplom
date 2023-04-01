@@ -31,7 +31,7 @@ public class UserRequestController {
         return RequestMapper.toOutput(service.create(userId,eventId));
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public List<RequestDtoOutput> patchUserEventRequest(@PathVariable Integer userId,
                                                         @PathVariable Integer eventId,
