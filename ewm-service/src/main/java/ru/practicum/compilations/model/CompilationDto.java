@@ -10,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @Builder
 public class CompilationDto {
- //   events	[...]
     @NotBlank
     private  Integer id;
     @NotBlank
