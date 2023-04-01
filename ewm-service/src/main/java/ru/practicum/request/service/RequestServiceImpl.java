@@ -44,7 +44,7 @@ public class RequestServiceImpl implements RequestService {
         }
 
         Request newRequest = Request.builder()
-                .requester(userService.getById(userId))
+                .requester(requester)
                 .event(event)
                 .status(Status.PENDING)
                 .created(LocalDateTime.now()).build();
