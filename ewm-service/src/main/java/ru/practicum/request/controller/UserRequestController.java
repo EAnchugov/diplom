@@ -2,6 +2,7 @@ package ru.practicum.request.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.events.model.EventRequestStatusUpdateRequest;
 import ru.practicum.request.model.Request;
@@ -35,7 +36,7 @@ public class UserRequestController {
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public List<RequestDtoOutput> patchUserEventRequest(@PathVariable Integer userId,
                                                         @PathVariable Integer eventId,
-                                                        @RequestBody EventRequestStatusUpdateRequest updateRequest) {
+                                                        @RequestBody @Validated EventRequestStatusUpdateRequest updateRequest) {
         List<Request> requests = service.update(userId,eventId,updateRequest);
 //        return service.updateEventStatus(userId, eventId, upda
 //        teRequest).stream()
