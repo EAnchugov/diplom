@@ -6,7 +6,7 @@ public class RequestMapper {
                 .created(request.getCreated())
                 .event(request.getEvent().getId())
                 .id(request.getId())
-                .requesterId(request.getRequester().getId())
+                .requester(request.getRequester().getId())
                 .status(request.getStatus()).build();
 
     }

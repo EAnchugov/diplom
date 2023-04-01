@@ -13,6 +13,6 @@ public class RequestDtoOutput {
     private LocalDateTime created;
     private Integer event;
     private Integer id;
-    private Integer requesterId;
+    private Integer requester;
     private  Status status;
 }
