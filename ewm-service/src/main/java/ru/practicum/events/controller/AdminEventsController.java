@@ -35,9 +35,6 @@ public class AdminEventsController {
     @PatchMapping("/{eventId}")
     public EventDtoOutput adminEventUpdate(@Positive @PathVariable Integer eventId,
                                            @RequestBody @Validated UpdateEventUserRequest updateEventUserRequest) {
-        System.out.println(eventId + updateEventUserRequest.toString());
-        EventDtoOutput eventDtoOutput = new EventDtoOutput();
-        eventDtoOutput.setAnnotation("asdasda sdasdasdasd");
         return EventsMapper.eventToOutput(eventsService.adminEventUpdate(eventId,updateEventUserRequest));
     }
 }
