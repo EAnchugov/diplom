@@ -24,6 +24,7 @@ public class UserRequestController {
         return null;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/{userId}/requests")
     public RequestDtoOutput addUserRequest(@Positive @PathVariable Integer userId,
                                            @RequestParam @Positive Integer eventId) {
