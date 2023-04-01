@@ -8,6 +8,8 @@ import ru.practicum.request.model.RequestMapper;
 import ru.practicum.request.service.RequestService;
 
 import javax.validation.constraints.Positive;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -26,6 +28,14 @@ public class UserRequestController {
                                            @RequestParam @Positive Integer eventId) {
         return RequestMapper.toOutput(service.create(userId,eventId));
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PatchMapping("/{userId}/events/{eventId}/requests")
+    public List<RequestDtoOutput> updateRequsests(@Positive @PathVariable Integer userId,
+                                                  @Positive @PathVariable Integer eventId) {
+        return new ArrayList<>();
+    }
+
 
 //    @ResponseStatus(HttpStatus.OK)
 //    @PatchMapping("/{userId}/events/{eventId}/requests")
