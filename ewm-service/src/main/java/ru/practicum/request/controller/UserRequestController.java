@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.request.model.RequestDtoOutput;
 import ru.practicum.request.model.RequestMapper;
+import ru.practicum.request.model.RequestsUpdateDto;
 import ru.practicum.request.service.RequestService;
 
 import javax.validation.constraints.Positive;
@@ -31,8 +32,9 @@ public class UserRequestController {
 
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{userId}/events/{eventId}/requests")
-    public List<RequestDtoOutput> updateRequsests(@Positive @PathVariable Integer userId,
-                                                  @Positive @PathVariable Integer eventId) {
+    public List<RequestDtoOutput> updateRequests(@Positive @PathVariable Integer userId,
+                                                 @Positive @PathVariable Integer eventId,
+                                                 @RequestBody RequestsUpdateDto updateDto) {
         return new ArrayList<>();
     }
 
