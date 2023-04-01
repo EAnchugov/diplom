@@ -45,10 +45,6 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public void changeUserRequestStatus(Integer userId, Integer eventId) {
-    }
-
-    @Override
     public List<Event> getUserEvents(Integer userId) {
         return new ArrayList<>();
     }
@@ -71,11 +67,6 @@ public class EventsServiceImpl implements EventsService {
         Event event = repository.findById(eventId)
                 .orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
         return repository.save(eventUpdater(event, updateEventUserRequest));
-    }
-
-    @Override
-    public List<Event> updateEventStatus(Integer userId, Integer eventId, EventRequestStatusUpdateRequest updateRequest) {
-        return new ArrayList<>();
     }
 
     @Override

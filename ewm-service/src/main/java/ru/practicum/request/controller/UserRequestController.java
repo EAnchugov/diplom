@@ -8,8 +8,6 @@ import ru.practicum.request.model.RequestMapper;
 import ru.practicum.request.service.RequestService;
 
 import javax.validation.constraints.Positive;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -29,22 +27,21 @@ public class UserRequestController {
         return RequestMapper.toOutput(service.create(userId,eventId));
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @PatchMapping("/{userId}/events/{eventId}/requests")
-    public List<RequestDtoOutput> patchUserEventRequest(@PathVariable Integer userId,
-                                                        @PathVariable Integer eventId
-//            ,
-//                                                        @RequestBody @Validated EventRequestStatusUpdateRequest updateRequest
-    ) {
-//        List<Request> requests = service.update(userId,eventId,updateRequest);
-////        return service.updateEventStatus(userId, eventId, upda
-////        teRequest).stream()
-////                        .map(EventsMapper::eventToOutput).collect(Collectors.toList());
-//        return requests.stream().map(RequestMapper::toOutput).collect(Collectors.toList());
-        List<RequestDtoOutput> out = new ArrayList<>();
-        out.add(new RequestDtoOutput());
-        return out;
-    }
+//    @ResponseStatus(HttpStatus.OK)
+//    @PatchMapping("/{userId}/events/{eventId}/requests")
+//    public List<RequestDtoOutput> patchRequest(@PathVariable Integer userId,
+//                                                        @PathVariable Integer eventId,
+//                                                        @RequestBody @Validated
+//                                                        EventRequestStatusUpdateRequest updateRequest) {
+////        List<Request> requests = service.update(userId,eventId,updateRequest);
+//////        return service.updateEventStatus(userId, eventId, upda
+//////        teRequest).stream()
+//////                        .map(EventsMapper::eventToOutput).collect(Collectors.toList());
+////        return requests.stream().map(RequestMapper::toOutput).collect(Collectors.toList());
+//        List<RequestDtoOutput> out = new ArrayList<>();
+//        out.add(new RequestDtoOutput());
+//        return out;
+//    }
 
     @DeleteMapping("/{userId}/requests/{requestId}/cancel")
     public String deleteUserRequest(@PathVariable Integer userId,
