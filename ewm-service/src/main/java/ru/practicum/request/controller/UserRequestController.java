@@ -35,6 +35,7 @@ public class UserRequestController {
     public List<RequestDtoOutput> updateRequests(@Positive @PathVariable Integer userId,
                                                  @Positive @PathVariable Integer eventId,
                                                  @RequestBody RequestsUpdateDto updateDto) {
+        service.update(userId,eventId,updateDto);
         return new ArrayList<>();
     }
 

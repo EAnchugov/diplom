@@ -7,6 +7,7 @@ import ru.practicum.events.service.EventsService;
 import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.request.controller.RequestRepository;
 import ru.practicum.request.model.Request;
+import ru.practicum.request.model.RequestsUpdateDto;
 import ru.practicum.request.model.Status;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
@@ -62,5 +63,9 @@ public class RequestServiceImpl implements RequestService {
     public List<Request> getAllByEvent(Event event) {
         return repository.findAllByEvent(event);
 
+    }
+
+    @Override
+    public void update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
     }
 }
