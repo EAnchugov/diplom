@@ -93,7 +93,7 @@ public class RequestServiceImpl implements RequestService {
         User requester = userService.getById(userId);
         Event event = eventsService.getById(eventId);
 
-        List<Request> requests = repository.findAllByIdInAndRequesterAndAndEvent(updateRequest.getRequests(), requester, event);
+        List<Request> requests = repository.findAllByIdInAndRequesterAndAndEvent(updateRequest.getRequestIds(), requester, event);
         for (Request request: requests) {
             if (!request.getStatus().equals(Status.PENDING)) {
                 throw new WrongParameterException("статус можно изменить только у заявок," +

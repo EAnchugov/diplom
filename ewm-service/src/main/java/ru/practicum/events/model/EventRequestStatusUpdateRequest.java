@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class EventRequestStatusUpdateRequest {
     @NotEmpty
-    List<Integer> requests;
+    List<Integer> requestIds;
     @NotBlank
     Status status;
 }
