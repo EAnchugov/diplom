@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 public class RequestDtoOutput {
     private LocalDateTime created;
-    private Integer eventId;
+    private Integer event;
     private Integer id;
     private Integer requesterId;
     private  Status status;
