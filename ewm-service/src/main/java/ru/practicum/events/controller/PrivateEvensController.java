@@ -43,9 +43,9 @@ public class PrivateEvensController {
         return EventsMapper.eventToOutput(service.updateEvent(userId, eventId, updateEventUserRequest));
     }
 
-    @GetMapping("/{userId}/events/{eventId}/requests")
-    public String getUserEventRequest(@PathVariable Integer userId,
-                                      @PathVariable Integer eventId) {
-        return null;
-    }
+//    @GetMapping("/{userId}/events/{eventId}/requests")
+//    public String getUserEventRequest(@PathVariable Integer userId,
+//                                      @PathVariable Integer eventId) {
+//        return null;
+//    }
 }

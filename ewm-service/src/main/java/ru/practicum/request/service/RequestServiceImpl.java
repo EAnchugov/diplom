@@ -127,7 +127,9 @@ public class RequestServiceImpl implements RequestService {
 //                    .build();
 //        }
                 List<Request> returningRequests = new ArrayList<>();
-                returningRequests.add(new Request());
+                Request request = new Request();
+                request.setId(6666);
+                returningRequests.add(request);
         return returningRequests;
 //    }
     }
