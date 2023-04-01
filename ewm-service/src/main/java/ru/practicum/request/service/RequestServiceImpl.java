@@ -17,7 +17,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -90,17 +89,30 @@ public class RequestServiceImpl implements RequestService {
 //        List<Request> returningRequests = new ArrayList<>();
 //        return returningRequests;
 
-        User requester = userService.getById(userId);
-        Event event = eventsService.getById(eventId);
 
-        List<Request> requests = repository.findAllByIdInAndRequesterAndAndEvent(updateRequest.getRequestIds(), requester, event);
-        for (Request request: requests) {
-            if (!request.getStatus().equals(Status.PENDING)) {
-                throw new WrongParameterException("статус можно изменить только у заявок," +
-                        " находящихся в состоянии ожидания");
-            }
-        }
-        List<Integer> remainingRequests = requests.stream().map(Request::getId).collect(Collectors.toList());
+
+
+
+//
+//
+//
+//        User requester = userService.getById(userId);
+//        Event event = eventsService.getById(eventId);
+//
+//        List<Request> requests = repository.findAllByIdInAndRequesterAndAndEvent(updateRequest.getRequestIds(), requester, event);
+//        for (Request request: requests) {
+//            if (!request.getStatus().equals(Status.PENDING)) {
+//                throw new WrongParameterException("статус можно изменить только у заявок," +
+//                        " находящихся в состоянии ожидания");
+//            }
+//        }
+//        List<Integer> remainingRequests = requests.stream().map(Request::getId).collect(Collectors.toList());
+
+
+
+
+
+
 //        List<Request> selectedRequestsNew = repository.updateRequests(requestDto.getRequestIds(),
 //                statusFromRequest.name());
 //        Status status = Status.CONFIRMED;
