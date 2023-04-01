@@ -17,6 +17,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -68,25 +69,65 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<Request> update(Integer userId, Integer eventId, EventRequestStatusUpdateRequest updateRequest) {
-        Event event = eventsService.getById(eventId);
-        if (event.getParticipantLimit().equals(0) || event.getRequestModeration().equals(false)) {
-            throw new WrongParameterException("если для события лимит заявок равен 0 " +
-                    "или отключена пре-модерация заявок, то подтверждение заявок не требуется");
-        }
-        if (event.getParticipantLimit() <= getAllByEvent(event).size()) {
-            throw new WrongParameterException("Лимит события уже достигнут");
-        }
+//        Event event = eventsService.getById(eventId);
+//        if (event.getParticipantLimit().equals(0) || event.getRequestModeration().equals(false)) {
+//            throw new WrongParameterException("если для события лимит заявок равен 0 " +
+//                    "или отключена пре-модерация заявок, то подтверждение заявок не требуется");
+//        }
+//        if (event.getParticipantLimit() <= getAllByEvent(event).size()) {
+//            throw new WrongParameterException("Лимит события уже достигнут");
+//        }
+//
+//        User requester = userService.getById(userId);
+//        List<Request> requests = repository.findAllById(updateRequest.getRequests());
+//        for (Request r : requests) {
+//            if (!r.getStatus().equals(Status.PENDING)) {
+//                throw new WrongParameterException("статус можно изменить только у заявок," +
+//                        " находящихся в состоянии ожидания");
+//            }
+//
+//        }
+//        List<Request> returningRequests = new ArrayList<>();
+//        return returningRequests;
 
         User requester = userService.getById(userId);
-        List<Request> requests = repository.findAllById(updateRequest.getRequests());
-        for (Request r : requests) {
-            if (!r.getStatus().equals(Status.PENDING)) {
+        Event event = eventsService.getById(eventId);
+
+        List<Request> requests = repository.findAllByIdInAndRequesterAndAndEvent(updateRequest.getRequests(), requester, event);
+        for (Request request: requests) {
+            if (!request.getStatus().equals(Status.PENDING)) {
                 throw new WrongParameterException("статус можно изменить только у заявок," +
                         " находящихся в состоянии ожидания");
             }
-
         }
-        List<Request> returningRequests = new ArrayList<>();
+        List<Integer> remainingRequests = requests.stream().map(Request::getId).collect(Collectors.toList());
+//        List<Request> selectedRequestsNew = repository.updateRequests(requestDto.getRequestIds(),
+//                statusFromRequest.name());
+//        Status status = Status.CONFIRMED;
+//        if (statusFromRequest.equals(status)) {
+//            status = Status.REJECTED;
+//        }
+//        List<Request> remainingRequestsNew;
+//        if (!remainingRequests.isEmpty()) {
+//            remainingRequestsNew = repository.updateRequests(remainingRequests, status.name());
+//        } else {
+//            remainingRequestsNew = List.of();
+//        }
+//        if (statusFromRequest.equals(Status.CONFIRMED)) {
+//            return RequestsForStatusDtoOutput
+//                    .builder()
+//                    .confirmedRequests(RequestMapper.toRequestDtoList(selectedRequestsNew))
+//                    .rejectedRequests(RequestMapper.toRequestDtoList(remainingRequestsNew))
+//                    .build();
+//        } else {
+//            return RequestsForStatusDtoOutput
+//                    .builder()
+//                    .confirmedRequests(RequestMapper.toRequestDtoList(remainingRequestsNew))
+//                    .rejectedRequests(RequestMapper.toRequestDtoList(selectedRequestsNew))
+//                    .build();
+//        }
+                List<Request> returningRequests = new ArrayList<>();
         return returningRequests;
+//    }
     }
 }
