@@ -24,14 +24,14 @@ public class UserRequestController {
         return null;
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{userId}/requests")
     public RequestDtoOutput addUserRequest(@Positive @PathVariable Integer userId,
                                            @RequestParam @Positive Integer eventId) {
         return RequestMapper.toOutput(service.create(userId,eventId));
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public List<RequestDtoOutput> patchUserEventRequest(@PathVariable Integer userId,
                                                         @PathVariable Integer eventId,
