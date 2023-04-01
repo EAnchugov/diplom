@@ -15,6 +15,7 @@ import ru.practicum.variables.State;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -67,7 +68,10 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<Request> update(Integer userId, Integer eventId, EventRequestStatusUpdateRequest updateRequest) {
-        approveRequest(userId,eventId);
-        return null;
+        List<Request> returningRequests = new ArrayList<>();
+        Event event = eventsService.getById(eventId);
+        User requester = userService.getById(userId);
+        List<Request> requests = repository.findAllById(updateRequest.getRequests());
+        return returningRequests;
     }
 }
