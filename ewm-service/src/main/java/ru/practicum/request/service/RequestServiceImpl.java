@@ -55,7 +55,7 @@ public class RequestServiceImpl implements RequestService {
     public void approveRequest(Integer userId, Integer eventId) {
         Event event = eventsService.getById(eventId);
         User requester = userService.getById(userId);
-        if (event.getParticipantLimit() == getAllByEvent(event).size()) {
+        if (event.getParticipantLimit() <= getAllByEvent(event).size()) {
             throw new WrongParameterException("Лимит события уже достигнут");
         }
     }
@@ -68,10 +68,25 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public List<Request> update(Integer userId, Integer eventId, EventRequestStatusUpdateRequest updateRequest) {
-        List<Request> returningRequests = new ArrayList<>();
         Event event = eventsService.getById(eventId);
+        if (event.getParticipantLimit().equals(0) || event.getRequestModeration().equals(false)) {
+            throw new WrongParameterException("если для события лимит заявок равен 0 " +
+                    "или отключена пре-модерация заявок, то подтверждение заявок не требуется");
+        }
+        if (event.getParticipantLimit() <= getAllByEvent(event).size()) {
+            throw new WrongParameterException("Лимит события уже достигнут");
+        }
+
         User requester = userService.getById(userId);
         List<Request> requests = repository.findAllById(updateRequest.getRequests());
+        for (Request r : requests) {
+            if (!r.getStatus().equals(Status.PENDING)) {
+                throw new WrongParameterException("статус можно изменить только у заявок," +
+                        " находящихся в состоянии ожидания");
+            }
+
+        }
+        List<Request> returningRequests = new ArrayList<>();
         return returningRequests;
     }
 }
