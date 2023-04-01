@@ -2,9 +2,7 @@ package ru.practicum.request.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.events.model.EventRequestStatusUpdateRequest;
 import ru.practicum.request.model.RequestDtoOutput;
 import ru.practicum.request.model.RequestMapper;
 import ru.practicum.request.service.RequestService;
@@ -34,14 +32,18 @@ public class UserRequestController {
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public List<RequestDtoOutput> patchUserEventRequest(@PathVariable Integer userId,
-                                                        @PathVariable Integer eventId,
-                                                        @RequestBody @Validated EventRequestStatusUpdateRequest updateRequest) {
+                                                        @PathVariable Integer eventId
+//            ,
+//                                                        @RequestBody @Validated EventRequestStatusUpdateRequest updateRequest
+    ) {
 //        List<Request> requests = service.update(userId,eventId,updateRequest);
 ////        return service.updateEventStatus(userId, eventId, upda
 ////        teRequest).stream()
 ////                        .map(EventsMapper::eventToOutput).collect(Collectors.toList());
 //        return requests.stream().map(RequestMapper::toOutput).collect(Collectors.toList());
-        return new ArrayList<>();
+        List<RequestDtoOutput> out = new ArrayList<>();
+        out.add(new RequestDtoOutput());
+        return out;
     }
 
     @DeleteMapping("/{userId}/requests/{requestId}/cancel")
