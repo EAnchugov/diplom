@@ -55,7 +55,7 @@ public class RequestServiceImpl implements RequestService {
     public void approveRequest(Integer userId, Integer eventId) {
         Event event = eventsService.getById(eventId);
         User requester = userService.getById(userId);
-        if (event.getParticipantLimit() <= getAllByEvent(event).size()) {
+        if (event.getParticipantLimit() == getAllByEvent(event).size()) {
             throw new WrongParameterException("Лимит события уже достигнут");
         }
     }
