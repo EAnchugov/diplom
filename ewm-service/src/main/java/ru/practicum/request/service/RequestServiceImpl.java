@@ -69,6 +69,6 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> update(Integer userId, Integer eventId, EventRequestStatusUpdateRequest updateRequest) {
         approveRequest(userId,eventId);
-        return new ArrayList<>();
+        return null;
     }
 }
