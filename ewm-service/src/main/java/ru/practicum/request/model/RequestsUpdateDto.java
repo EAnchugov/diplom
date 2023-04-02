@@ -11,5 +11,5 @@ import java.util.List;
 @Getter
 public class RequestsUpdateDto {
     List<Integer> requestIds;
-    String status;
+    Status status;
 }
