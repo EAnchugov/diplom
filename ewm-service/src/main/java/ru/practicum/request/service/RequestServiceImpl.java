@@ -67,9 +67,9 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-        Event event = eventsService.getById(eventId);
-        User requester = userService.getById(userId);
-        List<Request> requests = repository.findAllById(updateDto.getRequestIds());
+//        Event event = eventsService.getById(eventId);
+//        User requester = userService.getById(userId);
+//        List<Request> requests = repository.findAllById(updateDto.getRequestIds());
         throw new WrongParameterException("test");
     }
 }
