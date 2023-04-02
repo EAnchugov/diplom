@@ -2,6 +2,7 @@ package ru.practicum.request.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.events.model.Event;
 import ru.practicum.events.service.EventsService;
 import ru.practicum.exceptions.WrongParameterException;
@@ -13,7 +14,6 @@ import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.State;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -66,6 +66,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    @Transactional
     public void update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
 //        Event event = eventsService.getById(eventId);
 //        User requester = userService.getById(userId);
