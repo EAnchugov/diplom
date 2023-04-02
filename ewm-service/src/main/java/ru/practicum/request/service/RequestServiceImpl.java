@@ -70,6 +70,6 @@ public class RequestServiceImpl implements RequestService {
 //        Event event = eventsService.getById(eventId);
 //        User requester = userService.getById(userId);
 //        List<Request> requests = repository.findAllById(updateDto.getRequestIds());
-//        throw new WrongParameterException("test");
+        throw new WrongParameterException("test");
     }
 }
