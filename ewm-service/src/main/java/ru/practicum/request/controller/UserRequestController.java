@@ -2,6 +2,7 @@ package ru.practicum.request.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.request.model.RequestDtoOutput;
 import ru.practicum.request.model.RequestMapper;
@@ -34,27 +35,10 @@ public class UserRequestController {
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public List<RequestDtoOutput> updateRequests(@Positive @PathVariable Integer userId,
                                                  @Positive @PathVariable Integer eventId,
-                                                 @RequestBody RequestsUpdateDto updateDto) {
+                                                 @RequestBody @Validated RequestsUpdateDto updateDto) {
         service.update(userId,eventId,updateDto);
         return new ArrayList<>();
     }
-
-
-//    @ResponseStatus(HttpStatus.OK)
-//    @PatchMapping("/{userId}/events/{eventId}/requests")
-//    public List<RequestDtoOutput> patchRequest(@PathVariable Integer userId,
-//                                                        @PathVariable Integer eventId,
-//                                                        @RequestBody @Validated
-//                                                        EventRequestStatusUpdateRequest updateRequest) {
-////        List<Request> requests = service.update(userId,eventId,updateRequest);
-//////        return service.updateEventStatus(userId, eventId, upda
-//////        teRequest).stream()
-//////                        .map(EventsMapper::eventToOutput).collect(Collectors.toList());
-////        return requests.stream().map(RequestMapper::toOutput).collect(Collectors.toList());
-//        List<RequestDtoOutput> out = new ArrayList<>();
-//        out.add(new RequestDtoOutput());
-//        return out;
-//    }
 
     @DeleteMapping("/{userId}/requests/{requestId}/cancel")
     public String deleteUserRequest(@PathVariable Integer userId,
