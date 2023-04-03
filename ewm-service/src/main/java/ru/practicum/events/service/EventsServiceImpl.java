@@ -73,7 +73,7 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public List<Event> getAll(String text,
-                              Integer category,
+                              Integer categoryId,
                               Boolean paid,
                               String rangeStart,
                               String rangeEnd,
@@ -104,7 +104,7 @@ public class EventsServiceImpl implements EventsService {
             end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
                 GlobalVariables.FORMAT);
         }
-        List<Event> events = repository.findAllWithFilter(text,category,paid,start,end,State.PUBLISHED,pageable);
+        List<Event> events = repository.findAllWithFilter(text,categoryId,paid,start,end,State.PUBLISHED,pageable);
         return events;
     }
 
