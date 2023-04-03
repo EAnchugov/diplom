@@ -47,8 +47,9 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public List<Event> getUserEvents(Integer userId) {
-        return new ArrayList<>();
+    public List<Event> getUserEvents(Integer userId, Integer from, Integer size) {
+        Pageable pageable = PageRequest.of(from, size);
+        return repository.findAllByInitiatorId(userId,pageable);
     }
 
     @Override
