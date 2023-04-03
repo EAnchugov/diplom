@@ -2,6 +2,7 @@ package ru.practicum.events.repository;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import ru.practicum.categories.model.Category;
 import ru.practicum.events.model.Event;
 import ru.practicum.user.model.User;
@@ -27,6 +28,7 @@ public interface EventsRepository extends JpaRepository<Event,Integer> {
 
     List<Event> findAllByCategoryId(Integer id);
 
-    List<Event> findAllByInitiatorAndStateAndCategoryAndEventDateIsBeforeAndEventDateIsAfter(
-            User initiator, State state, Category category, LocalDateTime start, LocalDateTime end, Pageable pageable);
+    @Query("SELECT e from Event e where e.initiator.id = ?1 and e.state = ?2 and e.category.id = ?3 " +
+            "and e.publishedOn between :start and :end")
+    List<Event> asdasdasdasd(Integer users, State states, Integer categories, LocalDateTime start, LocalDateTime end, Pageable pageable);
 }
