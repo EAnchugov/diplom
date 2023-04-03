@@ -25,4 +25,5 @@ public class EventDtoOutput {
     private Location location;
     private boolean requestModeration;
     private String publishedOn;
+    private Long views;
 }
