@@ -3,7 +3,6 @@ package ru.practicum.events.repository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.practicum.categories.model.Category;
 import ru.practicum.events.model.Event;
 import ru.practicum.user.model.User;
 import ru.practicum.variables.State;
