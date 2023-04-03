@@ -48,4 +48,9 @@ public class AdminUserServiceImpl implements AdminUserService {
     public User getById(Integer id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Нет Юзера с ID = " + id));
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        return repository.findAll();
+    }
 }

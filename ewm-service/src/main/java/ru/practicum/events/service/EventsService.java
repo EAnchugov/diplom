@@ -20,7 +20,7 @@ public interface EventsService {
 
     List<Event> getAdminEvents(
             List<Integer> users, List<State> states, List<Integer> categories,
-            List<String> starts, Integer from, Integer size);
+            String rangeStart,String rangeEnd, Integer from, Integer size);
 
     EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId);
 

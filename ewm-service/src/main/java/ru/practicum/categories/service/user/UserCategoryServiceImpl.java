@@ -27,4 +27,9 @@ public class UserCategoryServiceImpl implements UserCategoryService {
         return repository.findById(catId).orElseThrow(() -> new ItemNotAvailableException("Нет такой категории"));
     }
 
+    @Override
+    public List<Category> getAllCategories() {
+        return repository.findAll();
+    }
+
 }
