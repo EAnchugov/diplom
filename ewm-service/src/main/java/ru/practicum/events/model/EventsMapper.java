@@ -13,6 +13,7 @@ public class EventsMapper {
                 .annotation(events.getAnnotation())
                 .createdOn(events.getCreatedOn().toString())
                 .description(events.getDescription())
+                .id(events.getId())
                 .build();
     }
 
