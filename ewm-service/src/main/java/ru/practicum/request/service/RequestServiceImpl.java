@@ -69,6 +69,9 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     public List<Request> update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
+        if (updateDto == null) {
+            throw new WrongParameterException("Список обновляемых событий пуст");
+        }
 //        List<Request> requests = repository.findAllById(updateDto.getRequestIds());
 //        if (requests.isEmpty()) {
 //            throw new WrongParameterException("реквесты пустые");
