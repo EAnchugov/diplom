@@ -41,6 +41,7 @@ public class Event {
     private LocalDateTime publishedOn;
     @Column(name = "requestmoderation")
     private Boolean requestModeration;
+    @Enumerated(EnumType.STRING)
     private State state;
     private String title;
 }
