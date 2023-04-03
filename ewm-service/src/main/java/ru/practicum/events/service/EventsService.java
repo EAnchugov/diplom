@@ -16,7 +16,7 @@ public interface EventsService {
 
     Event updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest);
 
-    List<Event> getAll(String text, List<Integer> categories, Boolean paid, String rangeStart, String rangeEnd, Boolean onlyAvailable, Sorting sorting, Integer from, Integer size);
+    List<Event> getAll(String text, Integer categories, Boolean paid, String rangeStart, String rangeEnd, Boolean onlyAvailable, Sorting sorting, Integer from, Integer size);
 
     Event getById(Integer id);
 

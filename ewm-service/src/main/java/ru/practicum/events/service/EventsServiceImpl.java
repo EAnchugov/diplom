@@ -20,7 +20,6 @@ import ru.practicum.variables.StateAction;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -74,7 +73,7 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public List<Event> getAll(String text,
-                              List<Integer> categories,
+                              Integer category,
                               Boolean paid,
                               String rangeStart,
                               String rangeEnd,
@@ -82,8 +81,30 @@ public class EventsServiceImpl implements EventsService {
                               Sorting sorting,
                               Integer from,
                               Integer size) {
+        Pageable pageable = PageRequest.of(from, size);
+        LocalDateTime start;
+        LocalDateTime end;
+        State state = State.PUBLISHED;
 
-        List<Event> events = new ArrayList<>();
+
+
+
+
+
+
+        if (rangeStart == null) {
+            start = LocalDateTime.now();
+        } else {
+            start = LocalDateTime.parse(URLDecoder.decode(rangeStart, StandardCharsets.UTF_8),
+                    GlobalVariables.FORMAT);
+        }
+        if (rangeEnd == null) {
+            end = LocalDateTime.now().plusYears(100L);
+        } else {
+            end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
+                GlobalVariables.FORMAT);
+        }
+        List<Event> events = repository.findAllWithFilter(text,category,paid,start,end,State.PUBLISHED,pageable);
         return events;
     }
 
