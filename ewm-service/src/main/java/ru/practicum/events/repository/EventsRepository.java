@@ -30,7 +30,7 @@ public interface EventsRepository extends JpaRepository<Event,Integer> {
 
     @Query("SELECT e from Event e " +
             "where e.initiator.id = :users and " +
-            "e.state = 'PUBLISHED' and " +
+            "e.state = :states and " +
             "e.category.id = :categories and " +
             "e.publishedOn between :start and :end")
     List<Event> testMethod(Integer users, String states, Integer categories, LocalDateTime start, LocalDateTime end, Pageable pageable);
