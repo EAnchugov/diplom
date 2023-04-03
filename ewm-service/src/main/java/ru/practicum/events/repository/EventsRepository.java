@@ -25,4 +25,12 @@ public interface EventsRepository extends JpaRepository<Event,Integer> {
             "e.category.id = :categories and " +
             "e.publishedOn between :start and :end")
     List<Event> testMethod(Integer users, State state, Integer categories, LocalDateTime start, LocalDateTime end, Pageable pageable);
+
+    @Query("SELECT e from Event e " +
+            "where e.category = :category and " +
+            "e.paid = :paid and " +
+            "e.publishedOn between :start and :end and " +
+            "e.state = :state and " +
+            "(e.annotation like %:text% or e.description like %:text%)")
+    List<Event> findAllWithFilter(String text, Integer category, Boolean paid, LocalDateTime start, LocalDateTime end, State state, Pageable pageable);
 }
