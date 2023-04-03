@@ -93,7 +93,7 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public List<Event> getFilteredEvents(Integer users,
-                                         State states,
+                                         String states,
                                          Integer categories,
                                          String rangeStart,
                                          String rangeEnd,
@@ -114,8 +114,7 @@ public class EventsServiceImpl implements EventsService {
 //        return repository.findAllByInitiatorAndStateAndCategoryAndEventDateIsBeforeAndEventDateIsAfter(
 //                initiator,state,category,start,end,pageable);
 
-//        return repository.asdasdasdasd(users,states.toString(),categories,start,end,pageable);
-return repository.findAll();
+        return repository.asdasdasdasd(users,states,categories,start,end,pageable);
     }
 
 //    @Override

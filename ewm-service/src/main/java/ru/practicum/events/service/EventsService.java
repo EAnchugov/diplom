@@ -1,8 +1,10 @@
 package ru.practicum.events.service;
 
-import ru.practicum.events.model.*;
+import ru.practicum.events.model.Event;
+import ru.practicum.events.model.EventDtoInput;
+import ru.practicum.events.model.EventDtoOutput;
+import ru.practicum.events.model.UpdateEventUserRequest;
 import ru.practicum.variables.Sorting;
-import ru.practicum.variables.State;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public interface EventsService {
     Event getById(Integer id);
 
     List<Event> getFilteredEvents(
-            Integer users, State states, Integer categories,
+            Integer users, String state, Integer categories,
             String rangeStart,String rangeEnd, Integer from, Integer size);
 
     EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId);
