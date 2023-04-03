@@ -21,7 +21,7 @@ public class PublicEventsController {
     public List<Event> getEvents(
             @RequestParam(required = false) String text,
             @RequestParam(required = false) Integer categories,
-            @RequestParam(required = false) Boolean paid,
+            @RequestParam(defaultValue = "false") Boolean paid,
             @RequestParam(required = false) String rangeStart,
             @RequestParam(required = false)String rangeEnd,
             @RequestParam(defaultValue = "false") Boolean onlyAvailable,
