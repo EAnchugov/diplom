@@ -15,7 +15,6 @@ import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.State;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -72,15 +71,24 @@ public class RequestServiceImpl implements RequestService {
         if (updateDto == null) {
             throw new WrongParameterException("Список обновляемых событий пуст");
         }
+        Event event = eventsService.getById(eventId);
+        User requester = userService.getById(userId);
+        List<Request> requests = repository.findAllById(updateDto.getRequestIds());
+        for (Request r: requests) {
+            if (r.getStatus().equals(Status.CONFIRMED) && updateDto.getStatus().equals(Status.REJECTED)) {
+                throw new WrongParameterException("Нельзя отменять уже принятую заявку");
+            }
+            r.setStatus(updateDto.getStatus());
+        }
+
+
 //        List<Request> requests = repository.findAllById(updateDto.getRequestIds());
 //        if (requests.isEmpty()) {
 //            throw new WrongParameterException("реквесты пустые");
 //        }
-//        Event event = eventsService.getById(eventId);
-//        User requester = userService.getById(userId);
+
 
 //        throw new WrongParameterException("test");
-        List<Request> requests = new ArrayList<>();
         return requests;
     }
 }
