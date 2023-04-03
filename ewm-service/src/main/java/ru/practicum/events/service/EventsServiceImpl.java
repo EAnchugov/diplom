@@ -1,8 +1,6 @@
 package ru.practicum.events.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.categories.model.Category;
@@ -22,7 +20,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -101,45 +98,46 @@ public class EventsServiceImpl implements EventsService {
                                       String rangeEnd,
                                       Integer from,
                                       Integer size) {
-        Pageable pageable = PageRequest.of(from, size);
-        LocalDateTime start;
-        LocalDateTime end;
-        if (rangeStart == null) {
-            start = LocalDateTime.now();
-        } else {
-            start = LocalDateTime.parse(URLDecoder.decode(rangeStart, StandardCharsets.UTF_8),
-                    GlobalVariables.FORMAT);
-        }
-
-        if (rangeEnd == null) {
-            end = LocalDateTime.now();
-        } else {
-            end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
-                    GlobalVariables.FORMAT);
-        }
-
-        List<User> users = new ArrayList<>();
-        if (usersIds == null) {
-            users.addAll(userService.getAllUsers());
-        } else {
-            users.addAll(usersIds.stream().map(userService::getById).collect(Collectors.toList()));
-        }
-
-        if (states == null || states.isEmpty()) {
-            states.add(State.PUBLISHED);
-            states.add(State.PENDING);
-            states.add(State.CANCELED);
-        }
-
-        List<Category> currentCategories = new ArrayList<>();
-        if (categories == null) {
-            currentCategories = categoryService.getAllCategories();
-        } else {
-            currentCategories.addAll(categories.stream().map(categoryService::getByID).collect(Collectors.toList()));
-        }
-
-        return repository.findAllByEventDateIsBeforeAndEventDateIsAfterAndInitiatorInAndStateInAndCategoryIn(
-                start,end,users,states,currentCategories,pageable);
+//        Pageable pageable = PageRequest.of(from, size);
+//        LocalDateTime start;
+//        LocalDateTime end;
+//        if (rangeStart == null) {
+//            start = LocalDateTime.now();
+//        } else {
+//            start = LocalDateTime.parse(URLDecoder.decode(rangeStart, StandardCharsets.UTF_8),
+//                    GlobalVariables.FORMAT);
+//        }
+//
+//        if (rangeEnd == null) {
+//            end = LocalDateTime.now();
+//        } else {
+//            end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
+//                    GlobalVariables.FORMAT);
+//        }
+//
+//        List<User> users = new ArrayList<>();
+//        if (usersIds == null) {
+//            users.addAll(userService.getAllUsers());
+//        } else {
+//            users.addAll(usersIds.stream().map(userService::getById).collect(Collectors.toList()));
+//        }
+//
+//        if (states == null || states.isEmpty()) {
+//            states.add(State.PUBLISHED);
+//            states.add(State.PENDING);
+//            states.add(State.CANCELED);
+//        }
+//
+//        List<Category> currentCategories = new ArrayList<>();
+//        if (categories == null) {
+//            currentCategories = categoryService.getAllCategories();
+//        } else {
+//            currentCategories.addAll(categories.stream().map(categoryService::getByID).collect(Collectors.toList()));
+//        }
+//
+//        return repository.findAllByEventDateIsBeforeAndEventDateIsAfterAndInitiatorInAndStateInAndCategoryIn(
+//                start,end,users,states,currentCategories,pageable);
+        return new ArrayList<>();
     }
 
     private Event eventUpdater(Event event, UpdateEventUserRequest update) {
