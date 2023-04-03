@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface EventsService {
 
-    List<Event> getUserEvents(Integer userId);
+    List<Event> getUserEvents(Integer userId, Integer from, Integer size);
 
     List<Event> getUserEvent(Integer userId, Integer eventId);
 

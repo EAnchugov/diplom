@@ -13,7 +13,7 @@ import java.util.List;
 public interface EventsRepository extends JpaRepository<Event,Integer> {
     List<Event> getAllByInitiator(User user);
 
-    List<Event> findAllByInitiatorId(Integer id);
+    List<Event> findAllByInitiatorId(Integer id, Pageable pageable);
 
     List<Event> findAllByIdAndInitiator(Integer id, User user);
 

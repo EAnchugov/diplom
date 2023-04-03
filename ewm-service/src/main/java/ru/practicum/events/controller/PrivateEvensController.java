@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.events.model.*;
 import ru.practicum.events.service.EventsService;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,8 +19,10 @@ public class PrivateEvensController {
     private final EventsService service;
 
     @GetMapping("/{userId}/events")
-    public List<EventsFullDto> getUserEvents(@PathVariable Integer userId) {
-        return service.getUserEvents(userId).stream().map(EventsMapper::toEventsFullDto).collect(Collectors.toList());
+    public List<EventsFullDto> getUserEvents(@PathVariable Integer userId,
+                                             @Min(0) @RequestParam(defaultValue = "0") Integer from,
+                                             @Min(1) @RequestParam(defaultValue = "10") Integer size) {
+        return service.getUserEvents(userId,from,size).stream().map(EventsMapper::toEventsFullDto).collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -42,10 +45,4 @@ public class PrivateEvensController {
                                 @RequestBody @Validated UpdateEventUserRequest updateEventUserRequest) {
         return EventsMapper.eventToOutput(service.updateEvent(userId, eventId, updateEventUserRequest));
     }
-
-//    @GetMapping("/{userId}/events/{eventId}/requests")
-//    public String getUserEventRequest(@PathVariable Integer userId,
-//                                      @PathVariable Integer eventId) {
-//        return null;
-//    }
 }
