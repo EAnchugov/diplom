@@ -22,15 +22,15 @@ public class AdminEventsController {
     private final EventsService eventsService;
 
     @GetMapping
-    public List<Event> getEvents(@RequestParam(required = false) List<Integer> users,
-                                 @RequestParam(required = false) List<State> states,
-                                 @RequestParam(required = false) List<Integer> categories,
+    public List<Event> getFilteredEvents(@RequestParam(required = false) Integer users,
+                                 @RequestParam(required = false) State states,
+                                 @RequestParam(required = false) Integer categories,
                                  @RequestParam(required = false) String rangeStart,
                                  @RequestParam(required = false) String rangeEnd,
                                  @Positive @RequestParam(defaultValue = "0") Integer from,
                                  @PositiveOrZero @RequestParam(defaultValue = "10") Integer size
     ) {
-        return eventsService.getAdminEvents(users,states,categories,rangeStart,rangeEnd,from,size);
+        return eventsService.getFilteredEvents(users,states,categories,rangeStart,rangeEnd,from,size);
     }
 
     @PatchMapping("/{eventId}")

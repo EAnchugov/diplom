@@ -18,8 +18,8 @@ public interface EventsService {
 
     Event getById(Integer id);
 
-    List<Event> getAdminEvents(
-            List<Integer> users, List<State> states, List<Integer> categories,
+    List<Event> getFilteredEvents(
+            Integer users, State states, Integer categories,
             String rangeStart,String rangeEnd, Integer from, Integer size);
 
     EventDtoOutput createEvent(EventDtoInput eventDtoCreate, Integer userId);
