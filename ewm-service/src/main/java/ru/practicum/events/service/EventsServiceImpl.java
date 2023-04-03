@@ -109,8 +109,10 @@ public class EventsServiceImpl implements EventsService {
         Category category = categoryService.getByID(categories);
 
 
-        return repository.findAllByInitiatorAndStateAndCategoryAndEventDateIsBeforeAndEventDateIsAfter(
-                initiator,state,category,start,end,pageable);
+//        return repository.findAllByInitiatorAndStateAndCategoryAndEventDateIsBeforeAndEventDateIsAfter(
+//                initiator,state,category,start,end,pageable);
+
+        return repository.asdasdasdasd(users,states,categories,start,end,pageable);
 
     }
 
