@@ -19,10 +19,11 @@ public class PrivateEvensController {
     private final EventsService service;
 
     @GetMapping("/{userId}/events")
-    public List<EventsFullDto> getUserEvents(@PathVariable Integer userId,
+    public List<Event> getUserEvents(@PathVariable Integer userId,
                                              @Min(0) @RequestParam(defaultValue = "0") Integer from,
                                              @Min(1) @RequestParam(defaultValue = "10") Integer size) {
-        return service.getUserEvents(userId,from,size).stream().map(EventsMapper::toEventsFullDto).collect(Collectors.toList());
+        return service.getUserEvents(userId,from,size);
+//        .stream().map(EventsMapper::toEventsFullDto).collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
