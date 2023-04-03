@@ -1,6 +1,8 @@
 package ru.practicum.events.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.categories.model.Category;
@@ -90,14 +92,37 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    @Transactional
-    public List<Event> getAdminEvents(List<Integer> usersIds,
-                                      List<State> states,
-                                      List<Integer> categories,
-                                      String rangeStart,
-                                      String rangeEnd,
-                                      Integer from,
-                                      Integer size) {
+    public List<Event> getFilteredEvents(Integer users,
+                                         State states,
+                                         Integer categories,
+                                         String rangeStart,
+                                         String rangeEnd,
+                                         Integer from,
+                                         Integer size) {
+        State state = states;
+        Pageable pageable = PageRequest.of(from, size);
+        LocalDateTime start = LocalDateTime.parse(URLDecoder.decode(rangeStart, StandardCharsets.UTF_8),
+                    GlobalVariables.FORMAT);
+        LocalDateTime end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
+                    GlobalVariables.FORMAT);
+        User initiator = userService.getById(users);
+        Category category = categoryService.getByID(categories);
+
+
+        return repository.findAllByInitiatorAndStateAndCategoryAndEventDateIsBeforeAndEventDateIsAfter(
+                initiator,state,category,start,end,pageable);
+
+    }
+
+//    @Override
+//    @Transactional
+//    public List<Event> getAdminEvents(List<Integer> usersIds,
+//                                      List<State> states,
+//                                      List<Integer> categories,
+//                                      String rangeStart,
+//                                      String rangeEnd,
+//                                      Integer from,
+//                                      Integer size) {
 //        Pageable pageable = PageRequest.of(from, size);
 //        LocalDateTime start;
 //        LocalDateTime end;
@@ -136,9 +161,9 @@ public class EventsServiceImpl implements EventsService {
 //        }
 //
 //        return repository.findAllByEventDateIsBeforeAndEventDateIsAfterAndInitiatorInAndStateInAndCategoryIn(
-//                start,end,users,states,currentCategories,pageable);
-        return new ArrayList<>();
-    }
+////                start,end,users,states,currentCategories,pageable);
+//        return new ArrayList<>();
+//    }
 
     private Event eventUpdater(Event event, UpdateEventUserRequest update) {
         if (update.getAnnotation() != null) {
