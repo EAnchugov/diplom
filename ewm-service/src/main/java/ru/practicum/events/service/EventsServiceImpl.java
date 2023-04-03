@@ -112,7 +112,7 @@ public class EventsServiceImpl implements EventsService {
 //        return repository.findAllByInitiatorAndStateAndCategoryAndEventDateIsBeforeAndEventDateIsAfter(
 //                initiator,state,category,start,end,pageable);
 
-        return repository.asdasdasdasd(users,states,categories,start,end,pageable);
+        return repository.asdasdasdasd(users,states.toString(),categories,start,end,pageable);
 
     }
 
