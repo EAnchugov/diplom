@@ -15,6 +15,7 @@ import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.State;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -67,14 +68,16 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     @Transactional
-    public void update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-        List<Request> requests = repository.findAllById(updateDto.getRequestIds());
-        if (requests.isEmpty()) {
-            throw new WrongParameterException("реквесты пустые");
-        }
-        Event event = eventsService.getById(eventId);
-        User requester = userService.getById(userId);
+    public List<Request> update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
+//        List<Request> requests = repository.findAllById(updateDto.getRequestIds());
+//        if (requests.isEmpty()) {
+//            throw new WrongParameterException("реквесты пустые");
+//        }
+//        Event event = eventsService.getById(eventId);
+//        User requester = userService.getById(userId);
 
-        throw new WrongParameterException("test");
+//        throw new WrongParameterException("test");
+        List<Request> requests = new ArrayList<>();
+        return requests;
     }
 }

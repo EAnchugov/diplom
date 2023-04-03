@@ -13,5 +13,5 @@ public interface RequestService {
 
     List<Request> getAllByEvent(Event event);
 
-    void update(Integer userId, Integer eventId, RequestsUpdateDto updateDto);
+    List<Request> update(Integer userId, Integer eventId, RequestsUpdateDto updateDto);
 }

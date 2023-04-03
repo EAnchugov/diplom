@@ -10,8 +10,8 @@ import ru.practicum.request.model.RequestsUpdateDto;
 import ru.practicum.request.service.RequestService;
 
 import javax.validation.constraints.Positive;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -35,9 +35,10 @@ public class UserRequestController {
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public List<RequestDtoOutput> updateRequests(@Positive @PathVariable Integer userId,
                                                  @Positive @PathVariable Integer eventId,
-                                                 @RequestBody(required = false) @Validated RequestsUpdateDto updateDto) {
-        service.update(userId,eventId,updateDto);
-        return new ArrayList<>();
+                                                 @RequestBody(required = false)
+                                                     @Validated RequestsUpdateDto updateDto) {
+        return service.update(userId,eventId,updateDto).stream()
+                .map(RequestMapper::toOutput).collect(Collectors.toList());
     }
 
     @DeleteMapping("/{userId}/requests/{requestId}/cancel")
