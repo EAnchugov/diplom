@@ -28,7 +28,10 @@ public interface EventsRepository extends JpaRepository<Event,Integer> {
 
     List<Event> findAllByCategoryId(Integer id);
 
-    @Query("SELECT e from Event e where e.initiator.id = :users and e.state = :states and e.category.id = :categories " +
-            "and e.publishedOn between :start and :end")
-    List<Event> asdasdasdasd(Integer users, String states, Integer categories, LocalDateTime start, LocalDateTime end, Pageable pageable);
+    @Query("SELECT e from Event e " +
+            "where e.initiator.id = :users and " +
+            "e.state = 'PUBLISHED' and " +
+            "e.category.id = :categories and " +
+            "e.publishedOn between :start and :end")
+    List<Event> testMethod(Integer users, String states, Integer categories, LocalDateTime start, LocalDateTime end, Pageable pageable);
 }

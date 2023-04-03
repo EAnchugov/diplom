@@ -105,8 +105,8 @@ public class EventsServiceImpl implements EventsService {
                     GlobalVariables.FORMAT);
         LocalDateTime end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
                     GlobalVariables.FORMAT);
-//        User initiator = userService.getById(users);
-//        Category category = categoryService.getByID(categories);
+        User initiator = userService.getById(users);
+        Category category = categoryService.getByID(categories);
 
 //        System.out.println(users + " " +states + " " +categories + " " +start + " " +end + " " +from + " " +size);
 
@@ -114,7 +114,7 @@ public class EventsServiceImpl implements EventsService {
 //        return repository.findAllByInitiatorAndStateAndCategoryAndEventDateIsBeforeAndEventDateIsAfter(
 //                initiator,state,category,start,end,pageable);
 
-        return repository.asdasdasdasd(users,states,categories,start,end,pageable);
+        return repository.testMethod(users,states,categories,start,end,pageable);
     }
 
 //    @Override
