@@ -99,21 +99,23 @@ public class EventsServiceImpl implements EventsService {
                                          String rangeEnd,
                                          Integer from,
                                          Integer size) {
-        State state = states;
+//        State state = states;
         Pageable pageable = PageRequest.of(from, size);
         LocalDateTime start = LocalDateTime.parse(URLDecoder.decode(rangeStart, StandardCharsets.UTF_8),
                     GlobalVariables.FORMAT);
         LocalDateTime end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
                     GlobalVariables.FORMAT);
-        User initiator = userService.getById(users);
-        Category category = categoryService.getByID(categories);
+//        User initiator = userService.getById(users);
+//        Category category = categoryService.getByID(categories);
+
+//        System.out.println(users + " " +states + " " +categories + " " +start + " " +end + " " +from + " " +size);
 
 
 //        return repository.findAllByInitiatorAndStateAndCategoryAndEventDateIsBeforeAndEventDateIsAfter(
 //                initiator,state,category,start,end,pageable);
 
-        return repository.asdasdasdasd(users,states.toString(),categories,start,end,pageable);
-
+//        return repository.asdasdasdasd(users,states.toString(),categories,start,end,pageable);
+return repository.findAll();
     }
 
 //    @Override
