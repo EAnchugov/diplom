@@ -26,4 +26,5 @@ public class EventDtoOutput {
     private boolean requestModeration;
     private String publishedOn;
     private Long views;
+    private Integer confirmedRequests;
 }

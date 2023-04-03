@@ -48,7 +48,8 @@ public class EventsMapper {
                 new Location(event.getLat(), event.getLon()),
                 event.getRequestModeration(),
                 event.getPublishedOn().format(GlobalVariables.FORMAT),
-                0L);
+                0L,
+                1);
     }
 
 
