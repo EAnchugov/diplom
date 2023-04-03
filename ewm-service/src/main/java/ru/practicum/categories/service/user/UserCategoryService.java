@@ -8,4 +8,6 @@ public interface UserCategoryService {
     List<Category> getAll(Integer from, Integer size);
 
     Category getByID(Integer catId);
+
+    List<Category> getAllCategories();
 }
