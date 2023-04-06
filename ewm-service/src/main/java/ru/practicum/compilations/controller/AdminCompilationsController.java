@@ -13,10 +13,13 @@ public class AdminCompilationsController {
     private final CompilationService service;
 
     @PostMapping
-    public CompilationDtoOutput addCompilation(@RequestBody @Validated CompilationDtoInput input) {
-        Compilation compilation = service.create(CompilationMapper.toCompilation(input));
+    public Compilation addCompilation(@RequestBody @Validated CompilationDtoInput input) {
+        Compilation compilation = service.create(Compilation.builder()
+                        .title(input.getTitle())
+                        .pinned(input.getPinned())
+                        .build());
 
-        return CompilationMapper.toOutput(compilation);
+        return compilation;
     }
 
     @DeleteMapping("/{compId}")
