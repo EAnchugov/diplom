@@ -114,6 +114,7 @@ public class EventsServiceImpl implements EventsService {
                                          String rangeEnd,
                                          Integer from,
                                          Integer size) {
+        ////
         LocalDateTime start;
         LocalDateTime end;
         State state;
