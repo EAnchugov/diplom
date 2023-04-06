@@ -85,13 +85,6 @@ public class EventsServiceImpl implements EventsService {
         LocalDateTime start;
         LocalDateTime end;
         State state = State.PUBLISHED;
-
-
-//вапвапвап
-
-
-
-
         if (rangeStart == null) {
             start = LocalDateTime.now();
         } else {
@@ -121,13 +114,31 @@ public class EventsServiceImpl implements EventsService {
                                          String rangeEnd,
                                          Integer from,
                                          Integer size) {
-//        State state = states;
+        LocalDateTime start;
+        LocalDateTime end;
+        State state;
         Pageable pageable = PageRequest.of(from, size);
-        LocalDateTime start = LocalDateTime.parse(URLDecoder.decode(rangeStart, StandardCharsets.UTF_8),
+        if (rangeStart == null) {
+            start = LocalDateTime.now();
+        } else {
+             start = LocalDateTime.parse(URLDecoder.decode(rangeStart, StandardCharsets.UTF_8),
                     GlobalVariables.FORMAT);
-        LocalDateTime end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
+        }
+        if (rangeEnd == null) {
+            end = LocalDateTime.now().plusYears(100L);
+        } else {
+            end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
                     GlobalVariables.FORMAT);
-        State state = State.valueOf(states);
+        }
+        if (states == null) {
+            return  repository.testMethod2(users,categories,start,end,pageable);
+
+        } else {
+            state = State.valueOf(states);
+            return repository.testMethod(users,state,categories,start,end,pageable);
+        }
+
+
 //        User initiator = userService.getById(users);
 //        Category category = categoryService.getByID(categories);
 
@@ -137,7 +148,7 @@ public class EventsServiceImpl implements EventsService {
 //        return repository.findAllByInitiatorAndStateAndCategoryAndEventDateIsBeforeAndEventDateIsAfter(
 //                initiator,state,category,start,end,pageable);
 
-        return repository.testMethod(users,state,categories,start,end,pageable);
+
     }
 
 //    @Override
