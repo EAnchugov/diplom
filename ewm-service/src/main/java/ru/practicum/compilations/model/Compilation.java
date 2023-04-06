@@ -15,6 +15,8 @@ public class Compilation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
+    @Column(name = "pinned")
     private Boolean pinned;
+    @Column(name = "title")
     private String title;
 }
