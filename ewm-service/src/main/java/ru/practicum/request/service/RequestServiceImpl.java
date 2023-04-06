@@ -78,6 +78,7 @@ public class RequestServiceImpl implements RequestService {
             if (r.getStatus().equals(Status.CONFIRMED) && updateDto.getStatus().equals(Status.REJECTED)) {
                 throw new WrongParameterException("Нельзя отменять уже принятую заявку");
             }
+            if (r.getStatus().equals(Status.REJECTED))
             r.setStatus(updateDto.getStatus());
         }
 
