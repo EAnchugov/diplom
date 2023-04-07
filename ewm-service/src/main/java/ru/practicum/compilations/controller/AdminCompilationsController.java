@@ -1,9 +1,8 @@
 package ru.practicum.compilations.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import ru.practicum.compilations.model.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.compilations.service.CompilationService;
 
 @RequiredArgsConstructor
