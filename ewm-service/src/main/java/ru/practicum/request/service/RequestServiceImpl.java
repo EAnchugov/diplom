@@ -16,6 +16,7 @@ import ru.practicum.variables.State;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -90,5 +91,18 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     public List<Request> getEventsWithUserRequest(Integer userId, Integer eventId) {
         return repository.findAllByEventInitiatorIdAndEventId(userId,eventId);
+    }
+
+    @Override
+    public Request cancel(Integer userId, Integer requestId) {
+        Optional<Request> optionalRequest = repository.findById(requestId);
+        Request request;
+        if (optionalRequest.isPresent()) {
+            request = optionalRequest.get();
+        } else {
+            throw new WrongParameterException("нет реквеста с ID" + requestId);
+        }
+        request.setStatus(Status.CANCELED);
+        return repository.save(request);
     }
 }
