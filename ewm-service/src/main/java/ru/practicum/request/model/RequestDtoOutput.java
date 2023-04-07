@@ -12,7 +12,7 @@ import ru.practicum.user.model.UserDto;
 public class RequestDtoOutput {
     private Integer id;
     private UserDto requester;
-    private EventDtoOutput event;
+    private EventDtoOutput eventDto;
     private Status status;
     private String created;
 }
