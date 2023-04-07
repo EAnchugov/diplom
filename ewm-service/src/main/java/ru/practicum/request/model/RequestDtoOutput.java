@@ -1,8 +1,8 @@
 package ru.practicum.request.model;
 
 import lombok.*;
-
-import java.time.LocalDateTime;
+import ru.practicum.events.model.EventDtoOutput;
+import ru.practicum.user.model.UserDto;
 
 @Getter
 @Setter
@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestDtoOutput {
-    private LocalDateTime created;
-    private Integer event;
     private Integer id;
-    private Integer requester;
-    private  Status status;
+    private UserDto requester;
+    private EventDtoOutput event;
+    private Status status;
+    private String created;
 }
