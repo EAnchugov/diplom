@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-public class PrivateEvensController {
+public class UserEvensController {
     private final EventsService service;
 
     @GetMapping("/{userId}/events")

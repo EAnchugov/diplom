@@ -36,7 +36,7 @@ public class UserRequestController {
     public List<RequestDtoOutput> updateRequests(@Positive @PathVariable Integer userId,
                                                  @Positive @PathVariable Integer eventId,
                                                  @RequestBody(required = false)
-                                                     @Validated RequestsUpdateDto updateDto) {
+                                                 @Validated RequestsUpdateDto updateDto) {
         return service.update(userId,eventId,updateDto).stream()
                 .map(RequestMapper::toOutput).collect(Collectors.toList());
     }
