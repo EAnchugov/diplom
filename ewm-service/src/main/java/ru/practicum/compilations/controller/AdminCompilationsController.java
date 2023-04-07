@@ -20,7 +20,7 @@ public class AdminCompilationsController {
 //                        .build());
 //
 //        return compilation;
-        return null;
+        return new Compilation();
     }
 
 //    @DeleteMapping("/{compId}")
