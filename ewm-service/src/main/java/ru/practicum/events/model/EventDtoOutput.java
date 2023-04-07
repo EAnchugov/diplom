@@ -11,7 +11,7 @@ import ru.practicum.variables.State;
 @NoArgsConstructor
 @Builder
 public class EventDtoOutput {
-    private Integer eventId;
+    private Integer id;
     private String title;
     private String annotation;
     private Category category;
