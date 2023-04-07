@@ -42,6 +42,14 @@ public class UserRequestController {
                 .map(RequestMapper::toOutput).collect(Collectors.toList());
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{userId}/events/{eventId}/requests")
+    public List<RequestDtoOutput> getEventsWithUserRequest(@Positive @PathVariable Integer userId,
+                                                 @Positive @PathVariable Integer eventId) {
+        return service.getEventsWithUserRequest(userId,eventId).stream()
+                .map(RequestMapper::toOutput).collect(Collectors.toList());
+    }
+
     @DeleteMapping("/{userId}/requests/{requestId}/cancel")
     public String deleteUserRequest(@PathVariable Integer userId,
                                     @PathVariable Integer requestId) {
