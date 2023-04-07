@@ -9,7 +9,7 @@ public class RequestMapper {
         return RequestDtoOutput.builder()
                 .id(request.getId())
                 .requester(UserMapper.toUserDto(request.getRequester()))
-                .eventDto(EventsMapper.eventToOutput(request.getEvent()))
+                .event(EventsMapper.eventToOutput(request.getEvent()))
                 .status(request.getStatus())
                 .created(request.getCreated().format(GlobalVariables.FORMAT)).build();
     }
