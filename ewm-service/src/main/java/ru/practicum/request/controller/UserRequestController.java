@@ -53,6 +53,7 @@ public class UserRequestController {
     @DeleteMapping("/{userId}/requests/{requestId}/cancel")
     public RequestDtoOutput deleteUserRequest(@PathVariable Integer userId,
                                     @PathVariable Integer requestId) {
-        return RequestMapper.toOutput(service.cancel(userId,requestId));
+//        return RequestMapper.toOutput(service.cancel(userId,requestId));
+        return  new RequestDtoOutput();
     }
 }
