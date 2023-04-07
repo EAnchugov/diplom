@@ -137,70 +137,7 @@ public class EventsServiceImpl implements EventsService {
             state = State.valueOf(states);
             return repository.testMethod(users,state,categories,start,end,pageable);
         }
-
-
-//        User initiator = userService.getById(users);
-//        Category category = categoryService.getByID(categories);
-
-//        System.out.println(users + " " +states + " " +categories + " " +start + " " +end + " " +from + " " +size);
-
-
-//        return repository.findAllByInitiatorAndStateAndCategoryAndEventDateIsBeforeAndEventDateIsAfter(
-//                initiator,state,category,start,end,pageable);
-
-
     }
-
-//    @Override
-//    @Transactional
-//    public List<Event> getAdminEvents(List<Integer> usersIds,
-//                                      List<State> states,
-//                                      List<Integer> categories,
-//                                      String rangeStart,
-//                                      String rangeEnd,
-//                                      Integer from,
-//                                      Integer size) {
-//        Pageable pageable = PageRequest.of(from, size);
-//        LocalDateTime start;
-//        LocalDateTime end;
-//        if (rangeStart == null) {
-//            start = LocalDateTime.now();
-//        } else {
-//            start = LocalDateTime.parse(URLDecoder.decode(rangeStart, StandardCharsets.UTF_8),
-//                    GlobalVariables.FORMAT);
-//        }
-//
-//        if (rangeEnd == null) {
-//            end = LocalDateTime.now();
-//        } else {
-//            end = LocalDateTime.parse(URLDecoder.decode(rangeEnd, StandardCharsets.UTF_8),
-//                    GlobalVariables.FORMAT);
-//        }
-//
-//        List<User> users = new ArrayList<>();
-//        if (usersIds == null) {
-//            users.addAll(userService.getAllUsers());
-//        } else {
-//            users.addAll(usersIds.stream().map(userService::getById).collect(Collectors.toList()));
-//        }
-//
-//        if (states == null || states.isEmpty()) {
-//            states.add(State.PUBLISHED);
-//            states.add(State.PENDING);
-//            states.add(State.CANCELED);
-//        }
-//
-//        List<Category> currentCategories = new ArrayList<>();
-//        if (categories == null) {
-//            currentCategories = categoryService.getAllCategories();
-//        } else {
-//            currentCategories.addAll(categories.stream().map(categoryService::getByID).collect(Collectors.toList()));
-//        }
-//
-//        return repository.findAllByEventDateIsBeforeAndEventDateIsAfterAndInitiatorInAndStateInAndCategoryIn(
-////                start,end,users,states,currentCategories,pageable);
-//        return new ArrayList<>();
-//    }
 
     private Event eventUpdater(Event event, UpdateEventUserRequest update) {
         if (update.getAnnotation() != null) {
@@ -235,6 +172,13 @@ public class EventsServiceImpl implements EventsService {
         }
         if (update.getRequestModeration() != null) {
             event.setRequestModeration(update.getRequestModeration());
+        }
+        if (update.getStateAction().equals(StateAction.CANCEL_REVIEW)) {
+            if (event.getState().equals(State.PENDING)) {
+                event.setState(State.CANCELED);
+            } else {
+                throw new WrongParameterException("Отменить можно только событие в состоянии ожидания модерации.");
+            }
         }
         if (update.getStateAction().equals(StateAction.SEND_TO_REVIEW)) {
             event.setState(State.PENDING);
