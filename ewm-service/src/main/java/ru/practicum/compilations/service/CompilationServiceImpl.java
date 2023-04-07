@@ -24,11 +24,7 @@ public class CompilationServiceImpl implements CompilationService {
     public List<Compilation> getAll(Boolean pinned, Integer from, Integer size) {
         List<Compilation> compilations = new ArrayList<>();
         Pageable pageable = PageRequest.of(from,size);
-        if (!pinned) {
             compilations.addAll(repository.findAll(pageable).toList());
-        } else {
-            compilations.addAll(repository.findAllByPinned(pinned,pageable));
-        }
         return compilations;
     }
 }
