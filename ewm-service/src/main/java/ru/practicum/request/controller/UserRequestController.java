@@ -20,8 +20,9 @@ public class UserRequestController {
     private final RequestService service;
 
     @GetMapping("/{userId}/requests")
-    public String getUserRequests(@PathVariable Integer userId) {
-        return null;
+    public List<RequestDtoOutput> getUserRequests(@PathVariable Integer userId) {
+        return service.getByUserId(userId).stream()
+                .map(RequestMapper::toOutput).collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.CREATED)

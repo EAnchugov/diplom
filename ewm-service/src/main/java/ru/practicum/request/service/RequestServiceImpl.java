@@ -80,4 +80,9 @@ public class RequestServiceImpl implements RequestService {
         }
         return requests;
     }
+
+    @Override
+    public List<Request> getByUserId(Integer userId) {
+        return repository.findAllByRequesterId(userId);
+    }
 }
