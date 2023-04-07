@@ -19,11 +19,11 @@ public class UserEvensController {
     private final EventsService service;
 
     @GetMapping("/{userId}/events")
-    public List<Event> getUserEvents(@PathVariable Integer userId,
+    public List<EventDtoOutput> getUserEvents(@PathVariable Integer userId,
                                              @Min(0) @RequestParam(defaultValue = "0") Integer from,
                                              @Min(1) @RequestParam(defaultValue = "10") Integer size) {
-        return service.getUserEvents(userId,from,size);
-//        .stream().map(EventsMapper::toEventsFullDto).collect(Collectors.toList());
+        return service.getUserEvents(userId,from,size).stream()
+                .map(EventsMapper::eventToOutput).collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -34,9 +34,9 @@ public class UserEvensController {
     }
 
     @GetMapping("/{userId}/events/{eventId}")
-    public List<EventsFullDto> getUserEvent(@PathVariable Integer userId,
+    public List<EventDtoOutput> getUserEvent(@PathVariable Integer userId,
                                 @PathVariable Integer eventId) {
-        return service.getUserEvent(userId,eventId).stream().map(EventsMapper::toEventsFullDto)
+        return service.getUserEvent(userId,eventId).stream().map(EventsMapper::eventToOutput)
                 .collect(Collectors.toList());
     }
 
