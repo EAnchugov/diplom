@@ -71,25 +71,13 @@ public class RequestServiceImpl implements RequestService {
         if (updateDto == null) {
             throw new WrongParameterException("Список обновляемых событий пуст");
         }
-        Event event = eventsService.getById(eventId);
-        User requester = userService.getById(userId);
         List<Request> requests = repository.findAllById(updateDto.getRequestIds());
         for (Request r: requests) {
-            if (r.getStatus().equals(Status.CONFIRMED) && updateDto.getStatus().equals(Status.REJECTED)) {
-                throw new WrongParameterException("Нельзя отменять уже принятую заявку");
+            if (r.getStatus().equals(Status.CONFIRMED)) {
+                throw new WrongParameterException("Нельзя изменять уже принятую заявку");
             }
-            if (r.getStatus().equals(Status.REJECTED))
             r.setStatus(updateDto.getStatus());
         }
-
-
-//        List<Request> requests = repository.findAllById(updateDto.getRequestIds());
-//        if (requests.isEmpty()) {
-//            throw new WrongParameterException("реквесты пустые");
-//        }
-
-
-//        throw new WrongParameterException("test");
         return requests;
     }
 }
