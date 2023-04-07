@@ -51,8 +51,8 @@ public class UserRequestController {
     }
 
     @DeleteMapping("/{userId}/requests/{requestId}/cancel")
-    public String deleteUserRequest(@PathVariable Integer userId,
+    public RequestDtoOutput deleteUserRequest(@PathVariable Integer userId,
                                     @PathVariable Integer requestId) {
-        return null;
+        return RequestMapper.toOutput(service.cancel(userId,requestId));
     }
 }

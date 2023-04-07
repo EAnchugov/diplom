@@ -18,4 +18,6 @@ public interface RequestService {
     List<Request> getByUserId(Integer userId);
 
     List<Request> getEventsWithUserRequest(Integer userId, Integer eventId);
+
+    Request cancel(Integer userId, Integer requestId);
 }
