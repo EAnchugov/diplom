@@ -50,10 +50,9 @@ public class UserRequestController {
                 .map(RequestMapper::toOutput).collect(Collectors.toList());
     }
 
-    @DeleteMapping("/{userId}/requests/{requestId}/cancel")
+    @PatchMapping("/{userId}/requests/{requestId}/cancel")
     public RequestDtoOutput deleteUserRequest(@PathVariable Integer userId,
                                     @PathVariable Integer requestId) {
-//        return RequestMapper.toOutput(service.cancel(userId,requestId));
-        return  new RequestDtoOutput();
+        return RequestMapper.toOutput(service.cancel(userId,requestId));
     }
 }
