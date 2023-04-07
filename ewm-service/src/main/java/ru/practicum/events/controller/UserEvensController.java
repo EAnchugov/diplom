@@ -34,10 +34,11 @@ public class UserEvensController {
     }
 
     @GetMapping("/{userId}/events/{eventId}")
-    public List<EventDtoOutput> getUserEvent(@PathVariable Integer userId,
+    public EventDtoOutput getUserEvent(@PathVariable Integer userId,
                                 @PathVariable Integer eventId) {
-        return service.getUserEvent(userId,eventId).stream().map(EventsMapper::eventToOutput)
-                .collect(Collectors.toList());
+        return EventsMapper.eventToOutput(service.getUserEvent(userId,eventId).get(0));
+//        .stream().map(EventsMapper::eventToOutput)
+//                .collect(Collectors.toList());
     }
 
     @PatchMapping("/{userId}/events/{eventId}")
