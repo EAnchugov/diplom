@@ -12,16 +12,16 @@ import ru.practicum.compilations.service.CompilationService;
 public class AdminCompilationsController {
     private final CompilationService service;
 
-    @PostMapping
-    public Compilation addCompilation(@RequestBody @Validated CompilationDtoInput input) {
-//        Compilation compilation = service.create(Compilation.builder()
-//                        .title(input.getTitle())
-//                        .pinned(input.getPinned())
-//                        .build());
-//
-//        return compilation;
-        return new Compilation();
-    }
+//    @PostMapping
+//    public Compilation addCompilation(@RequestBody @Validated CompilationDtoInput input) {
+////        Compilation compilation = service.create(Compilation.builder()
+////                        .title(input.getTitle())
+////                        .pinned(input.getPinned())
+////                        .build());
+////
+////        return compilation;
+//        return new Compilation();
+//    }
 
 //    @DeleteMapping("/{compId}")
 //    public void deleteCompilation(@PathVariable Integer compId) {
