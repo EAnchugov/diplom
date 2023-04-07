@@ -1,8 +1,6 @@
 package ru.practicum.events.model;
 
 import lombok.*;
-import ru.practicum.categories.model.Category;
-import ru.practicum.user.model.User;
 import ru.practicum.variables.State;
 
 @Getter
@@ -14,10 +12,10 @@ public class EventDtoOutput {
     private Integer id;
     private String title;
     private String annotation;
-    private Category category;
+    private Integer category;
     private Boolean paid;
     private String eventDate;
-    private User initiator;
+    private Integer initiator;
     private String description;
     private Integer participantLimit;
     private State state;
