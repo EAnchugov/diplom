@@ -16,4 +16,6 @@ public interface RequestService {
     List<Request> update(Integer userId, Integer eventId, RequestsUpdateDto updateDto);
 
     List<Request> getByUserId(Integer userId);
+
+    List<Request> getEventsWithUserRequest(Integer userId, Integer eventId);
 }

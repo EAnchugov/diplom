@@ -16,6 +16,7 @@ import ru.practicum.variables.State;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -84,5 +85,13 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Request> getByUserId(Integer userId) {
         return repository.findAllByRequesterId(userId);
+    }
+
+    @Override
+    @Transactional
+    public List<Request> getEventsWithUserRequest(Integer userId, Integer eventId) {
+        Event event = eventsService.getById(eventId);
+        User requester = userService.getById(userId);
+        return repository.findAllByRequesterAndEvent(requester,event).stream().collect(Collectors.toList());
     }
 }
