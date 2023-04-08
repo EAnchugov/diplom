@@ -61,6 +61,6 @@ public class CompilationServiceImpl implements CompilationService {
         if (input.getTitle() != null) {
             compilation.setTitle(input.getTitle());
         }
-        return compilation;
+        return repository.save(compilation);
     }
 }
