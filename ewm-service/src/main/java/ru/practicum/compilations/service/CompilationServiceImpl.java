@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.compilations.model.Compilation;
 import ru.practicum.compilations.model.CompilationDtoInput;
 import ru.practicum.compilations.repository.CompilationRepository;
-import ru.practicum.events.model.Event;
 import ru.practicum.events.service.EventsService;
 import ru.practicum.exceptions.WrongParameterException;
 
@@ -54,12 +53,11 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
-    public Compilation update(Integer compId, Integer eventId) {
+    public Compilation update(Integer compId, CompilationDtoInput input) {
         Compilation compilation = getById(compId);
-        List<Event> events = new ArrayList<>();
-        events.addAll(compilation.getEvents());
-        events.add(eventsService.getById(eventId));
-        compilation.setEvents(events);
+        compilation.setEvents(input.getEvents().stream().map(eventsService::getById).collect(Collectors.toList()));
+        compilation.setPinned(input.getPinned());
+        compilation.setTitle(input.getTitle());
         return repository.save(compilation);
     }
 }

@@ -27,8 +27,9 @@ public class AdminCompilationsController {
         service.deleteById(compId);
     }
 
-    @PatchMapping("/{compId}/events/{eventId}")
-    public Compilation patchCompilation(@PathVariable Integer compId, @PathVariable Integer eventId) {
-        return service.update(compId,eventId);
+    @PatchMapping("/{compId}")
+    public Compilation patchCompilation(@PathVariable Integer compId,
+                                        @RequestBody @Validated CompilationDtoInput input) {
+        return service.update(compId,input);
     }
 }
