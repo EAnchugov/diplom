@@ -26,9 +26,10 @@ public class AdminCompilationsController {
     public void deleteCompilation(@PathVariable Integer compId) {
         service.deleteById(compId);
     }
-//
-//    @PatchMapping("/{compId}")
-//    public Compilation patchCompilation(@PathVariable Integer compId) {
-//        return null;
-//    }
+
+    @PatchMapping("/{compId}")
+    public Compilation patchCompilation(@PathVariable Integer compId,
+                                        @RequestBody @Validated CompilationDtoInput input) {
+        return service.update(compId,input);
+    }
 }

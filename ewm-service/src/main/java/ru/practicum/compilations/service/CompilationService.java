@@ -13,4 +13,6 @@ public interface CompilationService {
     Compilation getById(Integer compId);
 
     void deleteById(Integer compId);
+
+    Compilation update(Integer compId, CompilationDtoInput input);
 }

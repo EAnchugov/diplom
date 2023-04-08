@@ -51,4 +51,16 @@ public class CompilationServiceImpl implements CompilationService {
     public void deleteById(Integer compId) {
         repository.deleteById(compId);
     }
+
+    @Override
+    public Compilation update(Integer compId, CompilationDtoInput input) {
+        Compilation compilation = getById(compId);
+        if (input.getPinned() != null) {
+            compilation.setPinned(input.getPinned());
+        }
+        if (input.getTitle() != null) {
+            compilation.setTitle(input.getTitle());
+        }
+        return compilation;
+    }
 }

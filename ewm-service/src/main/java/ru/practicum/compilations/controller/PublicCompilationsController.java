@@ -21,7 +21,6 @@ public class PublicCompilationsController {
     public List<CompilationDto> getAllCompilations(@RequestParam(defaultValue = "false") Boolean pinned,
                                                    @RequestParam(defaultValue = "0") Integer from,
                                                    @RequestParam(defaultValue = "10") Integer size) {
-//        log.info("Получен запрос getAllCompilations pinned={}, from={}, size={}", pinned, from, size);
         return compilationService.getAll(pinned,from,size).stream().map(CompilationMapper::toCompilationDto)
                         .collect(Collectors.toList());
     }
