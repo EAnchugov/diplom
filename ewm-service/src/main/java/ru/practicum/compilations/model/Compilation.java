@@ -4,6 +4,7 @@ import lombok.*;
 import ru.practicum.events.model.Event;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -27,5 +28,5 @@ public class Compilation {
             joinColumns = {@JoinColumn(name = "compilations_id")},
             inverseJoinColumns = {@JoinColumn(name = "events_id")}
     )
-    private List<Event> events;
+    private List<Event> events = new ArrayList<>();
 }
