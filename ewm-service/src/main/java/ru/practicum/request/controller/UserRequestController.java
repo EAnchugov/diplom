@@ -34,12 +34,11 @@ public class UserRequestController {
 
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{userId}/events/{eventId}/requests")
-    public List<RequestDtoOutput> updateRequests(@Positive @PathVariable Integer userId,
+    public RequestDtoOutput updateRequest(@Positive @PathVariable Integer userId,
                                                  @Positive @PathVariable Integer eventId,
                                                  @RequestBody(required = false)
                                                  @Validated RequestsUpdateDto updateDto) {
-        return service.update(userId,eventId,updateDto).stream()
-                .map(RequestMapper::toOutput).collect(Collectors.toList());
+        return RequestMapper.toOutput(service.update(userId,eventId,updateDto).get(0));
     }
 
     @ResponseStatus(HttpStatus.OK)

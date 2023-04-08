@@ -1,5 +1,6 @@
 package ru.practicum.compilations.model;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -11,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompilationDto {
-    @NotBlank
+    @NotNull
     private  Integer id;
     @NotBlank
     private Boolean pinned;

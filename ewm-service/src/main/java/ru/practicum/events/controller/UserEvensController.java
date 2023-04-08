@@ -37,8 +37,6 @@ public class UserEvensController {
     public EventDtoOutput getUserEvent(@PathVariable Integer userId,
                                 @PathVariable Integer eventId) {
         return EventsMapper.eventToOutput(service.getUserEvent(userId,eventId).get(0));
-//        .stream().map(EventsMapper::eventToOutput)
-//                .collect(Collectors.toList());
     }
 
     @PatchMapping("/{userId}/events/{eventId}")
