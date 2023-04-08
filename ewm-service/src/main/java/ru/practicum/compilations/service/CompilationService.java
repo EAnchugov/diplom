@@ -14,5 +14,5 @@ public interface CompilationService {
 
     void deleteById(Integer compId);
 
-    Compilation update(Integer compId, CompilationDtoInput input);
+    Compilation update(Integer compId, Integer eventId);
 }

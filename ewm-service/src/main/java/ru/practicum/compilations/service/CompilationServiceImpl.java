@@ -53,14 +53,9 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
-    public Compilation update(Integer compId, CompilationDtoInput input) {
+    public Compilation update(Integer compId, Integer eventId) {
         Compilation compilation = getById(compId);
-        if (input.getPinned() != null) {
-            compilation.setPinned(input.getPinned());
-        }
-        if (input.getTitle() != null) {
-            compilation.setTitle(input.getTitle());
-        }
+        compilation.getEvents().add(eventsService.getById(eventId));
         return repository.save(compilation);
     }
 }
