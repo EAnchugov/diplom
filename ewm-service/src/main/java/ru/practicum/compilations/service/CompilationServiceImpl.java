@@ -21,6 +21,7 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     public Compilation create(CompilationDtoInput input) {
+
         Compilation compilation =
                 Compilation.builder()
                         .title(input.getTitle())
