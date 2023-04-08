@@ -30,8 +30,8 @@ public class AdminCompilationsController {
     }
 
     @PatchMapping("/{compId}")
-    public CompilationDto patchCompilation(@PathVariable Integer compId,
+    public void patchCompilation(@PathVariable Integer compId,
                                         @RequestBody @Validated CompilationDto input) {
-        return CompilationMapper.toCompilationDto(service.update(compId,input));
+        CompilationMapper.toCompilationDto(service.update(compId,input));
     }
 }
