@@ -18,8 +18,8 @@ public class AdminCompilationsController {
 
     @PostMapping
     public Compilation createCompilation(@RequestBody @Validated CompilationDtoInput input) {
-//        Compilation compilation = service.create(input);
-        return new Compilation();
+        Compilation compilation = service.create(input);
+        return compilation;
     }
 
 //    @DeleteMapping("/{compId}")
