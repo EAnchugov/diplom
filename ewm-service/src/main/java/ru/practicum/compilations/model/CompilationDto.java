@@ -14,7 +14,7 @@ import java.util.List;
 public class CompilationDto {
     @NotNull
     private  Integer id;
-    @NotBlank
+    @NotNull
     private Boolean pinned;
     @NotBlank
     private String title;

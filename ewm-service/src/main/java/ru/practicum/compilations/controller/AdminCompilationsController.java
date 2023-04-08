@@ -31,7 +31,6 @@ public class AdminCompilationsController {
     @PatchMapping("/{compId}")
     public Compilation patchCompilation(@PathVariable Integer compId,
                                         @RequestBody @Validated CompilationDto input) {
-//        return service.update(compId,input);
-        return new Compilation();
+        return service.update(compId,input);
     }
 }
