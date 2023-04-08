@@ -2,9 +2,6 @@ package ru.practicum.compilations.model;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import ru.practicum.events.model.Event;
-
-import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CompilationMapper {
@@ -21,7 +18,7 @@ public class CompilationMapper {
                 .id(compilation.getId())
                 .pinned(compilation.getPinned())
                 .title(compilation.getTitle())
-                .events(compilation.getEvents().stream().map(Event::getId).collect(Collectors.toList()))
+                .events(compilation.getEvents())
                 .build();
     }
 
