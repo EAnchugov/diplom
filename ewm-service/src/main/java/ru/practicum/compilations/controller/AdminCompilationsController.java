@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.compilations.model.Compilation;
 import ru.practicum.compilations.model.CompilationDto;
 import ru.practicum.compilations.model.CompilationDtoInput;
+import ru.practicum.compilations.model.CompilationMapper;
 import ru.practicum.compilations.service.CompilationService;
 
 @RequiredArgsConstructor
@@ -29,8 +30,8 @@ public class AdminCompilationsController {
     }
 
     @PatchMapping("/{compId}")
-    public Compilation patchCompilation(@PathVariable Integer compId,
+    public CompilationDto patchCompilation(@PathVariable Integer compId,
                                         @RequestBody @Validated CompilationDto input) {
-        return service.update(compId,input);
+        return CompilationMapper.toCompilationDto(service.update(compId,input));
     }
 }
