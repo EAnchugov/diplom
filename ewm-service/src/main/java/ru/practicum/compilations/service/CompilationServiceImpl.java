@@ -46,4 +46,9 @@ public class CompilationServiceImpl implements CompilationService {
     public Compilation getById(Integer compId) {
         return repository.findById(compId).orElseThrow(() -> new WrongParameterException("Нет компиляции с id " + compId));
     }
+
+    @Override
+    public void deleteById(Integer compId) {
+        repository.deleteById(compId);
+    }
 }

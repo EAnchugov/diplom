@@ -11,4 +11,6 @@ public interface CompilationService {
     List<Compilation> getAll(Boolean pinned, Integer from, Integer size);
 
     Compilation getById(Integer compId);
+
+    void deleteById(Integer compId);
 }

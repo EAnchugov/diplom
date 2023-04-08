@@ -21,9 +21,11 @@ public class AdminCompilationsController {
         return compilation;
     }
 
-//    @DeleteMapping("/{compId}")
-//    public void deleteCompilation(@PathVariable Integer compId) {
-//    }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{compId}")
+    public void deleteCompilation(@PathVariable Integer compId) {
+        service.deleteById(compId);
+    }
 //
 //    @PatchMapping("/{compId}")
 //    public Compilation patchCompilation(@PathVariable Integer compId) {
