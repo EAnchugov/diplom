@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.compilations.model.Compilation;
+import ru.practicum.compilations.model.CompilationDto;
 import ru.practicum.compilations.model.CompilationDtoInput;
 import ru.practicum.compilations.repository.CompilationRepository;
 import ru.practicum.events.model.Event;
@@ -54,7 +55,7 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
-    public Compilation update(Integer compId, CompilationDtoInput input) {
+    public Compilation update(Integer compId, CompilationDto input) {
         Compilation compilation = getById(compId);
         if (!input.getEvents().isEmpty()) {
             List<Event> events = new ArrayList<>();

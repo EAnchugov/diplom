@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.compilations.model.Compilation;
+import ru.practicum.compilations.model.CompilationDto;
 import ru.practicum.compilations.model.CompilationDtoInput;
 import ru.practicum.compilations.service.CompilationService;
 
@@ -29,7 +30,7 @@ public class AdminCompilationsController {
 
     @PatchMapping("/{compId}")
     public Compilation patchCompilation(@PathVariable Integer compId,
-                                        @RequestBody @Validated CompilationDtoInput input) {
+                                        @RequestBody @Validated CompilationDto input) {
         return service.update(compId,input);
     }
 }

@@ -1,6 +1,7 @@
 package ru.practicum.compilations.service;
 
 import ru.practicum.compilations.model.Compilation;
+import ru.practicum.compilations.model.CompilationDto;
 import ru.practicum.compilations.model.CompilationDtoInput;
 
 import java.util.List;
@@ -14,5 +15,5 @@ public interface CompilationService {
 
     void deleteById(Integer compId);
 
-    Compilation update(Integer compId, CompilationDtoInput input);
+    Compilation update(Integer compId, CompilationDto input);
 }
