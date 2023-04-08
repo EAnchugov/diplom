@@ -28,5 +28,5 @@ public class Compilation {
             joinColumns = {@JoinColumn(name = "compilations_id")},
             inverseJoinColumns = {@JoinColumn(name = "events_id")}
     )
-    private List<Event> events = new ArrayList<>();
+    private List<Event> events;
 }

@@ -56,14 +56,12 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     public Compilation update(Integer compId, CompilationDto input) {
+        List<Event> events = new ArrayList<>();
         Compilation compilation = getById(compId);
-        if (!input.getEvents().isEmpty()) {
-            List<Event> events = new ArrayList<>();
             for (Event e: compilation.getEvents()) {
                 events.add(e);
-            }
            events.addAll(input.getEvents().stream().map(eventsService::getById).collect(Collectors.toList()));
-            compilation.setEvents(events);
+           compilation.setEvents(events);
         }
         compilation.setPinned(input.getPinned());
         compilation.setTitle(input.getTitle());
