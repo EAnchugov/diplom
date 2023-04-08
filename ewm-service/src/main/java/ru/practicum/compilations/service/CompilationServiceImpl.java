@@ -58,8 +58,11 @@ public class CompilationServiceImpl implements CompilationService {
         Compilation compilation = getById(compId);
         if (!input.getEvents().isEmpty()) {
             List<Event> events = new ArrayList<>();
-            events.addAll(compilation.getEvents());
-            events.addAll(input.getEvents().stream().map(eventsService::getById).collect(Collectors.toList()));
+            for (Event e: compilation.getEvents()) {
+                events.add(e);
+            }
+           events.addAll(input.getEvents().stream().map(eventsService::getById).collect(Collectors.toList()));
+            compilation.setEvents(events);
         }
         compilation.setPinned(input.getPinned());
         compilation.setTitle(input.getTitle());
