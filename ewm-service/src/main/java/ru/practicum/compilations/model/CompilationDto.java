@@ -19,14 +19,4 @@ public class CompilationDto {
     @NotBlank
     private String title;
     private List<Integer> events;
-
-    @Override
-    public String toString() {
-        return "CompilationDto{" +
-                "id=" + id +
-                ", pinned=" + pinned +
-                ", title='" + title + '\'' +
-                ", events=" + events +
-                '}';
-    }
 }
