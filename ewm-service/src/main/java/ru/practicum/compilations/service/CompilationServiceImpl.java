@@ -56,7 +56,8 @@ public class CompilationServiceImpl implements CompilationService {
     @Override
     public Compilation update(Integer compId, Integer eventId) {
         Compilation compilation = getById(compId);
-        List<Event> events = compilation.getEvents();
+        List<Event> events = new ArrayList<>();
+        events.addAll(compilation.getEvents());
         events.add(eventsService.getById(eventId));
         compilation.setEvents(events);
         return repository.save(compilation);
