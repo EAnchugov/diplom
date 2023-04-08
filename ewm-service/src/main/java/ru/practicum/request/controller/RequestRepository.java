@@ -1,0 +1,19 @@
+package ru.practicum.request.controller;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.practicum.events.model.Event;
+import ru.practicum.request.model.Request;
+import ru.practicum.user.model.User;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface RequestRepository extends JpaRepository<Request, Integer> {
+    Optional<Request> findAllByRequesterAndEvent(User requester, Event event);
+
+    List<Request> findAllByEvent(Event event);
+
+    List<Request> findAllByRequesterId(Integer requesterId);
+
+    List<Request> findAllByEventInitiatorIdAndEventId(Integer userId, Integer eventId);
+}
