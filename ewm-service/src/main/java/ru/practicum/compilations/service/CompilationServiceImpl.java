@@ -54,13 +54,15 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
+    @Transactional
     public Compilation update(Integer compId, CompilationDto input) {
+        System.out.println(input);
         Compilation compilation = getById(input.getId());
         if (!input.getEvents().isEmpty()) {
             compilation.setEvents(input.getEvents().stream().map(eventsService::getById).collect(Collectors.toList()));
         }
         compilation.setPinned(input.getPinned());
         compilation.setTitle(input.getTitle());
-        return repository.save(compilation);
+        return compilation;
     }
 }
