@@ -44,8 +44,7 @@ create table compilations(
 
 create table events_compilations (
     events_id integer REFERENCES events(id),
-    compilations_id integer REFERENCES compilations(id),
-    CONSTRAINT pk_publish_compilations PRIMARY KEY (compilations_id,events_id)
+    compilations_id integer REFERENCES compilations(id)
 );
 
 create table requests(
