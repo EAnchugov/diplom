@@ -9,6 +9,7 @@ import ru.practicum.compilations.model.Compilation;
 import ru.practicum.compilations.model.CompilationDtoInput;
 import ru.practicum.compilations.repository.CompilationRepository;
 import ru.practicum.events.service.EventsService;
+import ru.practicum.exceptions.WrongParameterException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,5 +40,10 @@ public class CompilationServiceImpl implements CompilationService {
         Pageable pageable = PageRequest.of(from,size);
             compilations.addAll(repository.findAll(pageable).toList());
         return compilations;
+    }
+
+    @Override
+    public Compilation getById(Integer compId) {
+        return repository.findById(compId).orElseThrow(() -> new WrongParameterException("Нет компиляции с id " + compId));
     }
 }

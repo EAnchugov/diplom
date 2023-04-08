@@ -9,4 +9,6 @@ public interface CompilationService {
     Compilation create(CompilationDtoInput compilation);
 
     List<Compilation> getAll(Boolean pinned, Integer from, Integer size);
+
+    Compilation getById(Integer compId);
 }
