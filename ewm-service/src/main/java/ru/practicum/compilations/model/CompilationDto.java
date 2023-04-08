@@ -12,11 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompilationDto {
+    private List<Integer> events;
     @NotNull
     private  Integer id;
     @NotNull
     private Boolean pinned;
     @NotBlank
     private String title;
-    private List<Integer> events;
 }
