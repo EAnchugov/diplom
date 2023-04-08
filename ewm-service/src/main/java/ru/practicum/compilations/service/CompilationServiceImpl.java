@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.compilations.model.Compilation;
 import ru.practicum.compilations.model.CompilationDtoInput;
 import ru.practicum.compilations.repository.CompilationRepository;
@@ -20,6 +21,7 @@ public class CompilationServiceImpl implements CompilationService {
     private final EventsService eventsService;
 
     @Override
+    @Transactional
     public Compilation create(CompilationDtoInput input) {
 
         Compilation compilation =
