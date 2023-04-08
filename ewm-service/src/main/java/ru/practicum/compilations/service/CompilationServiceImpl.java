@@ -9,7 +9,6 @@ import ru.practicum.compilations.model.Compilation;
 import ru.practicum.compilations.model.CompilationDto;
 import ru.practicum.compilations.model.CompilationDtoInput;
 import ru.practicum.compilations.repository.CompilationRepository;
-import ru.practicum.events.model.Event;
 import ru.practicum.events.service.EventsService;
 import ru.practicum.exceptions.WrongParameterException;
 
@@ -57,7 +56,7 @@ public class CompilationServiceImpl implements CompilationService {
     @Override
     public Compilation update(Integer compId, CompilationDto input) {
         Compilation compilation = getById(input.getId());
-        if (!input.getEvents().isEmpty()){
+        if (!input.getEvents().isEmpty()) {
             compilation.setEvents(input.getEvents().stream().map(eventsService::getById).collect(Collectors.toList()));
         }
         compilation.setPinned(input.getPinned());
