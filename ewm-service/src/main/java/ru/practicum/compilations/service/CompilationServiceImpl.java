@@ -58,7 +58,7 @@ public class CompilationServiceImpl implements CompilationService {
     public Compilation update(Integer compId, CompilationDto input) {
         System.out.println(input);
         Compilation compilation = getById(input.getId());
-        if (!input.getEvents().isEmpty()) {
+        if (!input.getEvents().isEmpty() && !(input.getEvents() == null)) {
             compilation.setEvents(input.getEvents().stream().map(eventsService::getById).collect(Collectors.toList()));
         }
         compilation.setPinned(input.getPinned());
