@@ -18,6 +18,7 @@ public class CompilationMapper {
                 .id(compilation.getId())
                 .pinned(compilation.getPinned())
                 .title(compilation.getTitle())
+                .events(compilation.getEvents())
                 .build();
     }
 
