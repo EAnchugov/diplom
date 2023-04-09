@@ -7,6 +7,7 @@ import ru.practicum.events.model.EventsMapper;
 import ru.practicum.events.service.EventsService;
 import ru.practicum.variables.Sorting;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,15 +28,16 @@ public class PublicEventsController {
             @RequestParam(defaultValue = "false") Boolean onlyAvailable,
             @RequestParam(defaultValue = "VIEWS") Sorting sorting,
             @Min(0) @RequestParam(defaultValue = "0") Integer from,
-            @Min(1) @RequestParam(defaultValue = "10") Integer size
+            @Min(1) @RequestParam(defaultValue = "10") Integer size,
+            HttpServletRequest request
     ) {
-        return service.getAll(text,categories,paid,rangeStart,rangeEnd,onlyAvailable,sorting,from,size).stream()
+        return service.getAll(text,categories,paid,rangeStart,rangeEnd,onlyAvailable,sorting,from,size,request).stream()
                 .map(EventsMapper::eventToOutput)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public EventDtoOutput getEventById(@PathVariable Integer id) {
-        return EventsMapper.eventToOutput(service.getById(id));
+    public EventDtoOutput getEventById(@PathVariable Integer id,HttpServletRequest request) {
+        return service.getByIdWithCount(id,request);
     }
 }

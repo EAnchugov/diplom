@@ -17,6 +17,7 @@ import ru.practicum.variables.Sorting;
 import ru.practicum.variables.State;
 import ru.practicum.variables.StateAction;
 
+import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -80,7 +81,7 @@ public class EventsServiceImpl implements EventsService {
                               Boolean onlyAvailable,
                               Sorting sorting,
                               Integer from,
-                              Integer size) {
+                              Integer size, HttpServletRequest request) {
         Pageable pageable = PageRequest.of(from, size);
         LocalDateTime start;
         LocalDateTime end;
@@ -98,6 +99,12 @@ public class EventsServiceImpl implements EventsService {
         }
         List<Event> events = repository.findAllWithFilter(text,categoryId,paid,start,end,State.PUBLISHED,pageable);
         return events;
+    }
+
+    @Override
+    public EventDtoOutput getByIdWithCount(Integer id, HttpServletRequest request) {
+        EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
+        return eventDtoOutput;
     }
 
     @Override

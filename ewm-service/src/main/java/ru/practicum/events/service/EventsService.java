@@ -6,6 +6,7 @@ import ru.practicum.events.model.EventDtoOutput;
 import ru.practicum.events.model.UpdateEventUserRequest;
 import ru.practicum.variables.Sorting;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface EventsService {
@@ -16,7 +17,9 @@ public interface EventsService {
 
     Event updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest);
 
-    List<Event> getAll(String text, Integer categories, Boolean paid, String rangeStart, String rangeEnd, Boolean onlyAvailable, Sorting sorting, Integer from, Integer size);
+    List<Event> getAll(String text, Integer categories, Boolean paid, String rangeStart, String rangeEnd, Boolean onlyAvailable, Sorting sorting, Integer from, Integer size, HttpServletRequest request);
+
+    EventDtoOutput getByIdWithCount(Integer id, HttpServletRequest request);
 
     Event getById(Integer id);
 

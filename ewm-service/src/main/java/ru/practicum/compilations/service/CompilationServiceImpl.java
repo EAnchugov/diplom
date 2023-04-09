@@ -30,7 +30,7 @@ public class CompilationServiceImpl implements CompilationService {
                 Compilation.builder()
                         .title(input.getTitle())
                         .pinned(input.getPinned())
-                        .events(input.getEvents().stream().map(eventsService::getById).collect(Collectors.toList()))
+                        .events(input.getEvents().stream().map(id -> eventsService.getById(id)).collect(Collectors.toList()))
                         .build();
         return repository.save(compilation);
     }
@@ -59,7 +59,7 @@ public class CompilationServiceImpl implements CompilationService {
         System.out.println(input);
         Compilation compilation = getById(compId);
         if (!input.getEvents().isEmpty() && !(input.getEvents() == null)) {
-            compilation.getEvents().addAll(input.getEvents().stream().map(eventsService::getById).collect(Collectors.toList()));
+            compilation.getEvents().addAll(input.getEvents().stream().map(id -> eventsService.getById(id)).collect(Collectors.toList()));
         }
         if (input.getPinned() != null) {
             input.getPinned();
