@@ -57,7 +57,7 @@ public class CompilationServiceImpl implements CompilationService {
     @Transactional
     public Compilation update(Integer compId, UpdateCompilationRequest input) {
         System.out.println(input);
-        Compilation compilation = getById(input.getId());
+        Compilation compilation = getById(compId);
         if (!input.getEvents().isEmpty() && !(input.getEvents() == null)) {
             compilation.getEvents().addAll(input.getEvents().stream().map(eventsService::getById).collect(Collectors.toList()));
         }

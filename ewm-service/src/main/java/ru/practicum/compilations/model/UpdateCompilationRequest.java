@@ -1,6 +1,5 @@
 package ru.practicum.compilations.model;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -12,8 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class UpdateCompilationRequest {
     private List<Integer> events;
-    @NotNull
-    private  Integer id;
     private Boolean pinned;
     private String title;
 }
