@@ -84,7 +84,6 @@ public class EventsServiceImpl implements EventsService {
         Pageable pageable = PageRequest.of(from, size);
         LocalDateTime start;
         LocalDateTime end;
-        State state = State.PUBLISHED;
         if (rangeStart == null) {
             start = LocalDateTime.now();
         } else {
