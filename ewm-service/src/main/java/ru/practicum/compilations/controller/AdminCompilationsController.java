@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.compilations.model.Compilation;
-import ru.practicum.compilations.model.CompilationDto;
-import ru.practicum.compilations.model.CompilationDtoInput;
-import ru.practicum.compilations.model.CompilationMapper;
+import ru.practicum.compilations.model.*;
 import ru.practicum.compilations.service.CompilationService;
 
 @RequiredArgsConstructor
@@ -31,7 +28,7 @@ public class AdminCompilationsController {
 
     @PatchMapping("/{compId}")
     public CompilationDto patchCompilation(@PathVariable Integer compId,
-                                        @RequestBody @Validated CompilationDto input) {
+                                        @RequestBody @Validated UpdateCompilationRequest input) {
         return CompilationMapper.toCompilationDto(service.update(compId,input));
     }
 }
