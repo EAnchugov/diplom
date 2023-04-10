@@ -11,6 +11,7 @@ import ru.practicum.events.model.*;
 import ru.practicum.events.repository.EventsRepository;
 import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.http.EndpointDto;
+import ru.practicum.http.EndpointDtoOutput;
 import ru.practicum.http.StatsClient;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -111,8 +113,14 @@ public class EventsServiceImpl implements EventsService {
         EndpointDto endpointDto = new EndpointDto(GlobalVariables.APP, uri, request.getRemoteAddr(),
                 LocalDateTime.now().format(GlobalVariables.FORMAT));
         statsClient.hit(endpointDto);
+        ArrayList<String> uris = new ArrayList<>();
+        uris.add(uri);
+        List<EndpointDtoOutput> hits = statsClient.get(LocalDateTime.now().minusYears(20L).format(GlobalVariables.FORMAT),
+                LocalDateTime.now().plusYears(20L).format(GlobalVariables.FORMAT),
+                uris,
+                false);
         EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
-//        eventDtoOutput.setViews(statsClient.get(uri).getHits());
+        eventDtoOutput.setViews(hits.get(0).getHits());
         return eventDtoOutput;
     }
 
