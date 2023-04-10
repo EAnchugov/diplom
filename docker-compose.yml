@@ -8,10 +8,10 @@ services:
     ports:
      - "9090:9090"
     depends_on:
-     - ewm-db
+     - stats-db
     environment:
-     - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/explore_with_me
-     - POSTGRES_DB=explore_with_me
+     - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5430/explore_with_me_main
+     - POSTGRES_DB=explore_with_me_main
      - POSTGRES_USER=postgres
      - POSTGRES_PASSWORD=iamroot
 
@@ -38,5 +38,15 @@ services:
       - "6541:5432"
     environment:
       - POSTGRES_DB=explore_with_me
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=iamroot
+
+  stats-db:
+    image: postgres:14-alpine
+    container_name: stats_db
+    ports:
+      - "6540:5431"
+    environment:
+      - POSTGRES_DB=explore_with_me_main
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=iamroot
