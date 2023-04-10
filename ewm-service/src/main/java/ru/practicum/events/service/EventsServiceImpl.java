@@ -10,6 +10,8 @@ import ru.practicum.categories.service.user.UserCategoryService;
 import ru.practicum.events.model.*;
 import ru.practicum.events.repository.EventsRepository;
 import ru.practicum.exceptions.WrongParameterException;
+import ru.practicum.http.BaseClient;
+import ru.practicum.http.EndpointDto;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.GlobalVariables;
@@ -29,6 +31,7 @@ public class EventsServiceImpl implements EventsService {
     private final AdminUserService userService;
     private final EventsRepository repository;
     private final UserCategoryService categoryService;
+    private final BaseClient baseClient;
 
     @Transactional
     @Override
@@ -104,17 +107,19 @@ public class EventsServiceImpl implements EventsService {
     @Override
     @Transactional
     public EventDtoOutput getByIdWithCount(Integer id, HttpServletRequest request) {
+
 //        HttpClient client = HttpClient.newHttpClient();
 //        HttpRequest httpRequest;
-//        String requestUri = request.getRequestURI();
-//        String ip = request.getRemoteAddr();
-//        String timestamp = LocalDateTime.now().format(GlobalVariables.FORMAT);
-//        EndpointDto endpointDto = EndpointDto.builder()
-//                .app(GlobalVariables.APP)
-//                .ip(ip)
-//                .timestamp(timestamp)
-//                .uri(requestUri)
-//                .build();
+        String requestUri = request.getRequestURI();
+        String ip = request.getRemoteAddr();
+        String timestamp = LocalDateTime.now().format(GlobalVariables.FORMAT);
+        EndpointDto endpointDto = EndpointDto.builder()
+                .app(GlobalVariables.APP)
+                .ip(ip)
+                .timestamp(timestamp)
+                .uri(requestUri)
+                .build();
+
 //        String json;
 //        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 //        try {
