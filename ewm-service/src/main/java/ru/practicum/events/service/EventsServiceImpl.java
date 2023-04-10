@@ -102,7 +102,44 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
+    @Transactional
     public EventDtoOutput getByIdWithCount(Integer id, HttpServletRequest request) {
+//        HttpClient client = HttpClient.newHttpClient();
+//        HttpRequest httpRequest;
+//        String requestUri = request.getRequestURI();
+//        String ip = request.getRemoteAddr();
+//        String timestamp = LocalDateTime.now().format(GlobalVariables.FORMAT);
+//        EndpointDto endpointDto = EndpointDto.builder()
+//                .app(GlobalVariables.APP)
+//                .ip(ip)
+//                .timestamp(timestamp)
+//                .uri(requestUri)
+//                .build();
+//        String json;
+//        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+//        try {
+//            json = ow.writeValueAsString(endpointDto);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        try {
+//             httpRequest = HttpRequest.newBuilder()
+//                    .uri(new URI("http://stats-server:9090/hit"))
+//                    .POST(HttpRequest.BodyPublishers.ofString(json))
+//                    .build();
+//        } catch (URISyntaxException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        try {
+//            HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+
         EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
         return eventDtoOutput;
     }
@@ -143,6 +180,7 @@ public class EventsServiceImpl implements EventsService {
             state = State.valueOf(states);
             return repository.testMethod(users,state,categories,start,end,pageable);
         }
+
     }
 
     private Event eventUpdater(Event event, UpdateEventUserRequest update) {
