@@ -119,7 +119,7 @@ public class EventsServiceImpl implements EventsService {
                 LocalDateTime.now().plusYears(20L).format(GlobalVariables.FORMAT),
                 uri,
                 true);
-        EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
+//        EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
 //        eventDtoOutput.setViews(hits.get(0).getHits());
         return new EventDtoOutput2(hits);
     }
