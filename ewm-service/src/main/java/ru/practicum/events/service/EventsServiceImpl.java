@@ -118,7 +118,7 @@ public class EventsServiceImpl implements EventsService {
         List<EndpointDtoOutput> hits = statsClient.get(LocalDateTime.now().minusYears(20L).format(GlobalVariables.FORMAT),
                 LocalDateTime.now().plusYears(20L).format(GlobalVariables.FORMAT),
                 uri,
-                false);
+                true);
         EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
         System.out.println(hits);
         eventDtoOutput.setViews(hits.get(0).getHits());
