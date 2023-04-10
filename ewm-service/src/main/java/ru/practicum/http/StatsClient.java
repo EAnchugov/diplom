@@ -1,7 +1,6 @@
 package ru.practicum.http;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,8 +14,6 @@ import java.util.List;
 public class StatsClient {
 
     private WebClient client = WebClient.create();
-
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     public EndpointDtoOutput hit(EndpointDto endpointDto) {
         Mono<EndpointDtoOutput> endpoint = client.post()
