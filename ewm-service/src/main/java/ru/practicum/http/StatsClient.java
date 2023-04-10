@@ -28,7 +28,9 @@ public class StatsClient {
         return endpoint.block();
     }
 
-    public List<EndpointDtoOutput> get(String start, String end, List<String> uris, Boolean unique) {
+    public List<EndpointDtoOutput> get(String start, String end, String uris, Boolean unique) {
+        System.out.println("http://localhost:9090" + "/stats?start=" + start +
+                "&end=" + end + "&uris=" + uris + "&unique=" + unique);
         Mono<List<EndpointDtoOutput>> response = client.get()
                 .uri("http://localhost:9090" + "/stats?start=" + start +
                         "&end=" + end + "&uris=" + uris + "&unique=" + unique)

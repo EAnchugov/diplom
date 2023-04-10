@@ -117,9 +117,10 @@ public class EventsServiceImpl implements EventsService {
         uris.add(uri);
         List<EndpointDtoOutput> hits = statsClient.get(LocalDateTime.now().minusYears(20L).format(GlobalVariables.FORMAT),
                 LocalDateTime.now().plusYears(20L).format(GlobalVariables.FORMAT),
-                uris,
+                uri,
                 false);
         EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
+        System.out.println(hits);
         eventDtoOutput.setViews(hits.get(0).getHits());
         return eventDtoOutput;
     }
