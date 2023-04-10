@@ -120,8 +120,7 @@ public class EventsServiceImpl implements EventsService {
                 uri,
                 true);
         EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
-        System.out.println(hits);
-        eventDtoOutput.setViews(hits.get(0).getHits());
+//        eventDtoOutput.setViews(hits.get(0).getHits());
         return new EventDtoOutput2(hits);
     }
 
