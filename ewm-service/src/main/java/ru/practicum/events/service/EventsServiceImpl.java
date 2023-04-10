@@ -10,7 +10,6 @@ import ru.practicum.categories.service.user.UserCategoryService;
 import ru.practicum.events.model.*;
 import ru.practicum.events.repository.EventsRepository;
 import ru.practicum.exceptions.WrongParameterException;
-import ru.practicum.http.BaseClient;
 import ru.practicum.http.EndpointDto;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
@@ -31,7 +30,6 @@ public class EventsServiceImpl implements EventsService {
     private final AdminUserService userService;
     private final EventsRepository repository;
     private final UserCategoryService categoryService;
-    private final BaseClient baseClient;
 
     @Transactional
     @Override
