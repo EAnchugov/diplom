@@ -3,6 +3,7 @@ package ru.practicum.events.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.events.model.EventDtoOutput;
+import ru.practicum.events.model.EventDtoOutput2;
 import ru.practicum.events.model.EventsMapper;
 import ru.practicum.events.service.EventsService;
 import ru.practicum.variables.Sorting;
@@ -37,7 +38,7 @@ public class PublicEventsController {
     }
 
     @GetMapping("/{id}")
-    public EventDtoOutput getEventById(@PathVariable Integer id,HttpServletRequest request) {
+    public EventDtoOutput2 getEventById(@PathVariable Integer id, HttpServletRequest request) {
         return service.getByIdWithCount(id,request);
     }
 }

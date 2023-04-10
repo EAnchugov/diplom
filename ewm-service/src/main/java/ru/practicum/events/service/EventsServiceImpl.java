@@ -108,7 +108,7 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     @Transactional
-    public EventDtoOutput getByIdWithCount(Integer id, HttpServletRequest request) {
+    public EventDtoOutput2 getByIdWithCount(Integer id, HttpServletRequest request) {
         String uri = request.getRequestURI();
         EndpointDto endpointDto = new EndpointDto(GlobalVariables.APP, uri, request.getRemoteAddr(),
                 LocalDateTime.now().format(GlobalVariables.FORMAT));
@@ -122,7 +122,7 @@ public class EventsServiceImpl implements EventsService {
         EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
         System.out.println(hits);
         eventDtoOutput.setViews(hits.get(0).getHits());
-        return eventDtoOutput;
+        return new EventDtoOutput2(hits);
     }
 
     @Override
