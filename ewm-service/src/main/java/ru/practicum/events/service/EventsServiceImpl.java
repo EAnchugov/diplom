@@ -11,6 +11,7 @@ import ru.practicum.events.model.*;
 import ru.practicum.events.repository.EventsRepository;
 import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.http.EndpointDto;
+import ru.practicum.http.StatsClient;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.GlobalVariables;
@@ -30,6 +31,7 @@ public class EventsServiceImpl implements EventsService {
     private final AdminUserService userService;
     private final EventsRepository repository;
     private final UserCategoryService categoryService;
+    private final StatsClient statsClient;
 
     @Transactional
     @Override
@@ -105,45 +107,12 @@ public class EventsServiceImpl implements EventsService {
     @Override
     @Transactional
     public EventDtoOutput getByIdWithCount(Integer id, HttpServletRequest request) {
-
-//        HttpClient client = HttpClient.newHttpClient();
-//        HttpRequest httpRequest;
-        String requestUri = request.getRequestURI();
-        String ip = request.getRemoteAddr();
-        String timestamp = LocalDateTime.now().format(GlobalVariables.FORMAT);
-        EndpointDto endpointDto = EndpointDto.builder()
-                .app(GlobalVariables.APP)
-                .ip(ip)
-                .timestamp(timestamp)
-                .uri(requestUri)
-                .build();
-
-//        String json;
-//        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-//        try {
-//            json = ow.writeValueAsString(endpointDto);
-//        } catch (JsonProcessingException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        try {
-//             httpRequest = HttpRequest.newBuilder()
-//                    .uri(new URI("http://stats-server:9090/hit"))
-//                    .POST(HttpRequest.BodyPublishers.ofString(json))
-//                    .build();
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        try {
-//            HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-
+        String uri = request.getRequestURI();
+        EndpointDto endpointDto = new EndpointDto(GlobalVariables.APP, uri, request.getRemoteAddr(),
+                LocalDateTime.now().format(GlobalVariables.FORMAT));
+        statsClient.hit(endpointDto);
         EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
+        eventDtoOutput.setViews(statsClient.get(uri).getHits());
         return eventDtoOutput;
     }
 
