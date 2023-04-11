@@ -35,7 +35,7 @@ public class StatsClient {
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<EndpointDtoOutput>>() {});
-        List<EndpointDtoOutput> readers = response.block();
-        return readers;
+        List<EndpointDtoOutput> endpoints = response.block();
+        return endpoints;
         }
 }
