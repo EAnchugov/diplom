@@ -109,11 +109,11 @@ public class EventsServiceImpl implements EventsService {
     @Override
     @Transactional
     public EventDtoOutput getByIdWithCount(Integer id, HttpServletRequest request) {
+        ArrayList<String> uris = new ArrayList<>();
         String uri = request.getRequestURI();
         EndpointDto endpointDto = new EndpointDto(GlobalVariables.APP, uri, request.getRemoteAddr(),
                 LocalDateTime.now().format(GlobalVariables.FORMAT));
         statsClient.hit(endpointDto);
-        ArrayList<String> uris = new ArrayList<>();
         uris.add(uri);
         List<EndpointDtoOutput> hits = statsClient.get(LocalDateTime.now().minusYears(20L).format(GlobalVariables.FORMAT),
                 LocalDateTime.now().plusYears(20L).format(GlobalVariables.FORMAT),
