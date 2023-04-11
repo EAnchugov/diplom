@@ -1,6 +1,7 @@
 package ru.practicum.http;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,12 +13,14 @@ import java.util.List;
 
 @Component
 public class StatsClient {
+    @Value("${stats-server.url}")
+    private String serverAddress;
 
-    private final WebClient client = WebClient.create();
+    private WebClient client = WebClient.create();
 
     public EndpointDtoOutput hit(EndpointDto endpointDto) {
         Mono<EndpointDtoOutput> endpoint = client.post()
-                .uri("http://127.0.0.1:9090/hit")
+                .uri(serverAddress + "/hit")
                 .body(Mono.just(endpointDto), EndpointDto.class)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
@@ -27,7 +30,7 @@ public class StatsClient {
 
     public List<EndpointDtoOutput> get(String start, String end, String uris, Boolean unique) {
         Mono<List<EndpointDtoOutput>> response = client.get()
-                .uri("http://127.0.0.1:9090" + "/stats?start=" + start +
+                .uri(serverAddress + "/stats?start=" + start +
                         "&end=" + end + "&uris=" + uris + "&unique=" + unique)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
