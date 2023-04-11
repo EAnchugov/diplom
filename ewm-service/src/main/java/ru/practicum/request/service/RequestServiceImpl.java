@@ -7,9 +7,7 @@ import ru.practicum.events.model.Event;
 import ru.practicum.events.service.EventsService;
 import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.request.controller.RequestRepository;
-import ru.practicum.request.model.Request;
-import ru.practicum.request.model.RequestsUpdateDto;
-import ru.practicum.request.model.Status;
+import ru.practicum.request.model.*;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.State;
@@ -68,18 +66,36 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     @Transactional
-    public List<Request> update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-        if (updateDto == null) {
-            throw new WrongParameterException("Список обновляемых событий пуст");
-        }
+    public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
+        EventRequestStatusUpdateResult answer = new EventRequestStatusUpdateResult();
         List<Request> requests = repository.findAllById(updateDto.getRequestIds());
         for (Request r: requests) {
-            if (r.getStatus().equals(Status.CONFIRMED)) {
-                throw new WrongParameterException("Нельзя изменять уже принятую заявку");
+            //        если для события лимит заявок равен 0 или отключена пре-модерация заявок, то подтверждение заявок не требуется
+            if (r.getEvent().getRequestModeration().equals(false) || (r.getEvent().getParticipantLimit() == 0)) {
+                r.setStatus(Status.CONFIRMED);
+                answer.getConfirmedRequests().add(RequestMapper.toOutput(r));
+                break;
             }
-            r.setStatus(updateDto.getStatus());
+            if (!r.getStatus().equals(Status.PENDING)) {
+                throw new WrongParameterException("статус можно изменить только у заявок, находящихся в состоянии ожидания");
+            }
+            if (getAllByEvent(r.getEvent()).size() == (r.getEvent().getParticipantLimit())) {
+                throw new WrongParameterException("Лимит события уже достигнут");
+            }
+
+
+
+
+
+
+//        если при подтверждении данной заявки, лимит заявок для события исчерпан, то все неподтверждённые заявки необходимо отклонить
+
+
+
+
         }
-        return requests;
+
+        return new EventRequestStatusUpdateResult();
     }
 
     @Override
@@ -96,13 +112,12 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public Request cancel(Integer userId, Integer requestId) {
         Optional<Request> optionalRequest = repository.findById(requestId);
-        Request request;
         if (optionalRequest.isPresent()) {
-            request = optionalRequest.get();
+            Request request = optionalRequest.get();
+            request.setStatus(Status.CANCELED);
+            return repository.save(request);
         } else {
             throw new WrongParameterException("нет реквеста с ID" + requestId);
         }
-        request.setStatus(Status.CANCELED);
-        return repository.save(request);
     }
 }

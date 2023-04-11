@@ -50,7 +50,7 @@ public class EventsMapper {
                 event.getRequestModeration(),
                 event.getPublishedOn().format(GlobalVariables.FORMAT),
                 0L,
-                1);
+                0);
     }
 
 

@@ -13,6 +13,8 @@ public interface EventsService {
 
     List<Event> getUserEvents(Integer userId, Integer from, Integer size);
 
+    List<Event> getAllByIds(List<Integer> events);
+
     List<Event> getUserEvent(Integer userId, Integer eventId);
 
     Event updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest);

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.request.model.EventRequestStatusUpdateResult;
 import ru.practicum.request.model.RequestDtoOutput;
 import ru.practicum.request.model.RequestMapper;
 import ru.practicum.request.model.RequestsUpdateDto;
@@ -34,11 +35,11 @@ public class UserRequestController {
 
     @ResponseStatus(HttpStatus.OK)
     @PatchMapping("/{userId}/events/{eventId}/requests")
-    public RequestDtoOutput updateRequest(@Positive @PathVariable Integer userId,
-                                                 @Positive @PathVariable Integer eventId,
-                                                 @RequestBody(required = false)
+    public EventRequestStatusUpdateResult updateRequest(@Positive @PathVariable Integer userId,
+                                                        @Positive @PathVariable Integer eventId,
+                                                        @RequestBody(required = false)
                                                  @Validated RequestsUpdateDto updateDto) {
-        return RequestMapper.toOutput(service.update(userId,eventId,updateDto).get(0));
+        return service.update(userId,eventId,updateDto);
     }
 
     @ResponseStatus(HttpStatus.OK)

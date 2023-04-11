@@ -58,6 +58,11 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
+    public List<Event> getAllByIds(List<Integer> events) {
+        return repository.findAllById(events);
+    }
+
+    @Override
     public List<Event> getUserEvent(Integer userId, Integer eventId) {
         User user = userService.getById(userId);
         return repository.findAllByIdAndInitiator(eventId,user);
