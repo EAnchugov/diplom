@@ -31,7 +31,8 @@ public class StatsClient {
     public List<EndpointDtoOutput> get(String start, String end, String uris, Boolean unique) {
         Mono<List<EndpointDtoOutput>> response = client.get()
                 .uri(serverAddress + "/stats?start=" + start +
-                        "&end=" + end + "&uris=" + uris + "&unique=" + unique)
+                        "&end=" + end + "&uris=" + uris)
+                // + "&unique=" + unique
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<EndpointDtoOutput>>() {});

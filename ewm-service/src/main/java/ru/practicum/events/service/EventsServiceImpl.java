@@ -121,7 +121,7 @@ public class EventsServiceImpl implements EventsService {
                 true);
         Long sum = hits.stream().map(x -> x.getHits()).reduce(0L, Long::sum);
         EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
-        eventDtoOutput.setReading(sum);
+        eventDtoOutput.setViews(sum);
         return eventDtoOutput;
     }
 

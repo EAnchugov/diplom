@@ -23,6 +23,6 @@ public class EventDtoOutput {
     private Location location;
     private boolean requestModeration;
     private String publishedOn;
-    private Long reading;
+    private Long views;
     private Integer confirmedRequests;
 }
