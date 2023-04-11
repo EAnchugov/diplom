@@ -115,13 +115,13 @@ public class EventsServiceImpl implements EventsService {
                 LocalDateTime.now().format(GlobalVariables.FORMAT));
         statsClient.hit(endpointDto);
         uris.add(uri);
-        List<EndpointDtoOutput> hits = statsClient.get(LocalDateTime.now().minusYears(20L).format(GlobalVariables.FORMAT),
-                LocalDateTime.now().plusYears(20L).format(GlobalVariables.FORMAT),
+        List<EndpointDtoOutput> hits = statsClient.get(LocalDateTime.now().minusYears(200L).format(GlobalVariables.FORMAT),
+                LocalDateTime.now().plusYears(200L).format(GlobalVariables.FORMAT),
                 uri,
                 true);
-//        Long sum = hits.stream().map(x -> x.getHits()).reduce(0L, Long::sum);
+        Long sum = hits.stream().map(x -> x.getHits()).reduce(0L, Long::sum);
         EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
-        eventDtoOutput.setReading(hits.get(0).getHits());
+        eventDtoOutput.setReading(sum);
         return eventDtoOutput;
     }
 
