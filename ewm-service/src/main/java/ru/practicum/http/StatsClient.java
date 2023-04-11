@@ -16,11 +16,11 @@ public class StatsClient {
     @Value("${stats-server.url}")
     private String serverAddress;
 
-    private WebClient client = WebClient.create();
+    private WebClient client = WebClient.create(serverAddress);
 
     public EndpointDtoOutput hit(EndpointDto endpointDto) {
         Mono<EndpointDtoOutput> endpoint = client.post()
-                .uri(serverAddress + "/hit")
+                .uri("/hit")
                 .body(Mono.just(endpointDto), EndpointDto.class)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
@@ -30,7 +30,7 @@ public class StatsClient {
 
     public List<EndpointDtoOutput> get(String start, String end, String uris, Boolean unique) {
         Mono<List<EndpointDtoOutput>> response = client.get()
-                .uri(serverAddress + "/stats?start=" + start +
+                .uri("/stats?start=" + start +
                         "&end=" + end + "&uris=" + uris + "&unique=" + unique)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
