@@ -1,6 +1,7 @@
 package ru.practicum.http;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -11,9 +12,10 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 public class StatsClient {
 
-    private WebClient client = WebClient.create();
+    private final WebClient client;
 
     public EndpointDtoOutput hit(EndpointDto endpointDto) {
         Mono<EndpointDtoOutput> endpoint = client.post()
