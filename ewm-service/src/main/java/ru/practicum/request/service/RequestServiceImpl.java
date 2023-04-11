@@ -77,10 +77,10 @@ public class RequestServiceImpl implements RequestService {
                 break;
             }
             if (!r.getStatus().equals(Status.PENDING)) {
-                throw new WrongParameterException("статус можно изменить только у заявок, находящихся в состоянии ожидания");
+                answer.getRejectedRequests().add(RequestMapper.toOutput(r));
             }
             if (getAllByEvent(r.getEvent()).size() == (r.getEvent().getParticipantLimit())) {
-                throw new WrongParameterException("Лимит события уже достигнут");
+                answer.getRejectedRequests().add(RequestMapper.toOutput(r));
             }
 
 
@@ -95,7 +95,7 @@ public class RequestServiceImpl implements RequestService {
 
         }
 
-        return new EventRequestStatusUpdateResult();
+        return answer;
     }
 
     @Override
