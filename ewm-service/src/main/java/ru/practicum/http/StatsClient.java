@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class StatsClient {
 
-    private WebClient client = WebClient.create();
+    private final WebClient client = WebClient.create();
 
     public EndpointDtoOutput hit(EndpointDto endpointDto) {
         Mono<EndpointDtoOutput> endpoint = client.post()
