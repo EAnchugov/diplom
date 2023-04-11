@@ -1,6 +1,9 @@
 package ru.practicum.events.service;
 
-import ru.practicum.events.model.*;
+import ru.practicum.events.model.Event;
+import ru.practicum.events.model.EventDtoInput;
+import ru.practicum.events.model.EventDtoOutput;
+import ru.practicum.events.model.UpdateEventUserRequest;
 import ru.practicum.variables.Sorting;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +19,7 @@ public interface EventsService {
 
     List<Event> getAll(String text, Integer categories, Boolean paid, String rangeStart, String rangeEnd, Boolean onlyAvailable, Sorting sorting, Integer from, Integer size, HttpServletRequest request);
 
-    EventDtoOutput2 getByIdWithCount(Integer id, HttpServletRequest request);
+    EventDtoOutput getByIdWithCount(Integer id, HttpServletRequest request);
 
     Event getById(Integer id);
 

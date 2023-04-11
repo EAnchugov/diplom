@@ -108,7 +108,7 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     @Transactional
-    public EventDtoOutput2 getByIdWithCount(Integer id, HttpServletRequest request) {
+    public EventDtoOutput getByIdWithCount(Integer id, HttpServletRequest request) {
         String uri = request.getRequestURI();
         EndpointDto endpointDto = new EndpointDto(GlobalVariables.APP, uri, request.getRemoteAddr(),
                 LocalDateTime.now().format(GlobalVariables.FORMAT));
@@ -119,9 +119,11 @@ public class EventsServiceImpl implements EventsService {
                 LocalDateTime.now().plusYears(20L).format(GlobalVariables.FORMAT),
                 uri,
                 true);
-//        EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
-//        eventDtoOutput.setViews(hits.get(0).getHits());
-        return new EventDtoOutput2(hits);
+
+        Long sum = hits.stream().map(x -> x.getHits()).reduce(0L, Long::sum);
+        EventDtoOutput eventDtoOutput = EventsMapper.eventToOutput(getById(id));
+        eventDtoOutput.setViews(sum);
+        return eventDtoOutput;
     }
 
     @Override
