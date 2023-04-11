@@ -20,7 +20,7 @@ public class StatsClient {
 
     public EndpointDtoOutput hit(EndpointDto endpointDto) {
         Mono<EndpointDtoOutput> endpoint = client.post()
-                .uri( serverAddress+ "/hit")
+                .uri(serverAddress + "/hit")
                 .body(Mono.just(endpointDto), EndpointDto.class)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .retrieve()
