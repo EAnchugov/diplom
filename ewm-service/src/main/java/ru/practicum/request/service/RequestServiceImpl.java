@@ -80,7 +80,7 @@ public class RequestServiceImpl implements RequestService {
             }
             return result;
         }
-        if (updateDto.getRequestIds().isEmpty()){
+        if (updateDto.getRequestIds().isEmpty()) {
             Event event = eventsService.getById(eventId);
             User requester = userService.getById(userId);
             if (event.getParticipantLimit() == repository.findAllByEvent(event).size()) {
