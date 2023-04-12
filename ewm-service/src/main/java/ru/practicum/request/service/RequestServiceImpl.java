@@ -65,13 +65,13 @@ public class RequestServiceImpl implements RequestService {
         if (!(updateDto.getRequestIds().isEmpty())) {
             List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
             for (Request r: requests) {
-                if (updateDto.getStatus().equals(RequestStatus.REJECTED)) {
+                if (updateDto.getStatus().equals(Status.REJECTED)) {
                     r.setStatus(Status.REJECTED);
                 }
             }
             EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
             for (Request r: requests) {
-                if (updateDto.getStatus().equals(RequestStatus.REJECTED)) {
+                if (updateDto.getStatus().equals(Status.REJECTED)) {
                     if (r.getStatus().equals(Status.CONFIRMED)) {
                         throw new WrongParameterException("Нельзя отменить уже принятую заявку");
                     }

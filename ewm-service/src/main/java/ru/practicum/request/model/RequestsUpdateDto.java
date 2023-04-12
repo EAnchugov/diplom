@@ -17,7 +17,7 @@ public class RequestsUpdateDto {
     @NotEmpty
     private List<Integer> requestIds;
     @NotNull
-    private RequestStatus status;
+    private Status status;
 
     @Override
     public String toString() {
