@@ -70,6 +70,10 @@ public class RequestServiceImpl implements RequestService {
             }
             EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
             for (Request r: requests) {
+                if (r.getEvent().getRequestModeration().equals(false) &&
+                r.getEvent().getParticipantLimit().equals(0)) {
+                    result.getRejectedRequests().add(RequestMapper.toOutput(r));
+                }
                 if (updateDto.getStatus().equals(Status.REJECTED)) {
                     if (!r.getStatus().equals(Status.PENDING)) {
                         throw new WrongParameterException("статус можно изменить только у заявок, находящихся в состоянии ожидания");
