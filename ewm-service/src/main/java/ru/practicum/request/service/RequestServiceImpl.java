@@ -80,13 +80,13 @@ public class RequestServiceImpl implements RequestService {
             }
             return result;
         }
-//        if (updateDto.getRequestIds().isEmpty()){
-//            Event event = eventsService.getById(eventId);
-//            User requester = userService.getById(userId);
-//            if (repository.findAllByEvent(event).size() <= event.getParticipantLimit()) {
-//                throw new StateException("Лимит события уже достигнут");
-//            }
-//        }
+        if (updateDto.getRequestIds().isEmpty()){
+            Event event = eventsService.getById(eventId);
+            User requester = userService.getById(userId);
+            if (repository.findAllByEvent(event).size() == event.getParticipantLimit()) {
+                throw new WrongParameterException("Лимит события уже достигнут");
+            }
+        }
         return null;
     }
 
