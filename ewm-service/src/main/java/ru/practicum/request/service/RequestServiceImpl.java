@@ -75,7 +75,7 @@ public class RequestServiceImpl implements RequestService {
                 r.setStatus(Status.REJECTED);
                 result.getRejectedRequests().add(RequestMapper.toOutput(r));
             } else {
-                if (r.getEvent().getParticipantLimit() <= repository.findAllByEvent(r.getEvent()).size()) {
+                if (getAllByEvent(r.getEvent()).size() == (r.getEvent().getParticipantLimit())) {
                     throw new WrongParameterException("Лимит события уже достигнут");
                 }
             }
