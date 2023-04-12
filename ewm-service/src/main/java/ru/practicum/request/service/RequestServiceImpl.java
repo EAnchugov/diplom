@@ -61,10 +61,19 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-                    List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
-        for (Request r:requests) {
-            r.setStatus(updateDto.getStatus());
+        List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
+        if (updateDto.getRequestIds().isEmpty()) {
+            Event event = eventsService.getById(eventId);
+            if (event.getParticipantLimit() == repository.findAllByEvent(event).size()) {
+                throw new WrongParameterException("Лимит события уже достигнут");
+            }
+        } else {
+
+            for (Request r:requests) {
+                r.setStatus(updateDto.getStatus());
+            }
         }
+
 
 //        if (!(updateDto.getRequestIds().isEmpty())) {
 //            List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
