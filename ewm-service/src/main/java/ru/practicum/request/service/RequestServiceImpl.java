@@ -51,11 +51,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void approveRequest(Integer userId, Integer eventId) {
-        Event event = eventsService.getById(eventId);
-        User requester = userService.getById(userId);
-        if (event.getParticipantLimit() <= getAllByEvent(event).size()) {
-            throw new WrongParameterException("Лимит для события уже достигнут");
-        }
+
     }
 
     @Override
@@ -68,7 +64,6 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
         EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
-
         if (!updateDto.getRequestIds().isEmpty()) {
                     List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
         for (Request r: requests) {
@@ -77,14 +72,15 @@ public class RequestServiceImpl implements RequestService {
                 result.getRejectedRequests().add(RequestMapper.toOutput(r));
             }
         }
-//        approveRequest(userId,eventId);
-
-
-//
-
-//            }
+            return result;
+        } else {
+            Event event = eventsService.getById(eventId);
+            if (event.getParticipantLimit() <= getAllByEvent(event).size()) {
+                throw new WrongParameterException("Лимит для события уже достигнут");
+            }
+            return result;
         }
-        return result;
+
     }
 
     @Override
