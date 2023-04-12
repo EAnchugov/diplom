@@ -17,13 +17,7 @@ public class RequestsUpdateDto {
     @NotEmpty
     private List<Integer> requestIds;
     @NotNull
-    private Status status;
-
-    public enum Status {
-        CONFIRMED,
-        REJECTED
-    }
-
+    private RequestStatus status;
 
     @Override
     public String toString() {

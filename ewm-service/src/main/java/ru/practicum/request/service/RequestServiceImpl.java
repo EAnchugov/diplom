@@ -67,14 +67,20 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-        RequestsUpdateDto updateDto1 = updateDto;
-
         EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
-        System.out.println(updateDto1.getRequestIds().toString());
-        System.out.println(updateDto.getStatus().toString());
-        System.out.println(userId);
-        System.out.println(eventId);
-        result.getConfirmedRequests().add(RequestDtoOutput.builder().created(updateDto1.getRequestIds().toString() + updateDto.getStatus().toString()).build());
+        List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
+        for (Request r: requests) {
+            if (updateDto.getStatus().equals(RequestStatus.REJECTED)) {
+                r.setStatus(Status.REJECTED);
+                result.getRejectedRequests().add(RequestMapper.toOutput(r));
+            } else {
+                if (r.getEvent().getParticipantLimit() <= repository.findAllByEvent(r.getEvent()).size()) {
+                    throw new WrongParameterException("Лимит события уже достигнут");
+                }
+
+            }
+
+        }
         return result;
     }
 
