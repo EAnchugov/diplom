@@ -73,12 +73,13 @@ public class RequestServiceImpl implements RequestService {
             if (updateDto.getStatus().equals(RequestStatus.REJECTED)) {
                 r.setStatus(Status.REJECTED);
                 result.getRejectedRequests().add(RequestMapper.toOutput(r));
-            } else {
-                if (r.getEvent().getParticipantLimit() <= repository.findAllByEvent(r.getEvent()).size()) {
-                    throw new WrongParameterException("Лимит события уже достигнут");
-                }
-
+                break;
             }
+
+        if (r.getEvent().getParticipantLimit() <= repository.findAllByEvent(r.getEvent()).size() &&
+            updateDto.getStatus().equals(RequestStatus.CONFIRMED)) {
+            throw new WrongParameterException("Лимит события уже достигнут");
+        }
 
         }
         return result;
