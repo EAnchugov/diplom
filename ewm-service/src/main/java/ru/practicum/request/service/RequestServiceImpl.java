@@ -62,11 +62,6 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-        if (updateDto.getStatus() == null || updateDto.getRequestIds() == null) {
-            throw new WrongParameterException("Нет статуса или идентификаторов для замены");
-        }
-
-
         if (updateDto.getRequestIds() == null) {
 //            Event event = eventsService.getById(eventId);
 //            if (event.getParticipantLimit() == repository.findAllByEvent(event).size()) {

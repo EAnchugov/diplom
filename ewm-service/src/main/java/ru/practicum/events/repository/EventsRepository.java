@@ -36,5 +36,6 @@ public interface EventsRepository extends JpaRepository<Event,Integer> {
             "e.publishedOn between :start and :end and " +
             "e.state = :state and " +
             "(e.annotation like %:text% or e.description like %:text%)")
-    List<Event> findAllWithFilter(String text, Integer category, Boolean paid, LocalDateTime start, LocalDateTime end, State state, Pageable pageable);
+    List<Event> findAllWithFilter(String text, Integer category, Boolean paid, LocalDateTime start,
+                                  LocalDateTime end, State state, Pageable pageable);
 }
