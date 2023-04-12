@@ -62,7 +62,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-        if (updateDto == null) {
+        if (updateDto.getRequestIds() == null) {
 //            Event event = eventsService.getById(eventId);
 //            if (event.getParticipantLimit() == repository.findAllByEvent(event).size()) {
                 throw new WrongParameterException("костыль");
