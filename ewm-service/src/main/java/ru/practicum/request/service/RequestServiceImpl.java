@@ -60,18 +60,27 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    @Transactional
     public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-        List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
-        if (updateDto.getRequestIds().isEmpty()) {
+        if (updateDto.getStatus() == null || updateDto.getRequestIds() == null) {
+            throw new WrongParameterException("Нет статуса или идентификаторов для замены");
+        }
+
+
+        if (updateDto.getRequestIds() == null) {
 //            Event event = eventsService.getById(eventId);
 //            if (event.getParticipantLimit() == repository.findAllByEvent(event).size()) {
-                throw new WrongParameterException("Лимит события уже достигнут");
+                throw new WrongParameterException("костыль");
 //            }
         } else {
-
+            List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
             for (Request r:requests) {
+                if (r.getStatus().equals(Status.CONFIRMED)) {
+                    throw new WrongParameterException("Нельзя изменять заявку с таким статусом.");
+                }
                 r.setStatus(updateDto.getStatus());
             }
+            return createUpdateResult(requests);
         }
 
 
@@ -104,7 +113,7 @@ public class RequestServiceImpl implements RequestService {
 //            }
 //            return new EventRequestStatusUpdateResult();
 //        }
-        return createUpdateResult(requests);
+
 
     }
 
@@ -132,6 +141,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    @Transactional
     public Request cancel(Integer userId, Integer requestId) {
         Optional<Request> optionalRequest = repository.findById(requestId);
         if (optionalRequest.isPresent()) {
