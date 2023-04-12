@@ -61,36 +61,55 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-        if (!(updateDto.getRequestIds().isEmpty())) {
-            List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
-            for (Request r: requests) {
-                if (updateDto.getStatus().equals(Status.REJECTED)) {
-                    r.setStatus(Status.REJECTED);
-                }
-            }
-            EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
-            for (Request r: requests) {
-                if (r.getEvent().getRequestModeration().equals(false) &&
-                r.getEvent().getParticipantLimit().equals(0)) {
-                    result.getRejectedRequests().add(RequestMapper.toOutput(r));
-                }
-                if (updateDto.getStatus().equals(Status.REJECTED)) {
-                    if (!r.getStatus().equals(Status.PENDING)) {
-                        throw new WrongParameterException("статус можно изменить только у заявок, находящихся в состоянии ожидания");
-                    }
-                    result.getRejectedRequests().add(RequestMapper.toOutput(r));
-                }
-            }
-            return result;
-        } else  {
-            Event event = eventsService.getById(eventId);
-            User requester = userService.getById(userId);
-            if (event.getParticipantLimit() == repository.findAllByEvent(event).size()) {
-                throw new WrongParameterException("Лимит события уже достигнут");
-            }
-            return new EventRequestStatusUpdateResult();
+                    List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
+
+        for (Request r:requests) {
+            r.setStatus(updateDto.getStatus());
         }
 
+//        if (!(updateDto.getRequestIds().isEmpty())) {
+//            List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
+//            for (Request r: requests) {
+//                if (updateDto.getStatus().equals(Status.REJECTED)) {
+//                    r.setStatus(Status.REJECTED);
+//                }
+//            }
+//            EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
+//            for (Request r: requests) {
+//                if (r.getEvent().getRequestModeration().equals(false) &&
+//                r.getEvent().getParticipantLimit().equals(0)) {
+//                    result.getRejectedRequests().add(RequestMapper.toOutput(r));
+//                }
+//                if (updateDto.getStatus().equals(Status.REJECTED)) {
+//                    if (!r.getStatus().equals(Status.PENDING)) {
+//                        throw new WrongParameterException("статус можно изменить только у заявок, находящихся в состоянии ожидания");
+//                    }
+//                    result.getRejectedRequests().add(RequestMapper.toOutput(r));
+//                }
+//            }
+//            return result;
+//        } else  {
+//            Event event = eventsService.getById(eventId);
+//            User requester = userService.getById(userId);
+//            if (event.getParticipantLimit() == repository.findAllByEvent(event).size()) {
+//                throw new WrongParameterException("Лимит события уже достигнут");
+//            }
+//            return new EventRequestStatusUpdateResult();
+//        }
+        return createUpdateResult(requests);
+
+    }
+
+    private EventRequestStatusUpdateResult createUpdateResult(List<Request> requests) {
+        EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
+        for (Request r: requests) {
+            if (r.getStatus().equals(Status.CONFIRMED)) {
+                result.getConfirmedRequests().add(RequestMapper.toOutput(r));
+            } else {
+                result.getRejectedRequests().add(RequestMapper.toOutput(r));
+            }
+        }
+        return result;
     }
 
     @Override
