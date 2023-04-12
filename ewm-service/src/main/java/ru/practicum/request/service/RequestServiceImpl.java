@@ -51,7 +51,6 @@ public class RequestServiceImpl implements RequestService {
 
     @Override
     public void approveRequest(Integer userId, Integer eventId) {
-
     }
 
     @Override
@@ -63,24 +62,32 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-        EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
-        if (!updateDto.getRequestIds().isEmpty()) {
-                    List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
-        for (Request r: requests) {
-                        if (updateDto.getStatus().equals(RequestStatus.REJECTED)) {
-                r.setStatus(Status.REJECTED);
-                result.getRejectedRequests().add(RequestMapper.toOutput(r));
+        if (!(updateDto.getRequestIds().isEmpty())) {
+            List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
+            for (Request r: requests) {
+                if (updateDto.getStatus().equals(RequestStatus.REJECTED)) {
+                    r.setStatus(Status.REJECTED);
+                }
             }
-        }
-            return result;
-        } else {
-            Event event = eventsService.getById(eventId);
-            if (event.getParticipantLimit() <= getAllByEvent(event).size()) {
-                throw new WrongParameterException("Лимит для события уже достигнут");
+            EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
+            for (Request r: requests) {
+                if (updateDto.getStatus().equals(RequestStatus.REJECTED)) {
+                    if (r.getStatus().equals(Status.CONFIRMED)) {
+                        throw new WrongParameterException("Нельзя отменить уже принятую заявку");
+                    }
+                    result.getRejectedRequests().add(RequestMapper.toOutput(r));
+                }
             }
             return result;
         }
-
+//        if (updateDto.getRequestIds().isEmpty()){
+//            Event event = eventsService.getById(eventId);
+//            User requester = userService.getById(userId);
+//            if (repository.findAllByEvent(event).size() <= event.getParticipantLimit()) {
+//                throw new StateException("Лимит события уже достигнут");
+//            }
+//        }
+        return null;
     }
 
     @Override

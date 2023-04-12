@@ -1,6 +1,7 @@
 package ru.practicum.request.controller;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import ru.practicum.events.model.Event;
 import ru.practicum.request.model.Request;
 import ru.practicum.user.model.User;
@@ -18,4 +19,12 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
     List<Request> findAllByEventInitiatorIdAndEventId(Integer userId, Integer eventId);
 
     List<Request> findAllByIdIn(List<Integer> ids);
+
+    @Query("select r from Request r join Event e on e.id = r.event.id " +
+            "where e.id = :eventId and e.initiator.id = :userId and r.id in :ids")
+    List<Request> getSelectedRequest(Integer userId, Integer eventId, List<Integer> ids);
+
+    @Query("select r from Request r join Event e on e.id = r.event.id " +
+            "where e.id = :eventId and e.initiator.id = :userId and r.id not in :ids")
+    List<Request> getRemainingRequest(Integer userId, Integer eventId, List<Integer> ids);
 }
