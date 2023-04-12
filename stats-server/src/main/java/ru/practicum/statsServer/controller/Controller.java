@@ -2,6 +2,7 @@ package ru.practicum.statsServer.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.statsServer.Service.EndpointService;
@@ -24,6 +25,7 @@ import static ru.practicum.statsServer.model.GlobalVariables.FORMAT;
 public class Controller {
     private final EndpointService endpointService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/hit")
     public EndpointDto create(@RequestBody EndpointDto endpointDto) {
         log.info("Получен Post запрос на маппинг /hit. EndpointDto - " + endpointDto.toString());
