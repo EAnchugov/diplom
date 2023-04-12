@@ -37,7 +37,7 @@ public class RequestServiceImpl implements RequestService {
         if (!event.getState().equals(State.PUBLISHED)) {
             throw new WrongParameterException("Нельзя подавать запрос на участие в неопубликованном событии");
         }
-        if (event.getParticipantLimit() <= repository.findAllByEvent(event).size()) {
+        if (event.getParticipantLimit() == repository.findAllByEvent(event).size()) {
             throw new WrongParameterException("Лимит события уже достигнут");
         }
 
@@ -54,7 +54,7 @@ public class RequestServiceImpl implements RequestService {
         Event event = eventsService.getById(eventId);
         User requester = userService.getById(userId);
         if (event.getParticipantLimit() <= getAllByEvent(event).size()) {
-            throw new WrongParameterException("Лимит события уже достигнут");
+            throw new WrongParameterException("Лимит для события уже достигнут");
         }
     }
 
@@ -67,21 +67,22 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-
         EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
-        List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
+
+        if (!updateDto.getRequestIds().isEmpty()) {
+                    List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
         for (Request r: requests) {
-            if (updateDto.getStatus().equals(RequestStatus.REJECTED)) {
+                        if (updateDto.getStatus().equals(RequestStatus.REJECTED)) {
                 r.setStatus(Status.REJECTED);
                 result.getRejectedRequests().add(RequestMapper.toOutput(r));
-            } else {
-                if (getAllByEvent(r.getEvent()).size() == (r.getEvent().getParticipantLimit())) {
-                    throw new WrongParameterException("Лимит события уже достигнут");
-                }
             }
+        }
+//        approveRequest(userId,eventId);
 
 
+//
 
+//            }
         }
         return result;
     }
