@@ -26,4 +26,15 @@ public class Request {
     private Event event;
     private Status status;
     private LocalDateTime created;
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "id=" + id +
+                ", requester=" + requester +
+                ", event=" + event +
+                ", status=" + status +
+                ", created=" + created +
+                '}';
+    }
 }

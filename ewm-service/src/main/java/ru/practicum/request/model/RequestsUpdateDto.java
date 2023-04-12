@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -12,6 +14,22 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestsUpdateDto {
-    List<Integer> requestIds;
-    Status status;
+    @NotEmpty
+    private List<Integer> requestIds;
+    @NotNull
+    private Status status;
+
+    public enum Status {
+        CONFIRMED,
+        REJECTED
+    }
+
+
+    @Override
+    public String toString() {
+        return "RequestsUpdateDto{" +
+                "requestIds=" + requestIds +
+                ", status=" + status +
+                '}';
+    }
 }

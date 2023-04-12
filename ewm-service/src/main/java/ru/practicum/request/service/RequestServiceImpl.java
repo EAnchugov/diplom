@@ -67,35 +67,15 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional
     public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
-        EventRequestStatusUpdateResult answer = new EventRequestStatusUpdateResult();
-        List<Request> requests = repository.findAllById(updateDto.getRequestIds());
-        for (Request r: requests) {
-            //        если для события лимит заявок равен 0 или отключена пре-модерация заявок, то подтверждение заявок не требуется
-            if (r.getEvent().getRequestModeration().equals(false) || (r.getEvent().getParticipantLimit() == 0)) {
-                r.setStatus(Status.CONFIRMED);
-                answer.getConfirmedRequests().add(RequestMapper.toOutput(r));
-                break;
-            }
-            if (!r.getStatus().equals(Status.PENDING)) {
-                answer.getRejectedRequests().add(RequestMapper.toOutput(r));
-            }
-            if (getAllByEvent(r.getEvent()).size() == (r.getEvent().getParticipantLimit())) {
-                answer.getRejectedRequests().add(RequestMapper.toOutput(r));
-            }
+        RequestsUpdateDto updateDto1 = updateDto;
 
-
-
-
-
-
-//        если при подтверждении данной заявки, лимит заявок для события исчерпан, то все неподтверждённые заявки необходимо отклонить
-
-
-
-
-        }
-
-        return answer;
+        EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
+        System.out.println(updateDto1.getRequestIds().toString());
+        System.out.println(updateDto.getStatus().toString());
+        System.out.println(userId);
+        System.out.println(eventId);
+        result.getConfirmedRequests().add(RequestDtoOutput.builder().created(updateDto1.getRequestIds().toString() + updateDto.getStatus().toString()).build());
+        return result;
     }
 
     @Override
