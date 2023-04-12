@@ -62,7 +62,6 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public EventRequestStatusUpdateResult update(Integer userId, Integer eventId, RequestsUpdateDto updateDto) {
                     List<Request> requests = repository.findAllByIdIn(updateDto.getRequestIds());
-
         for (Request r:requests) {
             r.setStatus(updateDto.getStatus());
         }

@@ -37,7 +37,7 @@ public class UserRequestController {
     @PatchMapping("/{userId}/events/{eventId}/requests")
     public EventRequestStatusUpdateResult updateRequest(@Positive @PathVariable Integer userId,
                                                         @Positive @PathVariable Integer eventId,
-                                                        @RequestBody @Validated
+                                                        @RequestBody(required = false) @Validated
                                                             RequestsUpdateDto requestsUpdateDto) {
         return service.update(userId,eventId,requestsUpdateDto);
     }
