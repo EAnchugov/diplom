@@ -40,11 +40,11 @@ public class EndpointServiceImpl implements EndpointService {
         } else {
             if (unique) {
                 List<EndpointDtoOutput> response = repository.findDistinctByTimestampBetweenAndUriIn(start,end,uris);
-                hitFromGet(uris, request);
+//                hitFromGet(uris, request);
                 return response;
             } else {
                 List<EndpointDtoOutput> response = repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
-                hitFromGet(uris, request);
+//                hitFromGet(uris, request);
                 return response;
 //                return customEndpointRepository.findUniqueWithDateAndUri(uris,start,end).stream().map(EndpointMapper::toEndpointDtoOutput).collect(Collectors.toList());
             }
@@ -55,7 +55,7 @@ public class EndpointServiceImpl implements EndpointService {
         for (String u: uri) {
             create(EndpointMapper.toEndpoint(
                     EndpointDto.builder()
-                            .app("ewm-service")
+                            .app("stats-server")
                             .ip(request.getRemoteAddr())
                             .timestamp(LocalDateTime.now().format(GlobalVariables.FORMAT))
                             .uri(u)
