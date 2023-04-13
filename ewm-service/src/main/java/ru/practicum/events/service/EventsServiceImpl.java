@@ -69,6 +69,7 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
+    @Transactional
     public Event updateEvent(Integer userId, Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
         Event event = repository.findById(eventId)
                 .orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
@@ -76,6 +77,7 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
+    @Transactional
     public Event adminEventUpdate(Integer eventId, UpdateEventUserRequest updateEventUserRequest) {
         Event event = repository.findById(eventId)
                 .orElseThrow(() -> new IllegalArgumentException("Не найден евент с таким ID"));
@@ -83,6 +85,7 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
+    @Transactional
     public List<Event> getAll(String text,
                               Integer categoryId,
                               Boolean paid,
