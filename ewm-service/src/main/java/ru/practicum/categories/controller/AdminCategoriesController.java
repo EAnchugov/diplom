@@ -10,7 +10,6 @@ import ru.practicum.categories.model.CategoryDto;
 import ru.practicum.categories.model.CategoryMapper;
 import ru.practicum.categories.service.admin.AdminCategoriesService;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
@@ -22,7 +21,7 @@ public class AdminCategoriesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryDto addCategory(@Valid @RequestBody CategoryDto categoryDto) {
+    public CategoryDto addCategory(@Validated @RequestBody CategoryDto categoryDto) {
         return CategoryMapper.toCategoryDto(service.createCategory(
                 Category.builder().name(categoryDto.getName()).build()));
     }
