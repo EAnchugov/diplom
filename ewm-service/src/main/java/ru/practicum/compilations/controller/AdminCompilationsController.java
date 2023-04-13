@@ -15,9 +15,9 @@ public class AdminCompilationsController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Compilation createCompilation(@RequestBody @Validated CompilationDtoInput input) {
+    public CompilationDto createCompilation(@RequestBody @Validated CompilationDtoInput input) {
         Compilation compilation = service.create(input);
-        return compilation;
+        return CompilationMapper.toCompilationDto(compilation);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
