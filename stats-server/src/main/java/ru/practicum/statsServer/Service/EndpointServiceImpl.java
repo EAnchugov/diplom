@@ -39,12 +39,12 @@ public class EndpointServiceImpl implements EndpointService {
             }
         } else {
             if (unique) {
-                hitFromGet(uris, request);
+//                hitFromGet(uris, request);
                 List<EndpointDtoOutput> response = repository.findDistinctByTimestampBetweenAndUriIn(start,end,uris);
 
                 return response;
             } else {
-                hitFromGet(uris, request);
+//                hitFromGet(uris, request);
                 List<EndpointDtoOutput> response = repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
 
                 return response;
