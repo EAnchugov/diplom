@@ -4,9 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.practicum.statsServer.model.Endpoint;
-import ru.practicum.statsServer.model.EndpointMapper;
-import ru.practicum.statsServer.model.GlobalVariables;
-import ru.practicum.statsServer.model.dto.EndpointDto;
 import ru.practicum.statsServer.model.dto.EndpointDtoOutput;
 import ru.practicum.statsServer.repository.EndpointRepository;
 
@@ -20,6 +17,7 @@ import java.util.List;
 @Slf4j
 public class EndpointServiceImpl implements EndpointService {
     private final EndpointRepository repository;
+
     @Transactional
     @Override
     public Endpoint create(Endpoint endpoint) {
