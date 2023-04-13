@@ -1,5 +1,7 @@
 package ru.practicum.events.model;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import ru.practicum.categories.model.Category;
 import ru.practicum.variables.GlobalVariables;
 
@@ -7,6 +9,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EventsMapper {
     public static EventsFullDto toEventsFullDto(Event events) {
         return EventsFullDto.builder()

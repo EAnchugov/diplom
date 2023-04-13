@@ -163,11 +163,11 @@ public class EventsServiceImpl implements EventsService {
                     GlobalVariables.FORMAT);
         }
         if (states == null) {
-            return  repository.testMethod2(users,categories,start,end,pageable);
+            return  repository.searchEventsWithoutStates(users,categories,start,end,pageable);
 
         } else {
             state = State.valueOf(states);
-            return repository.testMethod(users,state,categories,start,end,pageable);
+            return repository.searchEventsWithStates(users,state,categories,start,end,pageable);
         }
 
     }

@@ -22,13 +22,13 @@ public interface EventsRepository extends JpaRepository<Event,Integer> {
             "e.state = :state and " +
             "e.category.id = :categories and " +
             "e.publishedOn between :start and :end")
-    List<Event> testMethod(Integer users, State state, Integer categories, LocalDateTime start, LocalDateTime end, Pageable pageable);
+    List<Event> searchEventsWithStates(Integer users, State state, Integer categories, LocalDateTime start, LocalDateTime end, Pageable pageable);
 
     @Query("SELECT e from Event e " +
             "where e.initiator.id = :users and " +
             "e.category.id = :categories and " +
             "e.publishedOn between :start and :end")
-    List<Event> testMethod2(Integer users, Integer categories, LocalDateTime start, LocalDateTime end, Pageable pageable);
+    List<Event> searchEventsWithoutStates(Integer users, Integer categories, LocalDateTime start, LocalDateTime end, Pageable pageable);
 
     @Query("SELECT e from Event e " +
             "where e.category.id = :category and " +
