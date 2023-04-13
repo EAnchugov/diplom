@@ -11,6 +11,7 @@ import ru.practicum.statsServer.model.dto.EndpointDtoOutput;
 import ru.practicum.statsServer.repository.CustomEndpointRepository;
 import ru.practicum.statsServer.repository.EndpointRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,7 +30,7 @@ public class EndpointServiceImpl implements EndpointService {
     }
 
     @Override
-    public List<EndpointDtoOutput> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
+    public List<EndpointDtoOutput> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique, HttpServletRequest request) {
         if (uris == null) {
             if (unique) {
                 return repository.findDistinctByTimestampBetween(start,end);
@@ -38,24 +39,24 @@ public class EndpointServiceImpl implements EndpointService {
             }
         } else {
             if (unique) {
-                hitFromGet(uris);
                 List<EndpointDtoOutput> response = repository.findDistinctByTimestampBetweenAndUriIn(start,end,uris);
+                hitFromGet(uris, request);
                 return response;
             } else {
                 List<EndpointDtoOutput> response = repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
-                hitFromGet(uris);
+                hitFromGet(uris, request);
                 return response;
 //                return customEndpointRepository.findUniqueWithDateAndUri(uris,start,end).stream().map(EndpointMapper::toEndpointDtoOutput).collect(Collectors.toList());
             }
         }
     }
 
-    private void hitFromGet(List<String> uri) {
+    private void hitFromGet(List<String> uri, HttpServletRequest request) {
         for (String u: uri) {
             create(EndpointMapper.toEndpoint(
                     EndpointDto.builder()
                             .app("ewm-service")
-                            .ip("127.0.0.1")
+                            .ip(request.getRemoteAddr())
                             .timestamp(LocalDateTime.now().format(GlobalVariables.FORMAT))
                             .uri(u)
                             .build()

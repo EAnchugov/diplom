@@ -10,6 +10,7 @@ import ru.practicum.statsServer.model.EndpointMapper;
 import ru.practicum.statsServer.model.dto.EndpointDto;
 import ru.practicum.statsServer.model.dto.EndpointDtoOutput;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -41,14 +42,16 @@ public class Controller {
     public List<EndpointDtoOutput> getStats(@NotBlank @RequestParam String start,
                                             @NotBlank @RequestParam String end,
                                             @RequestParam(required = false) List<String> uris,
-                                            @RequestParam(defaultValue = "false") Boolean unique) {
+                                            @RequestParam(defaultValue = "false") Boolean unique,
+                                            HttpServletRequest request) {
         log.info("Получен Get запрос на маппинг /stats. Параметры: start - " + start + ", end - " + end
                 + ", uris - " + uris + ", уникальность - " + unique);
         return endpointService.getStats(
                 LocalDateTime.parse(URLDecoder.decode(start, StandardCharsets.UTF_8), FORMAT),
                 LocalDateTime.parse(URLDecoder.decode(end, StandardCharsets.UTF_8), FORMAT),
                 uris,
-                unique);
+                unique,
+                request);
 
     }
 }
