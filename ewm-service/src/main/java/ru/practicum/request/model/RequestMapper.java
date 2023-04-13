@@ -1,5 +1,9 @@
 package ru.practicum.request.model;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RequestMapper {
     public static RequestDtoOutput toOutput(Request request) {
         return RequestDtoOutput.builder()
