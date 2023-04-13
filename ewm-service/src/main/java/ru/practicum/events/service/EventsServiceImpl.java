@@ -108,11 +108,9 @@ public class EventsServiceImpl implements EventsService {
                 GlobalVariables.FORMAT);
         }
         List<Event> events = repository.findAllWithFilter(text,categoryId,paid,start,end,State.PUBLISHED,pageable);
-        for (Event e: events) {
             EndpointDto endpointDto = new EndpointDto(GlobalVariables.APP, request.getRequestURI(), request.getRemoteAddr(),
                     LocalDateTime.now().format(GlobalVariables.FORMAT));
             statsClient.hit(endpointDto);
-        }
         return events;
     }
 
