@@ -5,6 +5,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.user.model.User;
 import ru.practicum.user.repository.UserRepository;
@@ -17,6 +18,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     private final UserRepository repository;
 
     @Override
+    @Transactional
     public User create(User user) {
             try {
                 return repository.saveAndFlush(user);
@@ -26,6 +28,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
+    @Transactional
     public void deleteUser(Integer userId) {
         repository.delete(getById(userId));
     }
@@ -36,12 +39,8 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (users == null) {
             return repository.findAll(pageable).toList();
         } else {
-//            if (users.isEmpty()) {
-//                return repository.findAll(pageable).stream().collect(Collectors.toList());
-//            } else {
                 return repository.findAllById(users);
-            }
-//        }
+        }
     }
 
     @Override
