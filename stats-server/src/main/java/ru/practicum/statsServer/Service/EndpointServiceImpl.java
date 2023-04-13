@@ -54,7 +54,7 @@ public class EndpointServiceImpl implements EndpointService {
         for (String u: uri) {
             create(EndpointMapper.toEndpoint(
                     EndpointDto.builder()
-                            .app("stats-server")
+                            .app("ewm-service")
                             .ip("127.0.0.1")
                             .timestamp(LocalDateTime.now().format(GlobalVariables.FORMAT))
                             .uri(u)
