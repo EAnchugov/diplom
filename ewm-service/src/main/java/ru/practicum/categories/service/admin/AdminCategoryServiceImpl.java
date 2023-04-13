@@ -19,6 +19,7 @@ public class AdminCategoryServiceImpl implements AdminCategoriesService {
     private final EventsService eventsService;
 
     @Override
+    @Transactional
     public Category createCategory(Category category) {
         try {
             return repository.saveAndFlush(category);
@@ -28,6 +29,7 @@ public class AdminCategoryServiceImpl implements AdminCategoriesService {
     }
 
     @Override
+    @Transactional
     public void deleteCategoryById(Integer catId) {
         if (eventsService.getByCategoryId(catId).size() == 0) {
             repository.delete(repository.getById(catId));
