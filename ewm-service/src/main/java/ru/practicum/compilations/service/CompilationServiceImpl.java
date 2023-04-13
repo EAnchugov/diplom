@@ -49,6 +49,7 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Integer compId) {
         repository.deleteById(compId);
     }
