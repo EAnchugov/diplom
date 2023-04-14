@@ -1,4 +1,4 @@
-package ru.practicum.comments;
+package ru.practicum.comments.service;
 
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.comments.model.Comment;

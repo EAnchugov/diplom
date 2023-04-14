@@ -1,4 +1,4 @@
-package ru.practicum.comments;
+package ru.practicum.comments.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.comments.model.Comment;
 import ru.practicum.comments.model.CommentState;
 import ru.practicum.comments.model.CommentUpdateDto;
+import ru.practicum.comments.repository.CommentRepository;
 import ru.practicum.exceptions.WrongParameterException;
 
 import java.time.LocalDateTime;

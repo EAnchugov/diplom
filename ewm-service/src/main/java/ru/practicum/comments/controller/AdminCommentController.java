@@ -1,7 +1,8 @@
-package ru.practicum.comments;
+package ru.practicum.comments.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.comments.service.CommentService;
 import ru.practicum.comments.model.CommentDtoOutput;
 import ru.practicum.comments.model.CommentUpdateDto;
 import ru.practicum.comments.model.CommentsMapper;
