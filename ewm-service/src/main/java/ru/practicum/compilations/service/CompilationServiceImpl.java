@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.compilations.model.Compilation;
 import ru.practicum.compilations.model.CompilationDtoInput;
@@ -36,6 +37,7 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Compilation> getAll(Boolean pinned, Integer from, Integer size) {
         List<Compilation> compilations = new ArrayList<>();
         Pageable pageable = PageRequest.of(from,size);
@@ -44,6 +46,7 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public Compilation getById(Integer compId) {
         return repository.findById(compId).orElseThrow(() -> new WrongParameterException("Нет компиляции с id " + compId));
     }

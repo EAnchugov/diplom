@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.categories.model.Category;
 import ru.practicum.categories.service.user.UserCategoryService;
@@ -52,17 +53,20 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Event> getUserEvents(Integer userId, Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from, size);
         return repository.findAllByInitiatorId(userId,pageable);
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Event> getAllByIds(List<Integer> events) {
         return repository.findAllById(events);
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Event> getUserEvent(Integer userId, Integer eventId) {
         User user = userService.getById(userId);
         return repository.findAllByIdAndInitiator(eventId,user);
@@ -85,7 +89,7 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Event> getAll(String text,
                               Integer categoryId,
                               Boolean paid,
@@ -142,6 +146,7 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Event> getFilteredEvents(Integer users,
                                          String states,
                                          Integer categories,
@@ -244,6 +249,7 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Event> getByCategoryId(Integer id) {
         return repository.findAllByCategoryId(id);
     }

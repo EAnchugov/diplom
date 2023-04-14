@@ -2,6 +2,7 @@ package ru.practicum.request.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.events.model.Event;
 import ru.practicum.events.service.EventsService;
@@ -49,10 +50,12 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public void approveRequest(Integer userId, Integer eventId) {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Request> getAllByEvent(Event event) {
         return repository.findAllByEvent(event);
     }
@@ -87,6 +90,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<Request> getByUserId(Integer userId) {
         return repository.findAllByRequesterId(userId);
     }

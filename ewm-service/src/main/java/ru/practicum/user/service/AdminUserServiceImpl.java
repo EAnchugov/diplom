@@ -5,6 +5,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.user.model.User;
@@ -34,6 +35,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<User> getUsers(List<Integer> users, Integer from, Integer size) {
         Pageable pageable = PageRequest.of(from, size);
         if (users == null) {
@@ -44,11 +46,13 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public User getById(Integer id) {
         return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Нет Юзера с ID = " + id));
     }
 
     @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public List<User> getAllUsers() {
         return repository.findAll();
     }
