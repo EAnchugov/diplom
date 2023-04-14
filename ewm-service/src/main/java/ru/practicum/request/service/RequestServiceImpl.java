@@ -40,7 +40,6 @@ public class RequestServiceImpl implements RequestService {
         if (event.getParticipantLimit() == repository.findAllByEvent(event).size()) {
             throw new WrongParameterException("Лимит события уже достигнут");
         }
-
         Request newRequest = Request.builder()
                 .requester(requester)
                 .event(event)
