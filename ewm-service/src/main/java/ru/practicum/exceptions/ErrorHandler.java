@@ -55,4 +55,17 @@ public class ErrorHandler {
                 e.getMessage(),
                 LocalDateTime.now().format(GlobalVariables.FORMAT));
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    private ErrorResponse handle(final Exception e) {
+        log.error("Ошибка WrongParameterException " + e.getMessage());
+        return new ErrorResponse(
+                "INTERNAL_SERVER_ERROR",
+                "Exception",
+                e.getMessage(),
+                LocalDateTime.now().format(GlobalVariables.FORMAT));
+    }
+
+
 }
