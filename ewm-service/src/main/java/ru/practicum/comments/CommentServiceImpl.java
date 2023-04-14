@@ -15,6 +15,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository repository;
+
     @Override
     @Transactional
     public Comment create(Comment comment) {
@@ -72,7 +73,8 @@ public class CommentServiceImpl implements CommentService {
 
     }
 
-    private Comment getById (Integer id) {
-        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Не найден комментарий с таким ID"));
+    private Comment getById(Integer id) {
+        return repository.findById(id).orElseThrow(()
+                -> new IllegalArgumentException("Не найден комментарий с таким ID"));
     }
 }

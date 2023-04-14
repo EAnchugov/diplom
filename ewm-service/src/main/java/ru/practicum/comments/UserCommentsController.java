@@ -13,6 +13,7 @@ import ru.practicum.comments.model.CommentsMapper;
 @RequestMapping("/comments")
 public class UserCommentsController {
     private final CommentService service;
+
     @GetMapping
     public String createCompilation() {
         return "testOK";
@@ -20,20 +21,20 @@ public class UserCommentsController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/user/{userId}")
-    public CommentDtoOutput createComment (@PathVariable  Integer userId,
+    public CommentDtoOutput createComment(@PathVariable  Integer userId,
                                            @RequestBody CommentDto commentDto) {
         return CommentsMapper.toOutput(service.create(CommentsMapper.toComment(commentDto, userId)));
     }
+
     @PatchMapping ("/user/{userId}")
-    public CommentDtoOutput update (@PathVariable  Integer userId,
+    public CommentDtoOutput update(@PathVariable  Integer userId,
                                     @RequestBody CommentUpdateDto updateDto) {
         return CommentsMapper.toOutput(service.update(updateDto, userId));
     }
 
     @DeleteMapping("/{commentId}/user/{userId}")
-    public void delete (@PathVariable  Integer commentId,
+    public void delete(@PathVariable  Integer commentId,
                         @PathVariable Integer userId) {
         service.deleteByUser(commentId,userId);
     }
-
 }

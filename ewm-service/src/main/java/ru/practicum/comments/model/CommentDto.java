@@ -10,7 +10,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CommentDto{
+public class CommentDto {
+
     Integer id;
     @NotNull
     private Integer event;

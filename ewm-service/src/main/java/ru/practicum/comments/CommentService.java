@@ -6,6 +6,7 @@ import ru.practicum.comments.model.CommentUpdateDto;
 
 public interface CommentService {
     Comment create(Comment comment);
+
     Comment update(CommentUpdateDto updateDto, Integer userId);
 
     void deleteByUser(Integer commentId, Integer userId);

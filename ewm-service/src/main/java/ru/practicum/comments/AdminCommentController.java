@@ -13,11 +13,12 @@ public class AdminCommentController {
     private final CommentService service;
 
     @PatchMapping
-    public CommentDtoOutput update (@RequestBody CommentUpdateDto update) {
+    public CommentDtoOutput update(@RequestBody CommentUpdateDto update) {
         return CommentsMapper.toOutput(service.adminUpdate(update));
     }
+
     @DeleteMapping("/{commentId}")
-    public void delete (@PathVariable Integer commentId) {
+    public void delete(@PathVariable Integer commentId) {
         service.adminDelete(commentId);
     }
 
