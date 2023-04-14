@@ -25,7 +25,8 @@ public interface EndpointRepository extends JpaRepository<Endpoint, Long> {
             "from Endpoint as endpoint " +
             "where endpoint.uri in :uris and endpoint.timestamp between :start and :end " +
             "group by endpoint.app,endpoint.uri, endpoint.id " +
-            "order by count (endpoint.id) desc")
+            "order by count (endpoint.id) desc"
+    )
     List<EndpointDtoOutput> findDistinctByTimestampBetweenAndUriIn(LocalDateTime start, LocalDateTime end, List<String> uris);
 
     @Query("select new ru.practicum.statsServer.model.dto.EndpointDtoOutput(en.app,en.uri,count (en.id)) " +

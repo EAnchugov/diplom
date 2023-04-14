@@ -7,6 +7,7 @@ import ru.practicum.statsServer.model.Endpoint;
 import ru.practicum.statsServer.model.dto.EndpointDtoOutput;
 import ru.practicum.statsServer.repository.EndpointRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,21 +25,21 @@ public class EndpointServiceImpl implements EndpointService {
     }
 
     @Override
-    public List<EndpointDtoOutput> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-        List<EndpointDtoOutput> stats;
-        if (uris.isEmpty()) {
-            if (unique.equals(true)) {
-                stats =  repository.findDistinctByTimestampBetween(start,end);
+    public List<EndpointDtoOutput> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique, HttpServletRequest request) {
+        if (uris == null) {
+            if (unique) {
+                return repository.findDistinctByTimestampBetween(start,end);
             } else {
-                stats =  repository.findAllByTimestampBetween(start,end);
+                return repository.findAllByTimestampBetween(start,end);
             }
         } else {
-            if (unique.equals(true)) {
-                stats =  repository.findDistinctByTimestampBetweenAndUriIn(start,end,uris);
+            if (unique) {
+                List<EndpointDtoOutput> response = repository.findDistinctByTimestampBetweenAndUriIn(start,end,uris);
+                return response;
             } else {
-                stats =  repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
+                List<EndpointDtoOutput> response = repository.findAllByTimestampBetweenAndUriIn(start,end,uris);
+                return response;
             }
         }
-        return stats;
     }
 }
