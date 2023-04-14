@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    private ErrorResponse handle(final ItemNotAvailableException e) {
+    public ErrorResponse handle(final ItemNotAvailableException e) {
         log.error("Ошибка ItemNotAvailableException " + e.getMessage());
         return new ErrorResponse(
                 "NOT_FOUND",
@@ -25,7 +25,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    private ErrorResponse handle(final StateException e) {
+    public ErrorResponse handle(final StateException e) {
         log.error("Ошибка StateException " + e.getMessage());
         return new ErrorResponse(
                 "CONFLICT",
@@ -36,7 +36,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    private ErrorResponse handle(final TimeException e) {
+    public ErrorResponse handle(final TimeException e) {
         log.error("Ошибка TimeException " + e.getMessage());
         return new ErrorResponse(
                 "CONFLICT",
@@ -47,7 +47,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    private ErrorResponse handle(final WrongParameterException e) {
+    public ErrorResponse handle(final WrongParameterException e) {
         log.error("Ошибка WrongParameterException " + e.getMessage());
         return new ErrorResponse(
                 "CONFLICT",
