@@ -64,7 +64,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public void deleteByUser(Integer commentId, Integer userId) {
         Comment comment = getById(commentId);
-        if (comment.getAuthor().getId() == userId) {
+        if (Objects.equals(comment.getAuthor().getId(), userId)) {
             repository.delete(comment);
         } else {
             throw new WrongParameterException("Удалять может только автор комментария");
