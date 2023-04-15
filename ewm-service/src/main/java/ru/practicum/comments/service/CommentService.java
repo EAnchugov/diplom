@@ -4,6 +4,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.comments.model.Comment;
 import ru.practicum.comments.model.CommentUpdateDto;
 
+import java.util.List;
+
 public interface CommentService {
     Comment create(Comment comment);
 
@@ -11,10 +13,10 @@ public interface CommentService {
 
     void deleteByUser(Integer commentId, Integer userId);
 
-    Comment adminUpdate(CommentUpdateDto updateDto);
-
-    @Transactional
-    Comment commentUpdater(CommentUpdateDto update);
+    Comment adminUpdate(CommentUpdateDto updateDto, Integer adminId);
 
     void adminDelete(Integer commentId);
+
+    @Transactional
+    List<Comment> getByCompilations(Integer id);
 }

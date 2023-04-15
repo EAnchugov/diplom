@@ -8,18 +8,23 @@ import ru.practicum.comments.model.CommentState;
 import ru.practicum.comments.model.CommentUpdateDto;
 import ru.practicum.comments.repository.CommentRepository;
 import ru.practicum.exceptions.WrongParameterException;
+import ru.practicum.user.model.User;
+import ru.practicum.user.service.AdminUserService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository repository;
+    private final AdminUserService userService;
 
     @Override
     @Transactional
     public Comment create(Comment comment) {
+        User author = userService.getById(comment.getAuthor());
         comment.setModified(CommentState.ORIGINAL);
         return repository.save(comment);
     }
@@ -31,7 +36,7 @@ public class CommentServiceImpl implements CommentService {
         if (!Objects.equals(comment.getAuthor(), userId)) {
             throw new WrongParameterException("Изменять комментарий может только автор");
         }
-        return commentUpdater(update);
+        return repository.save(commentUpdater(update));
     }
 
     @Override
@@ -47,13 +52,20 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public Comment adminUpdate(CommentUpdateDto update) {
-        return commentUpdater(update);
+    public Comment adminUpdate(CommentUpdateDto update, Integer adminId) {
+        Comment comment = getById(update.getId());
+        if (!update.getHeader().isEmpty()) {
+            comment.setHeader(update.getHeader());
+        }
+        if (!update.getComment().isEmpty()) {
+            comment.setComment(update.getComment());
+        }
+        comment.setTimestamp(LocalDateTime.now());
+        comment.setModified(CommentState.MODIFIED);
+        return comment;
     }
 
-    @Transactional
-    @Override
-    public Comment commentUpdater(CommentUpdateDto update) {
+    private Comment commentUpdater(CommentUpdateDto update) {
         Comment comment = getById(update.getId());
         if (!update.getHeader().isEmpty()) {
             comment.setHeader(update.getHeader());
@@ -71,7 +83,12 @@ public class CommentServiceImpl implements CommentService {
     public void adminDelete(Integer commentId) {
         Comment comment = getById(commentId);
         repository.delete(comment);
+    }
 
+    @Override
+    @Transactional
+    public List<Comment> getByCompilations(Integer id) {
+        return repository.findAllByEventId(id);
     }
 
     private Comment getById(Integer id) {

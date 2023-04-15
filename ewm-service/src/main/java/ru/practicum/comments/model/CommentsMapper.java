@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class CommentsMapper {
     public static CommentDtoOutput toOutput(Comment comment) {
         return CommentDtoOutput.builder()
+                .author(comment.getAuthor())
                 .id(comment.getId())
                 .timestamp(comment.getTimestamp().format(GlobalVariables.FORMAT))
                 .modified(comment.getModified())

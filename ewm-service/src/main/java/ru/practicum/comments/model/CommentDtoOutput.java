@@ -9,6 +9,7 @@ import lombok.Setter;
 @Builder
 public class CommentDtoOutput {
     private Integer id;
+    private Integer author;
     private Integer event;
     private String header;
     private String comment;
