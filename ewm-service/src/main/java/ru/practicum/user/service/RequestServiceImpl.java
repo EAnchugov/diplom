@@ -28,7 +28,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public Request create(Integer userId, Integer eventId) {
         if (userId == null || eventId == null) {
-            throw new CreateException("Что-то пошло не так при создании реквеста");
+            throw new CreateException("Не заполнен userId или eventId");
         }
             Event event = eventsService.getById(eventId);
             User requester = userService.getById(userId);
