@@ -19,7 +19,6 @@ public class AdminCommentController {
     public CommentDtoOutput update(@RequestBody CommentUpdateDto update,
                                    @PathVariable Integer adminId) {
         Comment comment = service.adminUpdate(update, adminId);
-
         return CommentsMapper.toOutput(comment);
     }
 

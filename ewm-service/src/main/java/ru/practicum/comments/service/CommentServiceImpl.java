@@ -66,15 +66,16 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public Comment adminUpdate(CommentUpdateDto update, Integer adminId) {
         Comment comment = getById(update.getId());
-        if (!update.getHeader().isEmpty()) {
-            comment.setHeader(update.getHeader());
-        }
-        if (!update.getComment().isEmpty()) {
-            comment.setComment(update.getComment());
-        }
-        comment.setTimestamp(LocalDateTime.now());
-        comment.setModified(CommentState.MODIFIED);
-        return comment;
+//        if (!update.getHeader().isEmpty()) {
+//            comment.setHeader(update.getHeader());
+//        }
+//        if (!update.getComment().isEmpty()) {
+//            comment.setComment(update.getComment());
+//        }
+//        comment.setTimestamp(LocalDateTime.now());
+//        comment.setModified(CommentState.MODIFIED);
+        return repository.save(commentUpdater(update));
+//        return comment;
     }
 
     private Comment commentUpdater(CommentUpdateDto update) {
