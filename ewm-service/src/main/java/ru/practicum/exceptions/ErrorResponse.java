@@ -1,8 +1,11 @@
 package ru.practicum.exceptions;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ErrorResponse {
     private final String status;
     private final String reason;
