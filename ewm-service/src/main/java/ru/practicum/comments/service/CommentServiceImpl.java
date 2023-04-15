@@ -14,7 +14,6 @@ import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -29,14 +28,6 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public Comment create(CommentDto commentDto, Integer authorId) {
-
-//        private Integer id;
-//        private User author;
-//        private Compilation compilation;
-//        private String header;
-//        private String comment;
-//        private LocalDateTime timestamp;
-//        private CommentState modified;
         User author = userService.getById(authorId);
         Compilation compilation = compilationService.getById(commentDto.getEvent());
         Comment comment = Comment.builder()
