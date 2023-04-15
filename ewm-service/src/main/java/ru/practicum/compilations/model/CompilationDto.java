@@ -2,6 +2,7 @@ package ru.practicum.compilations.model;
 
 import com.sun.istack.NotNull;
 import lombok.*;
+import ru.practicum.comments.model.CommentDtoOutput;
 import ru.practicum.events.model.Event;
 
 import javax.validation.constraints.NotBlank;
@@ -20,4 +21,5 @@ public class CompilationDto {
     private Boolean pinned;
     @NotBlank
     private String title;
+    private List<CommentDtoOutput> commentDtoOutputs;
 }

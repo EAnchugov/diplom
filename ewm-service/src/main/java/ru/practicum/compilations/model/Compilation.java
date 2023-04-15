@@ -1,6 +1,7 @@
 package ru.practicum.compilations.model;
 
 import lombok.*;
+import ru.practicum.comments.model.Comment;
 import ru.practicum.events.model.Event;
 
 import javax.persistence.*;
@@ -28,4 +29,7 @@ public class Compilation {
             inverseJoinColumns = {@JoinColumn(name = "events_id")}
     )
     private List<Event> events;
+
+    @Transient
+    List<Comment> comments;
 }

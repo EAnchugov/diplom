@@ -65,17 +65,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public Comment adminUpdate(CommentUpdateDto update, Integer adminId) {
-        Comment comment = getById(update.getId());
-//        if (!update.getHeader().isEmpty()) {
-//            comment.setHeader(update.getHeader());
-//        }
-//        if (!update.getComment().isEmpty()) {
-//            comment.setComment(update.getComment());
-//        }
-//        comment.setTimestamp(LocalDateTime.now());
-//        comment.setModified(CommentState.MODIFIED);
+//        Comment comment = getById(update.getId());
         return repository.save(commentUpdater(update));
-//        return comment;
     }
 
     private Comment commentUpdater(CommentUpdateDto update) {
@@ -101,7 +92,13 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public List<Comment> getByCompilations(Integer id) {
-        return repository.findAllByCompilationId(id);
+        return repository.findAllByCompilationIdOrderByTimestampDesc(id);
+    }
+
+    @Override
+    @Transactional
+    public List<Comment> getByCompilations(List<Compilation> ids) {
+        return repository.findAllByCompilationInOrderByTimestampDesc(ids);
     }
 
     private Comment getById(Integer id) {

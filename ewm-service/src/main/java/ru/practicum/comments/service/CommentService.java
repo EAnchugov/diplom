@@ -4,6 +4,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.comments.model.Comment;
 import ru.practicum.comments.model.CommentDto;
 import ru.practicum.comments.model.CommentUpdateDto;
+import ru.practicum.compilations.model.Compilation;
 
 import java.util.List;
 
@@ -20,4 +21,7 @@ public interface CommentService {
 
     @Transactional
     List<Comment> getByCompilations(Integer id);
+
+    @Transactional
+    List<Comment> getByCompilations(List<Compilation> ids);
 }
