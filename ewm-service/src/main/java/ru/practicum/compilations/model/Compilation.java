@@ -31,5 +31,5 @@ public class Compilation {
     private List<Event> events;
 
     @Transient
-    List<Comment> comments;
+    private List<Comment> comments;
 }
