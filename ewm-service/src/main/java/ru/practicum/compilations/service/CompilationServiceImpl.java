@@ -32,6 +32,7 @@ public class CompilationServiceImpl implements CompilationService {
                         .title(input.getTitle())
                         .pinned(input.getPinned())
                         .events(input.getEvents().stream().map(id -> eventsService.getById(id)).collect(Collectors.toList()))
+                        .comments(new ArrayList<>())
                         .build();
         return repository.save(compilation);
     }
