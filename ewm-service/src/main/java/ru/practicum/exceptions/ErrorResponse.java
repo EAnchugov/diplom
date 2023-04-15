@@ -1,6 +1,5 @@
 package ru.practicum.exceptions;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
