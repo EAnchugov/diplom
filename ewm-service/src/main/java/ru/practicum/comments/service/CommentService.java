@@ -2,12 +2,13 @@ package ru.practicum.comments.service;
 
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.comments.model.Comment;
+import ru.practicum.comments.model.CommentDto;
 import ru.practicum.comments.model.CommentUpdateDto;
 
 import java.util.List;
 
 public interface CommentService {
-    Comment create(Comment comment);
+    Comment create(CommentDto commentDto,Integer authorId);
 
     Comment update(CommentUpdateDto updateDto, Integer userId);
 

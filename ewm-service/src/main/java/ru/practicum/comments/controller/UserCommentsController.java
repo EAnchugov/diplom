@@ -28,7 +28,7 @@ public class UserCommentsController {
     public CommentDtoOutput createComment(@PathVariable  Integer userId,
                                            @RequestBody CommentDto commentDto) {
         log.info("Создание комментария" + commentDto);
-        return CommentsMapper.toOutput(service.create(CommentsMapper.toComment(commentDto, userId)));
+        return CommentsMapper.toOutput(service.create(commentDto, userId));
     }
 
     @PatchMapping ("/user/{userId}")

@@ -4,13 +4,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.comments.model.Comment;
+import ru.practicum.comments.model.CommentDto;
 import ru.practicum.comments.model.CommentState;
 import ru.practicum.comments.model.CommentUpdateDto;
 import ru.practicum.comments.repository.CommentRepository;
+import ru.practicum.compilations.model.Compilation;
+import ru.practicum.compilations.service.CompilationService;
 import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.user.model.User;
 import ru.practicum.user.service.AdminUserService;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -20,12 +24,29 @@ import java.util.Objects;
 public class CommentServiceImpl implements CommentService {
     private final CommentRepository repository;
     private final AdminUserService userService;
+    private final CompilationService compilationService;
 
     @Override
     @Transactional
-    public Comment create(Comment comment) {
-        User author = userService.getById(comment.getAuthor());
-        comment.setModified(CommentState.ORIGINAL);
+    public Comment create(CommentDto commentDto, Integer authorId) {
+
+//        private Integer id;
+//        private User author;
+//        private Compilation compilation;
+//        private String header;
+//        private String comment;
+//        private LocalDateTime timestamp;
+//        private CommentState modified;
+        User author = userService.getById(authorId);
+        Compilation compilation = compilationService.getById(commentDto.getEvent());
+        Comment comment = Comment.builder()
+                .author(author)
+                .compilation(compilation)
+                .header(commentDto.getHeader())
+                .comment(commentDto.getComment())
+                .timestamp(LocalDateTime.now())
+                .modified(CommentState.ORIGINAL)
+                .build();
         return repository.save(comment);
     }
 
@@ -33,7 +54,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public Comment update(CommentUpdateDto update, Integer userId) {
         Comment comment = getById(update.getId());
-        if (!Objects.equals(comment.getAuthor(), userId)) {
+        if (!Objects.equals(comment.getAuthor().getId(), userId)) {
             throw new WrongParameterException("Изменять комментарий может только автор");
         }
         return repository.save(commentUpdater(update));
@@ -43,7 +64,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public void deleteByUser(Integer commentId, Integer userId) {
         Comment comment = getById(commentId);
-        if (comment.getAuthor() == userId) {
+        if (comment.getAuthor().getId() == userId) {
             repository.delete(comment);
         } else {
             throw new WrongParameterException("Удалять может только автор комментария");
@@ -88,7 +109,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public List<Comment> getByCompilations(Integer id) {
-        return repository.findAllByEventId(id);
+        return repository.findAllByCompilationId(id);
     }
 
     private Comment getById(Integer id) {
