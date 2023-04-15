@@ -1,4 +1,4 @@
-package ru.practicum.user.service;
+package ru.practicum.request.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,6 +11,7 @@ import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.request.controller.RequestRepository;
 import ru.practicum.request.model.*;
 import ru.practicum.user.model.User;
+import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.State;
 
 import java.time.LocalDateTime;

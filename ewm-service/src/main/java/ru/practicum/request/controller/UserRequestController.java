@@ -8,7 +8,7 @@ import ru.practicum.request.model.EventRequestStatusUpdateResult;
 import ru.practicum.request.model.RequestDtoOutput;
 import ru.practicum.request.model.RequestMapper;
 import ru.practicum.request.model.RequestsUpdateDto;
-import ru.practicum.user.service.RequestService;
+import ru.practicum.request.service.RequestService;
 
 import javax.validation.constraints.Positive;
 import java.util.List;
