@@ -8,7 +8,7 @@ import ru.practicum.request.model.EventRequestStatusUpdateResult;
 import ru.practicum.request.model.RequestDtoOutput;
 import ru.practicum.request.model.RequestMapper;
 import ru.practicum.request.model.RequestsUpdateDto;
-import ru.practicum.request.service.RequestService;
+import ru.practicum.user.service.RequestService;
 
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -28,8 +28,8 @@ public class UserRequestController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{userId}/requests")
-    public RequestDtoOutput addUserRequest(@Positive @PathVariable Integer userId,
-                                           @RequestParam @Positive Integer eventId) {
+    public RequestDtoOutput addUserRequest(@PathVariable(required = false) @Positive Integer userId,
+                                           @RequestParam(required = false) @Positive  Integer eventId) {
         return RequestMapper.toOutput(service.create(userId,eventId));
     }
 

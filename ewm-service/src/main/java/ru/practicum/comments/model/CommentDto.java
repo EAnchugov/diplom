@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 @Builder
 public class CommentDto {
 
-    Integer id;
+    private Integer id;
     @NotNull
     private Integer event;
     @Size(min = 1,max = 100, message = "Не может быть пустым и длиннее 100 символов")

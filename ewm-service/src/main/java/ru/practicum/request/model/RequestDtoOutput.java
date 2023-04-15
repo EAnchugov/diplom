@@ -2,8 +2,6 @@ package ru.practicum.request.model;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @Builder
@@ -14,5 +12,5 @@ public class RequestDtoOutput {
     private Integer requester;
     private Integer event;
     private Status status;
-    private LocalDateTime created;
+    private String created;
 }

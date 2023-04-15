@@ -103,6 +103,6 @@ public class CommentServiceImpl implements CommentService {
 
     private Comment getById(Integer id) {
         return repository.findById(id).orElseThrow(()
-                -> new IllegalArgumentException("Не найден комментарий с таким ID"));
+                -> new WrongParameterException("Не найден комментарий с таким ID"));
     }
 }

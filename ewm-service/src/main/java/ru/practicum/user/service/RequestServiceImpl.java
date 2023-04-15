@@ -1,4 +1,4 @@
-package ru.practicum.request.service;
+package ru.practicum.user.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,11 +6,11 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.events.model.Event;
 import ru.practicum.events.service.EventsService;
+import ru.practicum.exceptions.CreateException;
 import ru.practicum.exceptions.WrongParameterException;
 import ru.practicum.request.controller.RequestRepository;
 import ru.practicum.request.model.*;
 import ru.practicum.user.model.User;
-import ru.practicum.user.service.AdminUserService;
 import ru.practicum.variables.State;
 
 import java.time.LocalDateTime;
@@ -27,26 +27,32 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     @Override
     public Request create(Integer userId, Integer eventId) {
-        Event event = eventsService.getById(eventId);
-        User requester = userService.getById(userId);
-        if (repository.findAllByRequesterAndEvent(requester,event).isPresent()) {
-            throw new WrongParameterException("Нельзя подавать повторый запрос на участие");
+        if (userId == null || eventId == null) {
+            throw new CreateException("Что-то пошло не так при создании реквеста");
         }
-        if (event.getInitiator().getId().equals(userId)) {
-            throw new WrongParameterException("Нельзя подавать запрос на участие в своем событии");
-        }
-        if (!event.getState().equals(State.PUBLISHED)) {
-            throw new WrongParameterException("Нельзя подавать запрос на участие в неопубликованном событии");
-        }
-        if (event.getParticipantLimit() == repository.findAllByEvent(event).size()) {
-            throw new WrongParameterException("Лимит события уже достигнут");
-        }
-        Request newRequest = Request.builder()
-                .requester(requester)
-                .event(event)
-                .status(Status.PENDING)
-                .created(LocalDateTime.now()).build();
-        return repository.save(newRequest);
+            Event event = eventsService.getById(eventId);
+            User requester = userService.getById(userId);
+
+            if (repository.findAllByRequesterAndEvent(requester,event).isPresent()) {
+                throw new WrongParameterException("Нельзя подавать повторый запрос на участие");
+            }
+            if (event.getInitiator().getId().equals(userId)) {
+                throw new WrongParameterException("Нельзя подавать запрос на участие в своем событии");
+            }
+            if (!event.getState().equals(State.PUBLISHED)) {
+                throw new WrongParameterException("Нельзя подавать запрос на участие в неопубликованном событии");
+            }
+            if (event.getParticipantLimit() == repository.findAllByEvent(event).size()) {
+                throw new WrongParameterException("Лимит события уже достигнут");
+            }
+            Request newRequest = Request.builder()
+                    .requester(requester)
+                    .event(event)
+                    .status(Status.PENDING)
+                    .created(LocalDateTime.now()).build();
+            return repository.save(newRequest);
+
+
     }
 
     @Override
