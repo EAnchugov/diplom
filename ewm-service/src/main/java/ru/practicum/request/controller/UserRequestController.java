@@ -28,8 +28,8 @@ public class UserRequestController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{userId}/requests")
-    public RequestDtoOutput addUserRequest(@Positive @PathVariable Integer userId,
-                                           @RequestParam @Positive Integer eventId) {
+    public RequestDtoOutput addUserRequest(@PathVariable(required = false) @Positive Integer userId,
+                                           @RequestParam(required = false) @Positive  Integer eventId) {
         return RequestMapper.toOutput(service.create(userId,eventId));
     }
 

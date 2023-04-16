@@ -2,6 +2,9 @@ package ru.practicum.compilations.model;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import ru.practicum.comments.model.CommentsMapper;
+
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CompilationMapper {
@@ -19,6 +22,9 @@ public class CompilationMapper {
                 .pinned(compilation.getPinned())
                 .title(compilation.getTitle())
                 .events(compilation.getEvents())
+                .commentDtoOutputs(
+                        compilation.getComments().stream().map(CommentsMapper::toOutput).collect(Collectors.toList())
+                )
                 .build();
     }
 

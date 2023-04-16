@@ -1,15 +1,20 @@
 package ru.practicum.exceptions;
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@AllArgsConstructor
+@Getter
+@Setter
 public class ErrorResponse {
     private final String status;
     private final String reason;
     private final String timestamp;
     private final String error;
 
-    public String getError() {
-        return error;
+    public ErrorResponse(String status, String reason, String error, String timestamp) {
+        this.status = status;
+        this.reason = reason;
+        this.timestamp = timestamp;
+        this.error = error;
     }
 }

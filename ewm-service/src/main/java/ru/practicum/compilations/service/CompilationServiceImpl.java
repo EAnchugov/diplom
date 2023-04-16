@@ -32,6 +32,7 @@ public class CompilationServiceImpl implements CompilationService {
                         .title(input.getTitle())
                         .pinned(input.getPinned())
                         .events(input.getEvents().stream().map(id -> eventsService.getById(id)).collect(Collectors.toList()))
+                        .comments(new ArrayList<>())
                         .build();
         return repository.save(compilation);
     }
@@ -42,13 +43,18 @@ public class CompilationServiceImpl implements CompilationService {
         List<Compilation> compilations = new ArrayList<>();
         Pageable pageable = PageRequest.of(from,size);
             compilations.addAll(repository.findAll(pageable).toList());
+        for (Compilation c: compilations) {
+            c.setComments(repository.findCompilationComments(c.getId()));
+        }
         return compilations;
     }
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public Compilation getById(Integer compId) {
-        return repository.findById(compId).orElseThrow(() -> new WrongParameterException("Нет компиляции с id " + compId));
+        Compilation compilation = repository.findById(compId).orElseThrow(() -> new WrongParameterException("Нет компиляции с id " + compId));
+        compilation.setComments(repository.findCompilationComments(compilation.getId()));
+        return compilation;
     }
 
     @Override

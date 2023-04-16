@@ -2,6 +2,7 @@ package ru.practicum.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -49,6 +50,39 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handle(final WrongParameterException e) {
         log.error("Ошибка WrongParameterException " + e.getMessage());
+        return new ErrorResponse(
+                "CONFLICT",
+                "WrongParameter",
+                e.getMessage(),
+                LocalDateTime.now().format(GlobalVariables.FORMAT));
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handle(final MethodArgumentNotValidException e) {
+        log.error("Ошибка MethodArgumentNotValidException " + e.getMessage());
+        return new ErrorResponse(
+                "BAD_REQUEST",
+                "Невалидный аргумент",
+                e.getMessage(),
+                LocalDateTime.now().format(GlobalVariables.FORMAT));
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handle(final CreateException e) {
+        log.error("Ошибка MethodArgumentNotValidException " + e.getMessage());
+        return new ErrorResponse(
+                "BAD_REQUEST",
+                "Невалидный аргумент",
+                e.getMessage(),
+                LocalDateTime.now().format(GlobalVariables.FORMAT));
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handle(final Throwable e) {
+        log.error("Ошибка Throwable " + e.getMessage());
         return new ErrorResponse(
                 "CONFLICT",
                 "WrongParameter",
